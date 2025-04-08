@@ -1,3 +1,5 @@
-public class ProductRepo {
-    
+package com.examly.springapp.repository;
+
+public interface ProductRepo {
+
 }

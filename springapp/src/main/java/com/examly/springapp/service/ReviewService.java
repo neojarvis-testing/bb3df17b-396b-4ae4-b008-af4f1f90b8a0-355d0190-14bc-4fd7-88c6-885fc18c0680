@@ -1,3 +1,5 @@
-public class ReviewService {
-    
+package com.examly.springapp.service;
+
+public interface ReviewService {
+
 }

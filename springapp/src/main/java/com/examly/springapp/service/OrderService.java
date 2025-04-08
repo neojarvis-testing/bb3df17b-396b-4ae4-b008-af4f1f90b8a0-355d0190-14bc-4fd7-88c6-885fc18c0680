@@ -1,3 +1,5 @@
-public class OrderService {
-    
+package com.examly.springapp.service;
+
+public interface OrderService {
+
 }
