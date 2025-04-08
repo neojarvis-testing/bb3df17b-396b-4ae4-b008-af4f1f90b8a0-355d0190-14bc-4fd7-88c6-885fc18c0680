@@ -1,3 +1,5 @@
-public class OrderItemRepo {
-    
+package com.examly.springapp.repository;
+
+public interface OrderItemRepo {
+
 }

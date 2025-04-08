@@ -1,3 +1,5 @@
-public class ReviewRepo {
-    
+package com.examly.springapp.repository;
+
+public interface ReviewRepo {
+
 }
