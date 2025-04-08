@@ -1,5 +1,12 @@
 package com.examly.springapp.exceptions;
 
-public interface OrderNotFoundException {
+public class OrderNotFoundException extends RuntimeException{
 
+    public OrderNotFoundException(){
+        super();
+    }
+
+    public OrderNotFoundException(String message){
+        super(message);
+    }
 }

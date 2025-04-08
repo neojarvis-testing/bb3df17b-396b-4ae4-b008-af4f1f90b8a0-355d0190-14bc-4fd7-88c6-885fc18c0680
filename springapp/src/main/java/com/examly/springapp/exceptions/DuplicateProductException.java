@@ -1,5 +1,12 @@
 package com.examly.springapp.exceptions;
 
-public interface DuplicateProductException {
+public class DuplicateProductException extends RuntimeException{
 
+    public DuplicateProductException(){
+        super();
+    }
+
+    public DuplicateProductException(String message){
+        super(message);
+    }
 }
