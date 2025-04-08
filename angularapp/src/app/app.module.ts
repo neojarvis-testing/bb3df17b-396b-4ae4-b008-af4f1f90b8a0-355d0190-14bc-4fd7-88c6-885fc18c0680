@@ -37,7 +37,7 @@ import { AdminnavComponent } from './components/adminnav/adminnav.component';
     ReviewComponent,
     SignupComponent,
     UsernavComponent,
-    UserviewproductComponent
+    UserviewproductComponent,
     AdminnavComponent
   ],
   imports: [
