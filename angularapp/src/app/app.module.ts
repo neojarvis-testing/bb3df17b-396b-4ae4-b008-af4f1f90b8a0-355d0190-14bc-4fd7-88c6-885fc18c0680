@@ -18,6 +18,7 @@ import { ReviewComponent } from './components/review/review.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { UsernavComponent } from './components/usernav/usernav.component';
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
+import { AdminnavComponent } from './components/adminnav/adminnav.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { UserviewproductComponent } from './components/userviewproduct/userviewp
     SignupComponent,
     UsernavComponent,
     UserviewproductComponent
+    AdminnavComponent
   ],
   imports: [
     BrowserModule,
