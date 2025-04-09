@@ -19,6 +19,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { UsernavComponent } from './components/usernav/usernav.component';
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
 import { AdminnavComponent } from './components/adminnav/adminnav.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { AdminnavComponent } from './components/adminnav/adminnav.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

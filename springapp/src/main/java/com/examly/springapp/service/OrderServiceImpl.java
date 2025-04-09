@@ -11,6 +11,8 @@ import com.examly.springapp.model.Order;
 import com.examly.springapp.repository.OrderRepo;
 import com.examly.springapp.repository.UserRepo;
 
+import jakarta.persistence.EntityNotFoundException;
+
 public class OrderServiceImpl implements OrderService{
 
     @Autowired
@@ -19,6 +21,7 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private UserRepo userRepo;
 
+
     @Override
     public Order addOrder(Order order) {
         Order newOrder = orderRepo.save(order);
@@ -26,11 +29,16 @@ public class OrderServiceImpl implements OrderService{
 
     }
 
+
     @Override
-    public Optional<Order> getOrderById(Long orderId) {
-        Optional<Order> order = orderRepo.findById(orderId);
-        return order;
+    public Order getOrderById(Long orderId) {
+        Optional<Order> opt = orderRepo.findById(orderId);
+        if(opt.isEmpty()){
+            throw new EntityNotFoundException();
+        }
+        return opt.get();
     }
+
 
     @Override
     public List<Order> getAllOrders() {
@@ -38,22 +46,28 @@ public class OrderServiceImpl implements OrderService{
         return orderList;
     }
 
+
     @Override
-    public Optional<Order> updateOrder(Long orderId, Order updatedOrder) {
+    public Order updateOrder(Long orderId, Order updatedOrder) {
        Optional<Order> opt = orderRepo.findById(orderId);
-       if(opt.isEmpty()){
+        if(opt.isEmpty()){
           throw new OrderNotFoundException();
-       }
-       if(orderRepo.existsById(orderId)){
+        }
+        updatedOrder.setOrderId(orderId);
+        if(orderRepo.existsById(orderId)){
         throw new DuplicateOrderException(); 
-       }
+        }
+        Order savedOrder = orderRepo.save(updatedOrder);
+        return savedOrder;
     }
+
 
     @Override
     public List<Order> getOrdersByUserId(Long userId) {
-      
-
+      List<Order> orderList = orderRepo.findByUserId(userId);
+      return orderList;
     }
+
 
     @Override
     public boolean deleteOrder(Long orderId) {
