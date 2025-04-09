@@ -12,6 +12,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint{
 
+    // @Override
+    // public void commence(HttpServletRequest request, HttpServletResponse response,
+    //         AuthenticationException authException) throws IOException, ServletException {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'commence'");
+    // }
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         response.addHeader(HttpHeaders.WWW_AUTHENTICATE,

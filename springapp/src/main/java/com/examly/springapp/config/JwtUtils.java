@@ -16,9 +16,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+@Service
 public class JwtUtils {
 
-        @Value("${spring.security.jwt.secret-key}")
+    @Value("${spring.security.jwt.secret-key}")
     private String SECRET_KEY;
 
     public String extractUsername(String token){

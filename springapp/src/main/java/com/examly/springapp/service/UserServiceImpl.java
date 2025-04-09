@@ -6,13 +6,27 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.examly.springapp.config.JwtUtils;
 import com.examly.springapp.model.LoginDTO;
 import com.examly.springapp.model.User;
 import com.examly.springapp.repository.UserRepo;
 
+@Service
 public class UserServiceImpl implements UserService{
+
+    // @Override
+    // public User createUser(User user) {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'createUser'");
+    // }
+
+    // @Override
+    // public LoginDTO loginUser(User user) {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'loginUser'");
+    // }
 
     @Autowired
     private UserRepo userRepo;
