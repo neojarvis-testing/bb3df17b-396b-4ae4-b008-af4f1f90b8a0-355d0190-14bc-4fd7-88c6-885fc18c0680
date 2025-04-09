@@ -20,7 +20,7 @@ public class AuthController {
         return ResponseEntity.status(201).body(userService.createUser(user));
     }
 
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     public ResponseEntity<?> loginUser(@RequestBody User user) {
         return ResponseEntity.status(200).body(userService.loginUser(user));
     }

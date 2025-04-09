@@ -9,6 +9,8 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductCreateComponent implements OnInit {
 
+  product:Product = {productName:"",description:"",price:null,stockQuantity:0,category:"",brand:"",coverImage:""}
+
 
   constructor(private productService : ProductService) { }
 
@@ -17,6 +19,11 @@ export class ProductCreateComponent implements OnInit {
 
   public addProduct(product : Product){
     //
+
+  }
+
+  public submit() {
+
   }
 
 }

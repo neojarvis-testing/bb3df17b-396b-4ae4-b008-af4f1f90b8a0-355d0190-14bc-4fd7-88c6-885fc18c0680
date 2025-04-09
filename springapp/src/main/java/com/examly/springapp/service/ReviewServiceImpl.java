@@ -52,6 +52,7 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public boolean deleteReview(Long reviewId) {
         if(reviewRepo.existsById(reviewId)){
+            reviewRepo.deleteById(reviewId);
             return true;
         }
         else{

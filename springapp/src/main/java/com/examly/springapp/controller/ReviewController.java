@@ -23,7 +23,7 @@ public class ReviewController {
     @PostMapping("api/reviews")
     public ResponseEntity<?> addReview(@RequestBody Review review){
     Review savedReview = reviewService.addReview(review);
-    return ResponseEntity.status(0).body(savedReview);
+    return ResponseEntity.status(200).body(savedReview);
     }
 
     @GetMapping("/api/reviews/{reviewId}")
