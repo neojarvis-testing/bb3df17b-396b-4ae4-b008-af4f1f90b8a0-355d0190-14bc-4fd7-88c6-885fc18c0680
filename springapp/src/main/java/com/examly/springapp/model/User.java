@@ -16,8 +16,10 @@ public class User {
     private String username;
     private String mobileNumber;
     private String userRole;
+
     public User() {
     }
+    
     public User(Long userId, String email, String password, String username, String mobileNumber, String userRole) {
         this.userId = userId;
         this.email = email;

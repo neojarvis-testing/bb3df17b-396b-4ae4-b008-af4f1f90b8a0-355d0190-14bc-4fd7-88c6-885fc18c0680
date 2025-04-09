@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.examly.springapp.exceptions.DuplicateOrderException;
 import com.examly.springapp.exceptions.OrderNotFoundException;
@@ -13,6 +14,7 @@ import com.examly.springapp.repository.UserRepo;
 
 import jakarta.persistence.EntityNotFoundException;
 
+@Service
 public class OrderServiceImpl implements OrderService{
 
     @Autowired
@@ -64,7 +66,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public List<Order> getOrdersByUserId(Long userId) {
-      List<Order> orderList = orderRepo.findByUserId(userId);
+      List<Order> orderList = orderRepo.findByUserUserId(userId);
       return orderList;
     }
 

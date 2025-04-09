@@ -8,6 +8,6 @@ import com.examly.springapp.model.Order;
 
 public interface OrderRepo extends JpaRepository<Order , Long> {
 
-    public List<Order> findByUserId(Long userId);
+    public List<Order> findByUserUserId(Long userId);
 
 }

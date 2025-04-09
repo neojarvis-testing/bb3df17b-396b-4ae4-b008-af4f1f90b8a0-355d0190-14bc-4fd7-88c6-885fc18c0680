@@ -20,10 +20,14 @@ public class Review {
     @ManyToOne
     @JoinColumn(name="userId")
     private User user;
-
     @ManyToOne
     @JoinColumn(name="productId")
     private Product product;
+
+    
+    public Review() {
+    }
+
     public Review(Long reviewid, String reviewText, int rating, LocalDate date, User user, Product product) {
         this.reviewId = reviewid;
         this.reviewText = reviewText;
@@ -79,6 +83,12 @@ public class Review {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "Review [reviewId=" + reviewId + ", reviewText=" + reviewText + ", rating=" + rating + ", date=" + date
+                + ", user=" + user + ", product=" + product + "]";
     }
 
     
