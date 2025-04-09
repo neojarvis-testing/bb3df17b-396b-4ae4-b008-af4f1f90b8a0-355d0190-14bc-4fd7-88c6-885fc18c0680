@@ -1,32 +1,32 @@
 <div class="container">
-    <form>
+    <form #productForm="ngForm" (ngSubmit)="submit()">
         <div>
             <label for="productName">Product Name*</label>
-            <input type="text" [(ngModel)]="product.name" required name="productName">
-            <div *ngIf="productName.touched && productName.invalid">
+            <input type="text" [(ngModel)]="product.productName" required name="productName">
+            <!-- <div *ngIf="productName.touched && productName.invalid">
                 Product Name is required
-            </div>
+            </div> -->
         </div>
         <div>
             <label for="description">Description*</label>
             <input type="text" [(ngModel)]="product.description" required name="description">
-            <div *ngIf="description.touched && description.invalid">
+            <!-- <div *ngIf="description.touched && description.invalid">
                 Description is required
-            </div>
+            </div> -->
         </div>
         <div>
             <label for="price">Price*</label>
             <input type="text" [(ngModel)]="product.price" required name="price">
-            <div *ngIf="price.touched && price.invalid">
+            <!-- <div *ngIf="price.touched && price.invalid">
                 Price is required
-            </div>
+            </div> -->
         </div>
         <div>
             <label for="stockQuantity">Stock Quantity*</label>
             <input type="text" [(ngModel)]="product.stockQuantity" required name="stockQuantity">
-            <div *ngIf="stockQuantity.touched && stockQuantity.invalid">
+            <!-- <div *ngIf="stockQuantity.touched && stockQuantity.invalid">
                 Stock Quantity is required
-            </div>
+            </div> -->
         </div>
         <div>
             <label for="category">Category*</label>
@@ -40,23 +40,23 @@
                 <option value="ferniture">Ferniture</option>
                 <option value="beauty">Beauty</option>
             </select>
-            <div *ngIf="category.touched && category.invalid">
+            <!-- <div *ngIf="category.touched && category.invalid">
                 Category is required
-            </div>
+            </div> -->
         </div>
         <div>
             <label for="brand">Brand*</label>
             <input type="text" [(ngModel)]="product.brand" name="brand">
-            <div *ngIf="brand.touched && brand.invalid">
+            <!-- <div *ngIf="brand.touched && brand.invalid">
                 Brand is required
-            </div>
+            </div> -->
         </div>
         <div>
             <label for="coverImage">Cover Image*</label>
             <input type="file" [(ngModel)]="product.coverImage" name="brand" placeholder="choose file">
-            <div *ngIf="coverImage.touched && coverImage.invalid">
+            <!-- <div *ngIf="coverImage.touched && coverImage.invalid">
                 Cover Image is required
-            </div>
+            </div> -->
         </div>
     </form>
 </div>
