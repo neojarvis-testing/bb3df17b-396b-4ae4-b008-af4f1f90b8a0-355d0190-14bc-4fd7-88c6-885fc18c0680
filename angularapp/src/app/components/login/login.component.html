@@ -1,1 +1,16 @@
-<p>login works!</p>
+
+<div class="float-container">
+    <div class="float-child">
+        <img src="../../../assets/images/background.webp" alt="backgroundImage">
+        <h3>ProKart</h3>
+    </div>
+    <div class="float-child">
+        <h4>Login</h4>
+        <form #LoginForm="ngForm" (ngSubmit)="login()">
+            <input type="text" name="email" id="email" [(ngModel)]="email" email required #emailNgModel="ngModel" class="form-control">
+            <input type="text" name="password" id="password" [(ngModel)]="password" password required #passwordNgModel="ngModel" class="form-control">
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a [routerLink]="['/signup']">Signup</a></p>
+    </div>
+</div>
