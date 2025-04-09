@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -17,11 +18,11 @@ public class Review {
     private int rating;
     private LocalDate data;
     @ManyToOne
-    @JoinColoumn(name="userId")
+    @JoinColumn(name="userId")
     private User user;
 
     @ManyToOne
-    @JoinColoumn(name="productid")
+    @JoinColumn(name="productid")
     private Product product;
 
     public Review(long reviewid, String reviewText, int rating, LocalDate data, User user, Product product) {
