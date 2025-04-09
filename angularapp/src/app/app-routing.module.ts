@@ -32,11 +32,11 @@ const routes: Routes = [
   {path:'sign-up',component:SignupComponent},
   {path:'user-nav',component:UsernavComponent},
   {path:'user-view-product',component:UserviewproductComponent}
-  
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
