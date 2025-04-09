@@ -24,7 +24,6 @@ public class Review {
     @ManyToOne
     @JoinColumn(name="productId")
     private Product product;
-
     public Review(Long reviewid, String reviewText, int rating, LocalDate date, User user, Product product) {
         this.reviewId = reviewid;
         this.reviewText = reviewText;
