@@ -6,39 +6,40 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Review {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long reviewid;
+    private Long reviewId;
     private String reviewText;
     private int rating;
-    private LocalDate data;
+    private LocalDate date;
     @ManyToOne
-    @JoinColoumn(name="userId")
+    @JoinColumn(name="userId")
     private User user;
 
     @ManyToOne
-    @JoinColoumn(name="productid")
+    @JoinColumn(name="productId")
     private Product product;
 
-    public Review(long reviewid, String reviewText, int rating, LocalDate data, User user, Product product) {
-        this.reviewid = reviewid;
+    public Review(Long reviewid, String reviewText, int rating, LocalDate date, User user, Product product) {
+        this.reviewId = reviewid;
         this.reviewText = reviewText;
         this.rating = rating;
-        this.data = data;
+        this.date = date;
         this.user = user;
         this.product = product;
     }
 
-    public long getReviewid() {
-        return reviewid;
+    public Long getReviewId() {
+        return reviewId;
     }
 
-    public void setReviewid(long reviewid) {
-        this.reviewid = reviewid;
+    public void setReviewId(Long reviewId) {
+        this.reviewId = reviewId;
     }
 
     public String getReviewText() {
@@ -57,12 +58,12 @@ public class Review {
         this.rating = rating;
     }
 
-    public LocalDate getData() {
-        return data;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public User getUser() {
