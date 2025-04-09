@@ -11,8 +11,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="Orders")
 public class Order {
 
     @Id
@@ -35,7 +37,7 @@ public class Order {
     }
 
     public Order(Long orderId, LocalDate orderDate, String orderStatus, String shippingAddress, String billingAddress,
-            Double totalAmount, User user, List<OrderItem> orderItems) {
+        Double totalAmount, User user, List<OrderItem> orderItems) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
