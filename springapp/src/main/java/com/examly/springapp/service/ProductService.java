@@ -1,5 +1,15 @@
 package com.examly.springapp.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import com.examly.springapp.model.Product;
+
 public interface ProductService {
 
+    Product addProduct(Product product);
+    Product getProductById(Long productId);
+    List<Product> getAllProducts();
+    Product updateProduct(Long productId,Product product);
+    Product deleteProductById(Long productId,Product product);
 }
