@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminviewproductComponent } from './components/adminviewproduct/adminviewproduct.component';
 import { AdminviewreviewsComponent } from './components/adminviewreviews/adminviewreviews.component';
-import { AuthguardComponent } from './components/authguard/authguard.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ErrorComponent } from './components/error/error.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
@@ -19,6 +18,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { UsernavComponent } from './components/usernav/usernav.component';
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
 import { AdminnavComponent } from './components/adminnav/adminnav.component';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -26,7 +26,6 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     AdminviewproductComponent,
     AdminviewreviewsComponent,
-    AuthguardComponent,
     CheckoutComponent,
     ErrorComponent,
     HomePageComponent,
@@ -44,6 +43,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule
   ],
   providers: [],
