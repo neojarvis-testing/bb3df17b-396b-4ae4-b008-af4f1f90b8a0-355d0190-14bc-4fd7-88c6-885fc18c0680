@@ -26,8 +26,10 @@ export class SignupComponent implements OnInit {
     let user = {username:this.username,mobileNumber:this.mobile,email:this.email,password:this.password,userRole:this.role}
     console.log(user);
     
-    let registerUser = this.authService.register(this.username,this.password,this.role);
+    let registerUser = this.authService.register(user);
     console.log(registerUser);
+
+    this.router.navigate(['/login'])
     }
   }
 

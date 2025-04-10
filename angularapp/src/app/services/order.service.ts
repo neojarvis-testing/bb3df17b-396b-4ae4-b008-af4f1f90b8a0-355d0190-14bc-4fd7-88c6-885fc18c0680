@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class OrderService {
 
-  apiUrl: string='';
+  apiUrl: string='https://ide-fdebbcdaafdadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080';
 
   constructor(private httpClient: HttpClient) { }
 
