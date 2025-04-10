@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Order } from 'src/app/models/order.model';
-import { Product } from 'src/app/models/product.model';
+import { OrderItemService } from 'src/app/services/order-item.service';
 import { OrderService } from 'src/app/services/order.service';
-import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-myorder',
@@ -12,50 +11,44 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class MyorderComponent implements OnInit {
 
+  selectedOrderItems: any[] = [];
+  showModal: boolean = false;
+  orders: Order[] = [];
+  userId: number;
 
-  orders : Order[] = [];
-
-  productId : number = 0;
-
-  product : Product = {
-    productName : '',
-    description : '',
-    price : 0,
-    stockQuantity : 0,
-    category : '',
-    brand : '',
-    coverImage : ''
-  }
-
-  userId : number = 0;
-
-  constructor(private orderService : OrderService , private productService : ProductService , private activatedRoute : ActivatedRoute) { }
+  constructor(
+    private orderService: OrderService,
+    private activatedRoute: ActivatedRoute,
+    private orderItemService: OrderItemService
+  ) {}
 
   ngOnInit(): void {
-    this.getAllOrdersByUserId();
-    this.productId = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    
     this.userId = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    this.getAllOrdersByUserId();
   }
 
-  public getAllOrdersByUserId(){
-    this.orderService.getOrdersByUserId(this.userId).subscribe(data=>{
+  public getAllOrdersByUserId(): void {
+    this.orderService.getOrdersByUserId(this.userId).subscribe(data => {
       this.orders = data;
-    })
+    });
   }
 
-  public getProductById(){
-    this.productService.getProductById(this.productId).subscribe(data=>{
-      this.product = data;
-    })
+  public viewItems(orderId: number): void {
+    this.orderItemService.getOrderItems(orderId).subscribe(items => {
+      this.selectedOrderItems = items;
+      this.showModal = true;
+    });
   }
 
-  public viewItems(){
-
+  public closeModal(): void {
+    this.showModal = false;
+    this.selectedOrderItems = [];
   }
 
-  public deleteOrder(orderId : number){
-    this.orderService.deleteOrder(orderId).subscribe()
+  public deleteOrder(orderId: number): void {
+    this.orderService.deleteOrder(orderId).subscribe(() => {
+      this.orders = this.orders.filter(order => order.orderId !== orderId); // Update the orders list
+    });
   }
-
-
 }

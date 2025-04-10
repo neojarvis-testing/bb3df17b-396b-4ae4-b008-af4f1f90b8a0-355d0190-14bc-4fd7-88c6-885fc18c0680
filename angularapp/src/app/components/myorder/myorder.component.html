@@ -1,27 +1,49 @@
 <div class="container">
-    <h1>MyOrders</h1>
-    <ul *ngIf="orders">
-        <li *ngFor="let orders of Order">
-            <h1>Order ID:{{order.orderId}}</h1>
-            <p>Order Date:{{order.orderDate}}</p>
-            <p>Status:{{order.orderStatus}}</p>
-            <p>Shipping Address:{{order.shippingAddress}}</p>
-            <p>Billing Address:{{order.billingAddress}}</p>
-            <p>Total Amount{{order.totalAmount}}</p>
-            <p>Product: {{product.description}} </p><p>Quantity: {{product.stockQuantity}}</p>
-            <div>
-                <button>Track Order</button>
+    <h1>My Orders</h1>
+    <ul *ngIf="orders.length > 0">
+        <li *ngFor="let order of orders" class="order-box">
+            <h2>Order ID: {{ order.orderId }}</h2>
+            <p>Order Date: {{ order.orderDate | date: 'medium' }}</p>
+            <p>Status: {{ order.orderStatus }}</p>
+            <p>Shipping Address: {{ order.shippingAddress }}</p>
+            <p>Billing Address: {{ order.billingAddress }}</p>
+            <p>Total Amount: ₹{{ order.totalAmount }}</p>
+
+            <div class="products-container">
+                <h3>Products in the Order:</h3>
+                <div *ngFor="let item of order.orderItems" class="product-box">
+                    <span class="product-name">Product: {{ item.product.productName }}</span>
+                    <span class="product-quantity">Quantity: {{ item.quantity }}</span>
+                </div>
             </div>
-            <div>
-                <button>View Items</button>
-            </div>
-            <div>
-                <button (click)="deleteOrder(order.orderId)">Cancel Order</button>
+
+            <div class="buttons-container">
+                <button class="track-order-button">Track Order</button>
+                <button (click)="viewItems(order.orderId)" class="view-items-button">View Items</button>
+                <button (click)="deleteOrder(order.orderId)" class="cancel-order-button">Cancel Order</button>
             </div>
         </li>
     </ul>
-</div>
-<div *ngIf="!orders">
-    <h1>No Orders Found</h1>
+
+    <div *ngIf="orders.length === 0" class="no-orders">
+        <h2>No Orders Found</h2>
+    </div>
 </div>
 
+<div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>Order Items</h2>
+        <ul>
+            <li *ngFor="let item of selectedOrderItems" class="product-details-box">
+                <p><strong>Product:</strong> {{ item.product.productName }}</p>
+                <p><strong>Brand:</strong> {{ item.product.brand }}</p>
+                <p><strong>Category:</strong> {{ item.product.category }}</p>
+                <p><strong>Description:</strong> {{ item.product.description }}</p>
+                <p><strong>Price:</strong> ₹{{ item.product.price }}</p>
+                <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+            </li>
+        </ul>
+        <button class="close-modal-button" (click)="closeModal()">Close</button>
+    </div>
+</div>
