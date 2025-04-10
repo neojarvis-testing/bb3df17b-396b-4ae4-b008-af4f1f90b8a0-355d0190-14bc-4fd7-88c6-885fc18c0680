@@ -1,1 +1,34 @@
-<p>adminviewreviews works!</p>
+<div class="container">
+    <h2>View Reviews</h2>
+    <div>
+        <div>
+            <span>search</span>
+            <span>sort</span>
+        </div>
+        <div *ngIf="reviews && reviews.length > 0">
+            <ul>
+                <li *ngFor="let review of reviews">
+                    <span>Product Name:{{review.product.productName}}</span><br><br>
+                    <span>{{review.rating}}</span><br><br>
+                    <span>Date: {{review.date}}</span><br><br>
+                    <span>{{review.reviewText}}</span><br><br>
+                    <button (click)="viewProduct(review.product.productId)">View Product</button>
+                    <button>View Profile</button>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="!reviews && reviews.length ==0">
+            <span>No reviews found.</span>
+        </div>
+    </div>
+    <div>
+        <h2>Product Details</h2>
+        <span>Name: {{product.productName}}</span>
+        <span>Price: {{product.price}}</span>
+        <span>Category: {{product.category}}</span>
+        <span>Brand: {{product.brand}}</span>
+        <span>Description: {{product.description}}</span>
+    </div>
+    
+</div>
+

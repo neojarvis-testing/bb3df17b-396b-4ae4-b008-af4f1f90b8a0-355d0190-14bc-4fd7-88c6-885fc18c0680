@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
 
-  private baseUrl:string="https://ide-fdebbcdaafdadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080";
+  private baseUrl:string="";
 
   constructor(private httpClient:HttpClient) { }
 
