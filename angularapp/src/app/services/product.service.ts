@@ -10,7 +10,7 @@ import { Product } from '../models/product.model';
 export class ProductService {
 
   apiUrl: string='';
-
+  
   constructor(private httpClient: HttpClient) { }
 
   getAllProducts():Observable<any>{

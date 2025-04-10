@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login() : void{
+
     let loginuser={email : this.email, password: this.password, role: this.role};
     let isloginuser=this.authService.login(this.email,this.password,this.role);
     if(isloginuser){
@@ -32,6 +33,4 @@ export class LoginComponent implements OnInit {
       }else{}
     }
   }
-
-
 }
