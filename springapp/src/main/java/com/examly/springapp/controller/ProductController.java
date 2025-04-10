@@ -52,9 +52,9 @@ public class ProductController {
     }
 
     @PutMapping("/api/products/{productId}")
-    public ResponseEntity<?> updateProduct(@PathVariable Long productId,@RequestBody Long Product){
+    public ResponseEntity<?> updateProduct(@PathVariable Long productId,@RequestBody Product product){
         try{
-            Product updatedProduct=productService.updateProduct(productId, null);
+            Product updatedProduct=productService.updateProduct(productId, product);
             return ResponseEntity.status(200).body(updatedProduct);
         }
         catch(RuntimeException e){

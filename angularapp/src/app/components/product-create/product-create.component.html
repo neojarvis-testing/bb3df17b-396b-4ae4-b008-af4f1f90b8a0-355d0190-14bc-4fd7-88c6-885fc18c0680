@@ -1,36 +1,35 @@
-
 <div class="container">
-    <form #productForm="ngForm" (ngSubmit)="addProduct()"> 
+    <form #productForm="ngForm" (ngSubmit)="addProduct()" *ngIf="!isEditMode"> 
     <div>
-        <label for="productName">Product Name*</label>
+        <label for="productName">Product Name</label>
         <input type="text" [(ngModel)]="product.productName" required name="productName" #productName="ngModel">
         <div *ngIf="productName.touched && productName.invalid">
-            Product Name is required
+            <span style="color: red;">Product Name is required</span>
         </div>
     </div>
     <div>
-        <label for="description">Description*</label>
+        <label for="description">Description</label>
         <input type="text" [(ngModel)]="product.description" required name="description" #description="ngModel">
         <div *ngIf="description.touched && description.invalid">
-            Description is required
+            <span style="color: red;">Description is required</span>
         </div>
     </div>
     <div>
-        <label for="price">Price*</label>
+        <label for="price">Price</label>
         <input type="text" [(ngModel)]="product.price" required name="price" #price="ngModel">
         <div *ngIf="price.touched && price.invalid">
-            Price is required
+            <span style="color: red;">Price is required</span>
         </div>
     </div>
     <div>
-        <label for="stockQuantity">Stock Quantity*</label>
+        <label for="stockQuantity">Stock Quantity</label>
         <input type="text" [(ngModel)]="product.stockQuantity" required name="stockQuantity" #stockQuantity="ngModel">
         <div *ngIf="stockQuantity.touched && stockQuantity.invalid">
-            Stock Quantity is required
+            <span style="color: red;">Stock Quantity is required</span>
         </div>
     </div>
     <div>
-        <label for="category">Category*</label>
+        <label for="category">Category</label>
         <select name="category" id="category" required [(ngModel)]="product.category" #category="ngModel">
             <option value="" disabled>Select Category</option>
             <option value="electronics">Electronics</option>
@@ -42,62 +41,63 @@
             <option value="beauty">Beauty</option>
         </select>
         <div *ngIf="category.touched && category.invalid">
-            Category is required
+            <span style="color: red;">Category is required</span>
         </div>
     </div>
     <div>
-        <label for="brand">Brand*</label>
+        <label for="brand">Brand</label>
         <input type="text" [(ngModel)]="product.brand" required name="brand" #brand="ngModel">
         <div *ngIf="brand.touched && brand.invalid">
-            Brand is required
+            <span style="color: red;">Brand is required</span>
         </div>
     </div>
     <div>
-        <label for="coverImage">Cover Image*</label>
+        <label for="coverImage">Cover Image</label>
         <input type="file" [(ngModel)]="product.coverImage" required name="coverImage" #coverImage="ngModel">
         <div *ngIf="coverImage.touched && coverImage.invalid">
-            Cover Image is required
+            <span style="color: red;">Cover Image is required</span>
         </div>
     </div>
     <button type="submit">Add Product</button>
-    </form>
+</form>
+
 </div>
 
 
-<div class="container">
-    <button [routerLink]="['/admin-view']" >Back</button>
+<div class="container" *ngIf="isEditMode">
+    <button [routerLink]="['/admin-view-product']" >Back</button>
     <h2>Edit Product</h2>
-    <form #productForm="ngForm" (ngSubmit)="addProduct()"> 
+    <form #productForm="ngForm" (ngSubmit)="updateProduct()"> 
     <div>
-        <label for="productName">Product Name*</label>
+        <label for="productName">Product Name</label>
         <input type="text" [(ngModel)]="product.productName" required name="productName" #productName="ngModel">
         <div *ngIf="productName.touched && productName.invalid">
             Product Name is required
         </div>
     </div>
     <div>
-        <label for="description">Description*</label>
+        <label for="description">Description</label>
         <input type="text" [(ngModel)]="product.description" required name="description" #description="ngModel">
         <div *ngIf="description.touched && description.invalid">
             Description is required
         </div>
     </div>
     <div>
-        <label for="price">Price*</label>
+        <label for="price">Price</label>
         <input type="text" [(ngModel)]="product.price" required name="price" #price="ngModel">
         <div *ngIf="price.touched && price.invalid">
             Price is required
         </div>
     </div>
     <div>
-        <label for="stockQuantity">Stock Quantity*</label>
+        <label for="stockQuantity">Stock Quantity</label>
         <input type="text" [(ngModel)]="product.stockQuantity" required name="stockQuantity" #stockQuantity="ngModel">
         <div *ngIf="stockQuantity.touched && stockQuantity.invalid">
             Stock Quantity is required
         </div>
     </div>
     <div>
-        <label for="category">Category*</label>
+        <label for="category">Category</label>
         <select name="category" id="category" required [(ngModel)]="product.category" #category="ngModel">
             <option value="" disabled>Select Category</option>
             <option value="electronics">Electronics</option>
@@ -113,21 +113,24 @@
         </div>
     </div>
     <div>
-        <label for="brand">Brand*</label>
+        <label for="brand">Brand</label>
         <input type="text" [(ngModel)]="product.brand" required name="brand" #brand="ngModel">
         <div *ngIf="brand.touched && brand.invalid">
             Brand is required
         </div>
     </div>
     <div>
-        <label for="coverImage">Cover Image*</label>
+        <label for="coverImage">Cover Image</label>
         <input type="file" [(ngModel)]="product.coverImage" required name="coverImage" #coverImage="ngModel">
         <div *ngIf="coverImage.touched && coverImage.invalid">
             Cover Image is required
         </div>
     </div>
-    <button type="submit">Add Product</button>
+    <button type="submit">Update Product</button>
     </form>
 </div>
 
 
+
+
+ 

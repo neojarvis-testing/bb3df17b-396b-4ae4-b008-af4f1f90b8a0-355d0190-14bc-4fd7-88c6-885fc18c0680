@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
@@ -31,14 +30,14 @@ export class AdminviewproductComponent implements OnInit {
   }
 
   searchProducts() {
-    //  this.filteredProducts = this.products.filter(data =>{
-    //   data.productName.toLowerCase().includes(this.searchData.toLowerCase()) &&
-    //   (this.selectedCategory ? data.category === this.selectedCategory : true)
-    //  });
+     this.filteredProducts = this.products.filter(data =>{
+      data.productName.toLowerCase().includes(this.searchData.toLowerCase()) &&
+      (this.selectedCategory ? data.category === this.selectedCategory : true)
+     });
   }
 
   editProduct(productId){
-    this.router.navigate(['/product-create',productId])
+    this.router.navigate(['/edit-product',productId])
   }
    
   
