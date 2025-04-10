@@ -1,1 +1,28 @@
-<p>adminviewproduct works!</p>
+
+<div>
+    <h1>Products</h1>
+    <div>
+        <input type="text" placeholder="Search by product name" [(ngModel)]="searchData" (input)="searchProducts()">
+        <select [(ngModel)]="selectedCategory" (change)="searchProducts()">
+            <option value="">All Categories</option>
+            <option value="electronics">Electronics</option>
+            <option value="homeAppliances">Home Appliances</option>
+            <option value="books">Books</option>
+            <option value="fashion">Fashion</option>
+            <option value="toys">Toys</option>
+            <option value="furniture">Furniture</option>
+            <option value="beauty">Beauty</option>
+        </select>
+    </div>
+    <div *ngFor="let product of filteredProducts">
+        <h2>{{ product.productName }}</h2>
+        <p>{{ product.description }}</p>
+        <p>Price: {{ product.price }}</p>
+        <p>Stock Quantity: {{ product.stockQuantity }}</p>
+        <p>Category: {{ product.category }}</p>
+        <p>Brand: {{ product.brand }}</p>
+        <button (click)="editProduct(product.productId)">Edit</button>
+        <button>Delete</button>
+    </div>
+</div>
+    
