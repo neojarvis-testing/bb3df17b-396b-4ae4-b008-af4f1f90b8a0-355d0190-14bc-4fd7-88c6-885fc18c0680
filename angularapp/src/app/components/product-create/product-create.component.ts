@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -9,21 +10,33 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductCreateComponent implements OnInit {
 
-  product:Product = {productName:"",description:"",price:null,stockQuantity:0,category:"",brand:"",coverImage:""}
+  product:Product = {productName:"",description:"",price:0,stockQuantity:0,category:"",brand:"",coverImage:""}
 
 
-  constructor(private productService : ProductService) { }
+  constructor(private productService : ProductService,private router :Router,private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.productId=parseInt(this.activatedRoute.snapshot.paramMap.get("id"))
   }
 
-  public addProduct(product : Product){
-    //
-
+  public addProduct(){
+    this.productService.addProduct(this.product).subscribe(data=>{
+      this.product=data
+      if (confirm('Product added successfully! Click OK to go to the admin view.')) {
+        this.router.navigate(['/admin-view-product']);
+      }
+    })
   }
 
-  public submit() {
-
+  editedProduct:Product={
+    productName: '',
+    description: '',
+    price: 0,
+    stockQuantity: 0,
+    category: '',
+    brand: '',
+    coverImage: ''
   }
+  productId:number;
 
 }
