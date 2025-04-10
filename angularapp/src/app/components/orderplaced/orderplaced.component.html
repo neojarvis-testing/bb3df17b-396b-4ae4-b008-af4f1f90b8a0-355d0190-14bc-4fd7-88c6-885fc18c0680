@@ -1,26 +1,22 @@
 <div class="container">
-    <ul *ngIf="orders">
-        <li *ngFor="let orders of Order">
-            <h1>Order ID:{{order.orderId}}</h1>
-            <p>Order Date:{{order.orderDate}}</p>
-            <p>Status:{{order.orderStatus}}</p>
-            <p>Shipping Address:{{order.shippingAddress}}</p>
-            <p>Billing Address:{{order.billingAddress}}</p>
-            <p>Total Amount{{order.totalAmount}}</p>
-            <select name="orderStatus" id="orderStatus">Update Order Status
-                <option value="pending">Pending</option>
-                <option value="accepted">Accepted</option>
-                <option value="dispatched">Dispatched</option>
+    <ul *ngIf="orders.length > 0">
+        <li *ngFor="let order of orders">
+            <p>Order ID: {{order.orderId}}</p>
+            <p>Order Date: {{order.orderDate}}</p>
+            <p>Status: {{order.orderStatus}}</p>
+            <p>Shipping Address: {{order.shippingAddress}}</p>
+            <p>Billing Address: {{order.billingAddress}}</p>
+            <p>Total Amount: {{order.totalAmount}}</p>
+            <select name="orderStatus" id="orderStatus" [(ngModel)]="order.orderStatus">
+                <option value="Pending">Pending</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Dispatched">Dispatched</option>
                 <option value="OutForDelivery">OutForDelivery</option>
-                <option value="delivered">Delivered</option>
+                <option value="Delivered">Delivered</option>
             </select>
-            <button (click)="viewItems()">View Items</button>
-            <button (click)="viewProfile()">View Profile</button>
         </li>
     </ul>
 </div>
-<div *ngIf="!orders">
+<div *ngIf="orders.length === 0">
     <h1>No Orders Found</h1>
 </div>
-
-

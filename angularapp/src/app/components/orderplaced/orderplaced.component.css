@@ -1,0 +1,100 @@
+/* myorder.component.css */
+
+.container {
+  max-width: 800px;
+  margin: 10 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.container:hover {
+  transform: scale(1.02);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 20px;
+  margin: 15px 0;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+li:hover {
+  background-color: #ffe6e6;
+  box-shadow: 0 0 15px rgba(211, 47, 47, 0.3);
+}
+
+li p {
+  margin: 8px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+select {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: #d32f2f;
+  box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
+}
+
+select option {
+  background-color: #fff;
+  color: #333;
+}
+
+select option:hover {
+  background-color: #ffe6e6;
+}
+
+h1 {
+  text-align: center;
+  color: #d32f2f;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #d32f2f;
+  color: #fff;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #b71c1c;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #9a0007;
+}
+
+.no-orders {
+  text-align: center;
+  color: #d32f2f;
+  font-size: 20px;
+  margin-top: 30px;
+}

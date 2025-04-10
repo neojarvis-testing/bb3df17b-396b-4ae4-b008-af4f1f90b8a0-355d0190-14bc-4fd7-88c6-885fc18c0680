@@ -12,9 +12,9 @@ public interface OrderService {
     public Optional<Order> getOrderById(Long orderId); // Retrieves an order by ID
     public List<Order> getAllOrders(); // Retrieves all orders
     public Order updateOrder(Long orderId, Order updatedOrder); // Updates order details
-    List<Order> getOrdersByUserId(Long userId); // Retrieves orders by user ID
+    public List<Order> getOrdersByUserId(Long userId); // Retrieves orders by user ID
     public boolean deleteOrder(Long orderId); // Deletes an order by ID
-
+    
 }
 
 

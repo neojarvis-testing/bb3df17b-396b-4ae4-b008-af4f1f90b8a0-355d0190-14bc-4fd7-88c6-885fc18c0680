@@ -9,7 +9,7 @@ import { Product } from '../models/product.model';
 
 export class ProductService {
 
-  apiUrl: string='';
+  apiUrl: string='https://ide-caadbbbbbfdaefddadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080';
 
   constructor(private httpClient: HttpClient) { }
 

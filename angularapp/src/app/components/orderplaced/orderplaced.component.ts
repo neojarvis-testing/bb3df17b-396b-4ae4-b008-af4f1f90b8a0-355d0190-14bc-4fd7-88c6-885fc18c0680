@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Order } from 'src/app/models/order.model';
 import { OrderService } from 'src/app/services/order.service';
 
@@ -11,8 +10,10 @@ import { OrderService } from 'src/app/services/order.service';
 export class OrderplacedComponent implements OnInit {
 
   orders : Order[] = [];
+  
+  
 
-  constructor(private orderService : OrderService , private router : Router) { }
+  constructor(private orderService : OrderService) { }
 
   ngOnInit(): void {
     this.getAllOrders();
@@ -24,12 +25,21 @@ export class OrderplacedComponent implements OnInit {
     })
   }
 
-  public viewIterms(){
+  
 
-  }
+  // public viewIterms(){
 
-  public viewProfile(){
-    this.router.navigate(['/api/'])
-  }
+  // }
+
+  // public viewProfile(){
+  //   //this.router.navigate(['/api/'])
+  // }
+
+  
+
+
 
 }
+  
+
+
