@@ -1,1 +1,27 @@
-<p>myorder works!</p>
+<div class="container">
+    <h1>MyOrders</h1>
+    <ul *ngIf="orders">
+        <li *ngFor="let orders of Order">
+            <h1>Order ID:{{order.orderId}}</h1>
+            <p>Order Date:{{order.orderDate}}</p>
+            <p>Status:{{order.orderStatus}}</p>
+            <p>Shipping Address:{{order.shippingAddress}}</p>
+            <p>Billing Address:{{order.billingAddress}}</p>
+            <p>Total Amount{{order.totalAmount}}</p>
+            <p>Product: {{product.description}} </p><p>Quantity: {{product.stockQuantity}}</p>
+            <div>
+                <button>Track Order</button>
+            </div>
+            <div>
+                <button>View Items</button>
+            </div>
+            <div>
+                <button (click)="deleteOrder(order.orderId)">Cancel Order</button>
+            </div>
+        </li>
+    </ul>
+</div>
+<div *ngIf="!orders">
+    <h1>No Orders Found</h1>
+</div>
+
