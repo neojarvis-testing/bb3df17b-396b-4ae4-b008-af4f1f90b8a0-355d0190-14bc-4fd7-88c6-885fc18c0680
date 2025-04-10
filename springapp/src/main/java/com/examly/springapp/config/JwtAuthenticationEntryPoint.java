@@ -3,6 +3,7 @@ package com.examly.springapp.config;
 import java.io.IOException;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
@@ -12,19 +13,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint{
 
-    // @Override
-    // public void commence(HttpServletRequest request, HttpServletResponse response,
-    //         AuthenticationException authException) throws IOException, ServletException {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'commence'");
-    // }
+   
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.addHeader(HttpHeaders.WWW_AUTHENTICATE,
-            "Bearer error=\"Invalid access token\""
-        );
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.sendError(401,"Unauthorized");
     }
     
 
