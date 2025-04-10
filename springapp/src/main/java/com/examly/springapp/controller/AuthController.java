@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.examly.springapp.model.LoginDTO;
 import com.examly.springapp.model.User;
 import com.examly.springapp.service.UserService;
 
@@ -21,8 +22,8 @@ public class AuthController {
     }
 
     @PostMapping("/api/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user) {
-        return ResponseEntity.status(200).body(userService.loginUser(user));
+    public ResponseEntity<?> loginUser(@RequestBody LoginDTO request) {
+        return userService.loginUser(request);
     }
 
 }

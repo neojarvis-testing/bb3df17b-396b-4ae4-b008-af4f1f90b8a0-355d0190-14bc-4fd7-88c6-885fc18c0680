@@ -29,7 +29,7 @@ public class ApplicationConfig {
 
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                User user = userRepo.findByUsername(username).get();
+                User user = userRepo.findByEmail(username).get();
                 return new UserPrinciple(user);
             }
 

@@ -9,7 +9,7 @@ import { OrderItem } from '../models/order-item.model';
 })
 export class CartService {
 
-  private baseUrl:string="https://ide-fabeeeeabaaadadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080/";
+  private baseUrl:string="https://ide-fabeeeeabaaadadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080";
   constructor(private httpClient : HttpClient) { }
 
   public addToCart(product : Product, quantity : number) : Observable<any>{
