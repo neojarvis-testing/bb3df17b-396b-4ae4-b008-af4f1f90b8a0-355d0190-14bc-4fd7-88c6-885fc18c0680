@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class OrderService {
 
-  apiUrl: string='';
+  apiUrl: string='https://ide-caadbbbbbfdaefddadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -35,4 +35,8 @@ export class OrderService {
   deleteOrder(orderId: number):Observable<any>{
     return this.httpClient.delete(this.apiUrl+"/api/orders/"+orderId);
   }
+
+  
+  
+  
 }

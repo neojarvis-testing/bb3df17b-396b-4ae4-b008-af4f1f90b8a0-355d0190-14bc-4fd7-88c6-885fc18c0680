@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  private baseUrl:string="";
+  private baseUrl:string="https://ide-caadbbbbbfdaefddadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080";
 
   constructor(private httpClient:HttpClient, private router:Router) { }
 
