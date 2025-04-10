@@ -1,1 +1,19 @@
-<p>userviewproduct works!</p>
+<div class="container">
+    <ul *ngIf="products">
+        <li *ngFor="let product of products">
+            {{product.productName}}<br>
+            Price:{{product.price}}<br>
+            {{product.description}}<br>
+            In stock:{{product.stockQuantity}}<br>
+            Category:{{product.category}}<br>
+            Brand:{{product.brand}}<br>
+            <button>Add To Cart</button><br>
+            <button routerLink="/admin-view-reviews">View Reviews</button><br>
+            <button routerLink="/review">Write a Review</button><br>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf="!products.length">
+    <p>No Products Found</p>
+</div>

@@ -12,9 +12,9 @@ public class CrosConfig implements WebMvcConfigurer {
     
     public void addCorsMappings(@NonNull CorsRegistry registry){
         registry.addMapping("/**")
-            .allowedOrigins("**")
-            .allowedMethods("**")
-            .allowedHeaders("**")
+            .allowedOrigins("*")
+            .allowedMethods("*")
+            .allowedHeaders("*")
             .allowCredentials(false);
     }
 }

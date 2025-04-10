@@ -21,10 +21,10 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product addProduct(Product product) {
-        Optional<Product> opt=productRepo.findById(product.getProductId());
-        if(opt.isPresent()){
-            throw new DuplicateProductException();
-        }
+        // Optional<Product> opt=productRepo.findById(product.);
+        // if(opt.isPresent()){
+        //     throw new DuplicateProductException();
+        // }
         Product savedProduct=productRepo.save(product);
         return savedProduct;
     }
@@ -47,14 +47,12 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product updateProduct(Long productId, Product product) {
-        product.setProductId(productId);
-        if(productRepo.existsById(productId)){
-            Product updatedProduct=productRepo.save(product);
-            return updatedProduct;
-        }
-        else{
-            throw new RuntimeException("Product not found for Updation.");
-        }
+    if (productRepo.existsById(productId)) {
+        product.setProductId(productId); // Ensure the correct ID is set
+        return productRepo.save(product); // Save updated product to the database
+    } else {
+        throw new RuntimeException("Product not found with ID: " + productId); // Handle product not found
+    }
     }
 
     @Override
@@ -68,5 +66,17 @@ public class ProductServiceImpl implements ProductService{
             throw new RuntimeException("Product not found for Deletion.");
         }
     }
-
+       //     Product existingProduct = productRepo.findById(productId)
+    //             .orElseThrow(() -> new RuntimeException("Product not found with id: " + productId));
+ 
+    //     // Update the existing product's fields with the new data
+    // existingProduct.setProductName(product.getProductName());
+    // existingProduct.setDescription(product.getDescription());
+    // existingProduct.setPrice(product.getPrice());
+    // existingProduct.setCategory(product.getCategory());
+    // existingProduct.setBrand(product.getBrand());
+   
+ 
+    // // Save and return the updated product
+    // return productRepo.save(existingProduct);
 }

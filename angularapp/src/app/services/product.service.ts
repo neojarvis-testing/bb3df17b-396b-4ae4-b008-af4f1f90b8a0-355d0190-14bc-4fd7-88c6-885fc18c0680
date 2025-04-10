@@ -25,7 +25,7 @@ export class ProductService {
     return this.httpClient.post(this.apiUrl+"/api/products",product);
   }
 
-  updateProduct(product: Product, productId : number):Observable<any>{
+  updateProduct(productId : number,product: Product,):Observable<any>{
     return this.httpClient.put(this.apiUrl+"/api/products/"+productId,product);
   }
 

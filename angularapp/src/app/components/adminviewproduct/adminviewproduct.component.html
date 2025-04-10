@@ -14,15 +14,17 @@
             <option value="beauty">Beauty</option>
         </select>
     </div>
-    <div *ngFor="let product of filteredProducts">
-        <h2>{{ product.productName }}</h2>
-        <p>{{ product.description }}</p>
-        <p>Price: {{ product.price }}</p>
-        <p>Stock Quantity: {{ product.stockQuantity }}</p>
-        <p>Category: {{ product.category }}</p>
-        <p>Brand: {{ product.brand }}</p>
-        <button (click)="editProduct(product.productId)">Edit</button>
-        <button>Delete</button>
+    <div class="products-container">
+        <div class="product-card" *ngFor="let product of filteredProducts">
+            <h2>{{ product.productName }}</h2>
+            <p>{{ product.description }}</p>
+            <p>Price: {{ product.price }}</p>
+            <p>Stock Quantity: {{ product.stockQuantity }}</p>
+            <p>Category: {{ product.category }}</p>
+            <p>Brand: {{ product.brand }}</p>
+            <button (click)="editProduct(product.productId)">Edit</button>
+            <button>Delete</button>
+        </div>
     </div>
 </div>
     
