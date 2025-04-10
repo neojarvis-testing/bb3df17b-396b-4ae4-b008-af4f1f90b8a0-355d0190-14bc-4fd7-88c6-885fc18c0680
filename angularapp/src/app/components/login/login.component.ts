@@ -18,16 +18,11 @@ export class LoginComponent implements OnInit {
   }
 
   public login() : void{
-    let loginuser={username : this.email, password: this.password, role: this.role};
-    console.log("*******1. login.ts*************");
-    console.log(loginuser);
+
+    let loginuser={email : this.email, password: this.password, role: this.role};
     let isloginuser=this.authService.login(this.email,this.password,this.role);
-    console.log("isLoginuser");
-    console.log(isloginuser);
     if(isloginuser){
       const role=loginuser.role;
-      console.log("4.login.component :role-");
-      console.log(role);
       if(role){
         if(role==='ADMIN'){
           this.router.navigate(['/admin']);
@@ -38,6 +33,4 @@ export class LoginComponent implements OnInit {
       }else{}
     }
   }
-
-
 }

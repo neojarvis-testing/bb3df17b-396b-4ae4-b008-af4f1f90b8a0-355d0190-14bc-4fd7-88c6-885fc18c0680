@@ -32,7 +32,8 @@ const routes: Routes = [
   {path:'review',component:ReviewComponent},
   {path:'sign-up',component:SignupComponent},
   {path:'user-nav',component:UsernavComponent},
-  {path:'user-view-product',component:UserviewproductComponent}
+  {path:'user-view-product',component:UserviewproductComponent},
+  {path:'**',component:LoginComponent}
 ];
 
 @NgModule({

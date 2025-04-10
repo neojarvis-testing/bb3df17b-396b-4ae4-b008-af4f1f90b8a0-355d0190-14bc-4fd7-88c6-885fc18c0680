@@ -8,7 +8,7 @@
         <h4>Login</h4>
         <form #LoginForm="ngForm" (ngSubmit)="login()">
             <input type="text" name="email" id="email" [(ngModel)]="email" email required #emailNgModel="ngModel" class="form-control">
-            <input type="text" name="password" id="password" [(ngModel)]="password" password required #passwordNgModel="ngModel" class="form-control">
+            <input type="password" name="password" id="password" [(ngModel)]="password" password required #passwordNgModel="ngModel" class="form-control">
             <button type="submit">Login</button>
         </form>
         <p>Don't have an account? <a [routerLink]="['/signup']">Signup</a></p>
