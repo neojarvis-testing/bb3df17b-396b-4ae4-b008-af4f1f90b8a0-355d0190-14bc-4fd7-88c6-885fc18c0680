@@ -1,1 +1,26 @@
-<p>review works!</p>
+<div class="container">
+    <h2>View Reviews</h2>
+    <div>
+        <div>
+            <span>search</span>
+            <span>sort</span>
+        </div>
+        <div *ngIf="reviews">
+            <ul>
+                <li *ngFor="let review of reviews">
+                    <span>{{review.product.productName}}</span>
+                    <span>{{review.rating}}</span>
+                    <span>Date: {{review.data}}</span>
+                    <span>{{review.reviewText}}</span>
+                    <button>View Product</button>
+                    <button>View Profile</button>
+                </li>
+            </ul>
+
+        </div>
+        <div *ngIf="!reviews">
+            <span>No reviews found.</span>
+        </div>
+    </div>
+    
+</div>
