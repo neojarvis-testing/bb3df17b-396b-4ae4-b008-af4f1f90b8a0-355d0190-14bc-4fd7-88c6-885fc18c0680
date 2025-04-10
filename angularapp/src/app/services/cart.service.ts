@@ -13,18 +13,18 @@ export class CartService {
   constructor(private httpClient : HttpClient) { }
 
   public addToCart(product : Product, quantity : number) : Observable<any>{
-    
+    return null;     
   }
 
   public removeFromCart(productId : number) : Observable<any>{
-
+    return null;
   }
 
-  public getCartItems(OrderItem[] : any[]) : Observable<any>{
-
+  public getCartItems(OrderItem : any[]) : Observable<any>{
+    return null;
   } 
 
   public clearCart() : Observable<any>{
-    
+    return null;
   }
 }

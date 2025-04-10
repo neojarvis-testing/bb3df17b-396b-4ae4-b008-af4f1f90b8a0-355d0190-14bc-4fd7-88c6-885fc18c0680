@@ -1,0 +1,35 @@
+
+<div class="float-container">
+    <div class="float-child">
+        <h3>ProKart</h3>
+    </div>
+    <div class="float-child">
+        <h4>Login</h4>
+        <form #registrationForm="ngForm" (ngSubmit)="register(registrationForm)">
+            <div>
+                <input type="text" name="username" id="username" placeholder="Username" [(ngModel)]="username" username required #usernameNgModel="ngModel" class="form-control">
+            </div>
+            <div>
+                <input type="text" name="email" id="email" placeholder="Email" [(ngModel)]="email" email required #emailNgModel="ngModel" class="form-control">
+            </div>
+            <div>
+                <input type="number" name="mobile" id="mobile" placeholder="Mobile" [(ngModel)]="mobile" mobile required #mobileNgModel="ngModel" class="form-control">
+            </div>            
+            <div>
+                <input type="password" name="password" placeholder="Password" id="password" [(ngModel)]="password" password required #passwordNgModel="ngModel" class="form-control">
+            </div>            
+            <div>
+                <input type="password" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword" [(ngModel)]="confirmPassword" confirmPassassword required #confirmPasswordNgModel="ngModel" class="form-control">
+            </div>
+            <div>
+                <select name="role" [(ngModel)]="role" id="role">
+                    <option selected>Select Role</option>
+                    <option value="ADMIN">Admin</option>S
+                    <option value="USER">User</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+        <p>Don't have an account? <a [routerLink]="['/login']">Login</a></p>
+    </div>
+</div>
