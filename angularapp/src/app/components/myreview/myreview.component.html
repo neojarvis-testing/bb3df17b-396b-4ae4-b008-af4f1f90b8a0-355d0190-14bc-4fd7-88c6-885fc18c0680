@@ -4,13 +4,24 @@
     <div>
         <ul>
             <li *ngFor="let review of reviews">
-                <span>{{review.product.productName}}</span>
-                <span>{{review.rating}}</span>
-                <span>{{review.date}}</span>
-                <span>{{review.reviewText}}</span>
-                <button>View Product</button>
-                <button>Delete Review</button>
+                <span>{{review.product.productName}}</span><br>
+                <span>{{review.rating}}</span><br>
+                <span>{{review.date}}</span><br>
+                <span>{{review.reviewText}}</span><br>
+                <button (click)="viewProduct(review.product.productId)">View Product</button>
+                <button (click)="deleteReview(review.reviewId)">Delete Review</button>
             </li>
         </ul>
     </div>
+</div>
+<div *ngIf= "showProductDetails" class="productDetails" >
+    <h2>Product Details</h2>
+    <div class="iproductDetails">
+        <span>Name: {{product.productName}}</span><br>
+        <span>Price: {{product.price}}</span><br>
+        <span>Category: {{product.category}}</span><br>
+        <span>Brand: {{product.brand}}</span><br>
+        <span>Description: {{product.description}}</span><br>
+    </div>
+    
 </div>

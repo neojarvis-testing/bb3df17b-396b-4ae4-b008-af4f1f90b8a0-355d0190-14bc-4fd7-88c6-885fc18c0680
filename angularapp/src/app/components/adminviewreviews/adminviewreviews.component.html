@@ -1,16 +1,19 @@
 <div class="container">
     <h2>View Reviews</h2>
     <div>
+        <input type="text" name="search" [(ngModel)]="searchData" id="search" placeholder="search reviews">
+    </div>
+    <div>
         <div *ngIf="reviews && reviews.length > 0">
             <ul>
-                <li class="inside-container" *ngFor="let review of reviews">
+                <li class="inside-container" *ngFor="let review of reviews | search:searchData">
                     <span>Product Name:{{review.product.productName}}</span><br>
                     <span>Rating: {{review.rating}}</span><br>
                     <span>Date: {{review.date}}</span><br>
                     <span>{{review.reviewText}}</span><br>
                     <div class="btn">
                         <button (click)="viewProduct(review.product.productId)" >View Product</button>
-                        <button (click)= "viewProfile(review.user.userId)">View Profile</button>
+                        <button (click)= "viewProfile(review.reviewId)">View Profile</button>
                     </div>
                     
                 </li>
@@ -33,9 +36,9 @@
     </div>
     <div *ngIf="showUserDetails">
         <h2>User Profile</h2>
-        <span>{{user.username}}</span>
-        <span>{{user.email}}</span>
-        <span>{{user.mobileNumber}}</span>
+        <span>Username: {{review.user.username}}</span> <br>
+        <span>Email: {{review.user.email}}</span> <br>
+        <span>Mobile no: {{review.user.mobileNumber}}</span> <br>
     </div>
 </div>
 

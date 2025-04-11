@@ -1,8 +1,12 @@
 
 <div>
     <h1>Products</h1>
-    <div>
+    <!-- Controls for search and category -->
+    <div class="controls">
+        <!-- Search bar on the left -->
         <input type="text" placeholder="Search by product name" [(ngModel)]="searchData" (input)="searchProducts()">
+        
+        <!-- Dropdown on the right -->
         <select [(ngModel)]="selectedCategory" (change)="searchProducts()">
             <option value="">All Categories</option>
             <option value="electronics">Electronics</option>

@@ -34,8 +34,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Optional<Order> getOrderById(Long orderId) {
-        return orderRepository.findById(orderId);
-    }
+    return orderRepository.findById(orderId);
+}
+
 
     @Override
     public List<Order> getAllOrders() {
@@ -58,13 +59,16 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<Order> getOrdersByUserId(Long userId) {
         Optional<User> user = userRepo.findById(userId);
-        if(user.isPresent()){
-            return orderRepository.findByUser(user.get());
+        if (user.isEmpty()) {
+            throw new OrderNotFoundException("User not found with ID: " + userId);
         }
-        else{
-            throw new EntityNotFoundException("User Not Found");
+        List<Order> orders = orderRepository.findByUser(user.get());
+        if (orders.isEmpty()) {
+            throw new OrderNotFoundException("No orders found for user with ID: " + userId);
         }
+        return orders;
     }
+    
 
     @Override
     public boolean deleteOrder(Long orderId) {

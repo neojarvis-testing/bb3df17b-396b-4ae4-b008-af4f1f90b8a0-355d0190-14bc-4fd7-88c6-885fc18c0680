@@ -48,3 +48,31 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+/* Center align the heading */
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Align search and dropdown */
+.controls {
+    display: flex;                  /* Enables flexbox */
+    justify-content: space-between; /* Aligns elements to opposite sides */
+    align-items: center;            /* Vertically aligns elements */
+    margin-bottom: 20px;
+    padding: 0 20px;                /* Adds horizontal padding */
+}
+
+/* Styling for search input */
+.controls input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 50%; /* Adjust width as needed */
+}
+
+/* Styling for dropdown */
+

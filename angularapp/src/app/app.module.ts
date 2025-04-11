@@ -20,6 +20,8 @@ import { UserviewproductComponent } from './components/userviewproduct/userviewp
 import { AdminnavComponent } from './components/adminnav/adminnav.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchPipe } from './pipes/search.pipe';
+import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SignupComponent,
     UsernavComponent,
     UserviewproductComponent,
-    AdminnavComponent
+    AdminnavComponent,
+    SearchPipe,
+    AddToCartComponent
   ],
   imports: [
     BrowserModule,

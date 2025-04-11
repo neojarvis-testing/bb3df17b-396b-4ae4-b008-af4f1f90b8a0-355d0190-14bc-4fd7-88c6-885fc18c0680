@@ -15,6 +15,7 @@ public class CrosConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
             .allowedOrigins("*")
             .allowedMethods("*")
-            .allowedHeaders("*");
+            .allowedHeaders("*")
+            .allowCredentials(false);
     }
 }

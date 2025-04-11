@@ -1,8 +1,9 @@
-/* Style the container */
+
+/* Container styling */
 .container {
     margin: 20px auto;
     padding: 20px;
-    max-width: 800px;
+    max-width: 1200px; /* Increased max-width for more space */
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #f9f9f9;
@@ -10,24 +11,31 @@
     font-family: Arial, sans-serif;
 }
 
-/* Style the unordered list */
+/* Style the product list */
 ul {
-    list-style-type: none; /* Remove default list bullets */
+    display: grid; /* Use grid layout for responsive columns */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Dynamic column layout */
+    gap: 20px; /* Space between items */
     padding: 0;
     margin: 0;
+    list-style-type: none; /* Remove default list bullets */
 }
 
-/* Style individual list items */
+/* Style individual products */
 li {
-    margin-bottom: 20px;
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;                /* Enables flexbox */
+    flex-direction: column;       /* Stack content vertically */
+    align-items: center;          /* Center-aligns content */
+    text-align: center;           /* Center-aligns text and buttons */
+    margin-bottom: 20px;          /* Adds spacing between items */
 }
 
-/* Product details styles */
+/* Product details styling */
 li span {
     font-weight: bold;
     display: block;
@@ -41,25 +49,56 @@ li p {
 
 /* Style the buttons */
 button {
-    margin-right: 10px;
-    padding: 10px 15px;
+    margin: 5px 0;                /* Adjusted spacing for better balance */
+    padding: 10px 20px;           /* Increased padding for better usability */
     font-size: 14px;
     color: #fff;
-    background-color: #007bff;
+    background-color: #1961ae;    /* Primary button color */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #144a85;    /* Slightly darker shade for hover */
+    transform: scale(1.05);       /* Adds a subtle scaling effect */
 }
 
-/* Style the "No Products Found" message */
-div p {
-    font-size: 16px;
-    color: #ff0000;
-    text-align: center;
-    margin-top: 20px;
+/* Adjust hover for disabled buttons */
+button:disabled {
+    background-color: #ccc;       /* Gray for disabled state */
+    cursor: not-allowed;          /* Indicate unclickable state */
 }
+
+/* Adjust spacing between buttons */
+li button + button {
+    margin-top: 5px;              /* Ensures consistent spacing */
+}
+
+/* Center align the heading */
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Align search and dropdown */
+.controls {
+    display: flex;                  /* Enables flexbox */
+    justify-content: space-between; /* Aligns elements to opposite sides */
+    align-items: center;            /* Vertically aligns elements */
+    margin-bottom: 20px;
+    padding: 0 20px;                /* Adds horizontal padding */
+}
+
+/* Styling for search input */
+.controls input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 50%; /* Adjust width as needed */
+}
+
+/* Styling for dropdown */
