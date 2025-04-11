@@ -15,9 +15,11 @@ import { ReviewComponent } from './components/review/review.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { UsernavComponent } from './components/usernav/usernav.component';
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
+import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 
 const routes: Routes = [
   {path:'home-page',component:HomePageComponent},
+  {path:'cart/:userId/:productId',component:AddToCartComponent},
   {path:'admin-nav',component:AdminnavComponent},
   {path:'admin-view-product',component:AdminviewproductComponent},
   {path:'admin-view-reviews',component:AdminviewreviewsComponent},

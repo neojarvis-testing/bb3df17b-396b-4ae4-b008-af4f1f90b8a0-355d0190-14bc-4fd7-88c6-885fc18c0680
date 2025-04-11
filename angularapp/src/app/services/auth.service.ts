@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 
@@ -9,7 +8,7 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
 
-  private baseUrl:string="";
+  private baseUrl:string="https://ide-aadbcaebbcafddadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080";
 
   constructor(private httpClient:HttpClient) { }
   
