@@ -23,7 +23,7 @@
             <p>Category: {{ product.category }}</p>
             <p>Brand: {{ product.brand }}</p>
             <button (click)="editProduct(product.productId)">Edit</button>
-            <button>Delete</button>
+            <button (click)="deleteProduct(product.productId)">Delete</button>
         </div>
     </div>
 </div>

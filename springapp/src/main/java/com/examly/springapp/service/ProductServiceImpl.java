@@ -56,27 +56,13 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product deleteProductById(Long productId,Product product) {
-        product.setProductId(productId);
+    public boolean deleteProductById(Long productId) {
         if(productRepo.existsById(productId)){
             productRepo.deleteById(productId);
-            return product;
+            return true;
         }
         else{
-            throw new RuntimeException("Product not found for Deletion.");
+            return false;
         }
     }
-       //     Product existingProduct = productRepo.findById(productId)
-    //             .orElseThrow(() -> new RuntimeException("Product not found with id: " + productId));
- 
-    //     // Update the existing product's fields with the new data
-    // existingProduct.setProductName(product.getProductName());
-    // existingProduct.setDescription(product.getDescription());
-    // existingProduct.setPrice(product.getPrice());
-    // existingProduct.setCategory(product.getCategory());
-    // existingProduct.setBrand(product.getBrand());
-   
- 
-    // // Save and return the updated product
-    // return productRepo.save(existingProduct);
 }

@@ -31,7 +31,7 @@ export class AdminviewproductComponent implements OnInit {
 
   searchProducts() {
      this.filteredProducts = this.products.filter(data =>{
-      data.productName.toLowerCase().includes(this.searchData.toLowerCase()) &&
+      return data.productName.toLowerCase().includes(this.searchData.toLowerCase()) &&
       (this.selectedCategory ? data.category === this.selectedCategory : true)
      });
   }
@@ -40,6 +40,9 @@ export class AdminviewproductComponent implements OnInit {
     this.router.navigate(['/edit-product',productId])
   }
    
-  
-
+  deleteProduct(productId){
+    this.productService.deleteProduct(productId).subscribe(data=>{
+      this.getAllProducts()
+    })
+  }
 }

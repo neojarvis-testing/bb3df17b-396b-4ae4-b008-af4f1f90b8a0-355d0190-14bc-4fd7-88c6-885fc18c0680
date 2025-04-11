@@ -9,13 +9,11 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
 
-  private baseUrl:string="";
+  private baseUrl:string="https://ide-aadbcaebbcafddadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080";
 
   constructor(private httpClient:HttpClient) { }
 
   public register(user:User):Observable<any> {
-    console.log("+++++++++++",user);
-      if()
      return this.httpClient.post<any>(`${this.baseUrl}/api/register`, user);
 
   }
