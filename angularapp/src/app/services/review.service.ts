@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Review } from '../models/review.model';
 import { Observable } from 'rxjs';
+import { apiUrl } from 'src/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReviewService {
 
-  private baseUrl:string="";
+  baseUrl = apiUrl;
   
   constructor(private httpClient:HttpClient) { }
   addReview(review:Review):Observable<any>{
