@@ -14,6 +14,7 @@ import { ReviewService } from 'src/app/services/review.service';
 })
 export class AdminviewreviewsComponent implements OnInit {
   reviews:Review [] =[];
+  searchData:string="";
   product :Product = {
     productName: "", price: 0, category: "", brand: "", description: "",
     stockQuantity: 0,
@@ -26,6 +27,13 @@ export class AdminviewreviewsComponent implements OnInit {
     username: '',
     mobileNumber: '',
     userRole: ''
+  }
+  review:Review={
+    reviewText: '',
+    rating: 0,
+    date: '',
+    user: new User,
+    product: undefined
   }
   showProductDetails:boolean = false;
   showUserDetails:boolean = false;
@@ -40,18 +48,16 @@ export class AdminviewreviewsComponent implements OnInit {
     })
   }
   viewProduct(productId:number){
-    
-    console.log(productId);
     this.productService.getProductById(productId).subscribe(data=>{
       this.product = data;
-      this.showProductDetails = true;
+      this.showProductDetails = !(this.showProductDetails);
     })
   }
-  viewProfile(userId:number){
-    this.authService.getUserById(userId).subscribe(data=>{
-      console.log(data);
-      this.showUserDetails = true;
-    })
+  viewProfile(reviewId:number){
+    this.reviewService.getReviewById(reviewId).subscribe(data=>{
+      this.review = data;
+      this.showUserDetails = !(this.showUserDetails);
+    })  
   }
 
 }

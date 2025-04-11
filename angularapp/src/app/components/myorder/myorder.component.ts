@@ -23,9 +23,14 @@ export class MyorderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
-    this.userId = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
-    this.getAllOrdersByUserId();
+    const routeParam = this.activatedRoute.snapshot.paramMap.get("id");
+    if (routeParam) {
+        this.userId = parseInt(routeParam, 10);
+        this.getAllOrdersByUserId();
+    } else {
+        console.error("Route parameter 'id' is missing or invalid.");
+        alert("Unable to fetch orders: User ID is missing.");
+    }
   }
 
   public getAllOrdersByUserId(): void {
@@ -35,10 +40,16 @@ export class MyorderComponent implements OnInit {
   }
 
   public viewItems(orderId: number): void {
-    this.orderItemService.getOrderItems(orderId).subscribe(items => {
-      this.selectedOrderItems = items;
-      this.showModal = true;
-    });
+    this.orderItemService.getOrderItems(orderId).subscribe({
+      next: items => {
+          this.selectedOrderItems = items;
+          this.showModal = true;
+      },
+      error: err => {
+          console.error("Failed to fetch order items:", err);
+          alert("Unable to fetch order items. Please try again later.");
+      }
+  });
   }
 
   public closeModal(): void {

@@ -36,8 +36,8 @@
                        min="1">
 
                 <button [routerLink]="['/cart',product.user.userId,product.productId]">Add To Cart</button><br>
-                <button routerLink="/admin-view-reviews">View Reviews</button><br>
-                <button routerLink="/review">Write a Review</button><br>
+                <button (click)= "viewReview(product.productId)">View Reviews</button><br>
+            <button [routerLink]="['/review',product.productId]">Write a Review</button><br>
             </li>
         </ul>
     </div>
@@ -46,3 +46,20 @@
         <p>No Products Found</p>
     </div>
 </div>
+
+<div *ngIf= "reviews && reviews.length>0">
+    <h2>Reviews</h2>
+    <ul>    
+        <li  *ngFor="let review of reviews">
+            <span>{{review.user.userName}}</span>
+            <span>Rating: {{review.rating}}/5</span>
+            <span>{{review.reviewText}}</span>
+            <span>Data: {{review.date}}</span>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf= "!reviews && reviews.length==0">
+    <span>No review found for this product.</span>
+</div>
+

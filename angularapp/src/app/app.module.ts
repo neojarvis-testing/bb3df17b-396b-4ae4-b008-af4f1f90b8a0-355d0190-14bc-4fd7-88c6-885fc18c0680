@@ -20,6 +20,7 @@ import { UserviewproductComponent } from './components/userviewproduct/userviewp
 import { AdminnavComponent } from './components/adminnav/adminnav.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchPipe } from './pipes/search.pipe';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 
 @NgModule({
@@ -40,6 +41,7 @@ import { AddToCartComponent } from './components/add-to-cart/add-to-cart.compone
     UsernavComponent,
     UserviewproductComponent,
     AdminnavComponent,
+    SearchPipe,
     AddToCartComponent
   ],
   imports: [
