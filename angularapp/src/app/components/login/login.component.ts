@@ -22,13 +22,13 @@ export class LoginComponent implements OnInit {
  
  
   public onSubmit(): void {
-      //  if (this.loginForm.valid) {
-      //  console.log('Login form is valid. Submitting:', this.loginForm.value);
-      //  this.authService.login(this.loginForm.value);
-      //  } else {
-      //  console.error('Login form is invalid:', this.loginForm.errors);
+       if (this.loginForm.valid) {
+       console.log('Login form is valid. Submitting:', this.loginForm.value);
+       this.authService.login(this.loginForm.value);
+       } else {
+       console.error('Login form is invalid:', this.loginForm.errors);
        
-      //  }
+       }
      }
    
 
