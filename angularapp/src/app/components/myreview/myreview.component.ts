@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Review } from 'src/app/models/review.model';
+import { User } from 'src/app/models/user.model';
+import { ReviewService } from 'src/app/services/review.service';
 
 @Component({
   selector: 'app-myreview',
@@ -6,10 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./myreview.component.css']
 })
 export class MyreviewComponent implements OnInit {
-
-  constructor() { }
-
+  reviews:Review[] = [];
+  constructor(private reviewService:ReviewService) { }
   ngOnInit(): void {
+    
   }
+  
 
 }

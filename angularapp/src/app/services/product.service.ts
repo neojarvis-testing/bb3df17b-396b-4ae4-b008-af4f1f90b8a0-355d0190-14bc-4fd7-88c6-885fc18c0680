@@ -9,7 +9,7 @@ import { Product } from '../models/product.model';
 
 export class ProductService {
 
-  apiUrl: string='';
+  apiUrl: string = "";
 
   constructor(private httpClient: HttpClient) { }
 

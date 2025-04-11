@@ -1,0 +1,42 @@
+.review-container {
+   display: block;
+   margin:20px auto;
+   width:45%;
+   
+}
+.review-container h2{
+   font-size: 20px;
+   text-align: center;
+}
+
+textarea {
+   display: block;
+   margin: 0 auto;
+   width: 80%;
+   height: 100px;
+   margin-bottom: 10px;
+}
+
+.star-rating {
+   display: flex;
+   cursor: pointer;
+
+}
+
+.star-rating span {
+   font-size: 2em;
+   color: lightgray;
+}
+
+.star-rating span.filled {
+   color: gold;
+}
+
+button {
+   margin-top: 10px;
+}
+.ireview-container{
+   display: block;
+   width:30%;
+   margin:0 auto;
+}

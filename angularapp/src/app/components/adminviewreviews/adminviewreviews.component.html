@@ -1,34 +1,41 @@
 <div class="container">
     <h2>View Reviews</h2>
     <div>
-        <div>
-            <span>search</span>
-            <span>sort</span>
-        </div>
         <div *ngIf="reviews && reviews.length > 0">
             <ul>
-                <li *ngFor="let review of reviews">
-                    <span>Product Name:{{review.product.productName}}</span><br><br>
-                    <span>{{review.rating}}</span><br><br>
-                    <span>Date: {{review.date}}</span><br><br>
-                    <span>{{review.reviewText}}</span><br><br>
-                    <button (click)="viewProduct(review.product.productId)">View Product</button>
-                    <button>View Profile</button>
+                <li class="inside-container" *ngFor="let review of reviews">
+                    <span>Product Name:{{review.product.productName}}</span><br>
+                    <span>Rating: {{review.rating}}</span><br>
+                    <span>Date: {{review.date}}</span><br>
+                    <span>{{review.reviewText}}</span><br>
+                    <div class="btn">
+                        <button (click)="viewProduct(review.product.productId)" >View Product</button>
+                        <button (click)= "viewProfile(review.user.userId)">View Profile</button>
+                    </div>
+                    
                 </li>
             </ul>
         </div>
-        <div *ngIf="!reviews && reviews.length ==0">
+        <div *ngIf="!reviews && reviews.length == 0">
             <span>No reviews found.</span>
         </div>
     </div>
-    <div>
+    <div *ngIf= "showProductDetails" class="productDetails" >
         <h2>Product Details</h2>
-        <span>Name: {{product.productName}}</span>
-        <span>Price: {{product.price}}</span>
-        <span>Category: {{product.category}}</span>
-        <span>Brand: {{product.brand}}</span>
-        <span>Description: {{product.description}}</span>
+        <div class="iproductDetails">
+            <span>Name: {{product.productName}}</span><br>
+            <span>Price: {{product.price}}</span><br>
+            <span>Category: {{product.category}}</span><br>
+            <span>Brand: {{product.brand}}</span><br>
+            <span>Description: {{product.description}}</span><br>
+        </div>
+        
     </div>
-    
+    <div *ngIf="showUserDetails">
+        <h2>User Profile</h2>
+        <span>{{user.username}}</span>
+        <span>{{user.email}}</span>
+        <span>{{user.mobileNumber}}</span>
+    </div>
 </div>
 

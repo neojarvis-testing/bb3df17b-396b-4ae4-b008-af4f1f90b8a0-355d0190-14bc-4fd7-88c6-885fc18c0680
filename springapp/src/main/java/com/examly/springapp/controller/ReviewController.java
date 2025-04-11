@@ -20,7 +20,7 @@ public class ReviewController {
     @Autowired
     private ReviewServiceImpl reviewService;
 
-    @PostMapping("api/reviews")
+    @PostMapping("/api/reviews")
     public ResponseEntity<?> addReview(@RequestBody Review review){
     Review savedReview = reviewService.addReview(review);
     return ResponseEntity.status(200).body(savedReview);

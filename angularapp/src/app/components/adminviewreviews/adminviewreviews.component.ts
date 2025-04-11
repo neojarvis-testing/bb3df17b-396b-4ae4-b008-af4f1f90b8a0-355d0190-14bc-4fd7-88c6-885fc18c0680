@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/models/product.model';
 import { Review } from 'src/app/models/review.model';
+import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ReviewService } from 'src/app/services/review.service';
 
@@ -18,18 +20,37 @@ export class AdminviewreviewsComponent implements OnInit {
     coverImage: ''
   };
   productId:number;
-  constructor(private reviewService :ReviewService,private router :Router,private activateRoute:ActivatedRoute,private productService:ProductService) { }
+  user:User = {
+    email: '',
+    password: '',
+    username: '',
+    mobileNumber: '',
+    userRole: ''
+  }
+  showProductDetails:boolean = false;
+  showUserDetails:boolean = false;
+  constructor(private reviewService :ReviewService,private router :Router,private activateRoute:ActivatedRoute,private productService:ProductService,private authService:AuthService) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.getAllReviews();
-    this.productId =  parseInt(this.activateRoute.snapshot.paramMap.get('id'));
-    this.productService.getProductById(this.productId).subscribe(data=>{
-      this.product = data;
-    })
   }
   getAllReviews(){
     this.reviewService.getAllReviews().subscribe(data=>{
       this.reviews = data;
+    })
+  }
+  viewProduct(productId:number){
+    
+    console.log(productId);
+    this.productService.getProductById(productId).subscribe(data=>{
+      this.product = data;
+      this.showProductDetails = true;
+    })
+  }
+  viewProfile(userId:number){
+    this.authService.getUserById(userId).subscribe(data=>{
+      console.log(data);
+      this.showUserDetails = true;
     })
   }
 
