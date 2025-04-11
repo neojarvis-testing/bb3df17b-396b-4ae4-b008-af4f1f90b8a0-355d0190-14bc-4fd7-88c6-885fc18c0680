@@ -1,6 +1,8 @@
 package com.examly.springapp.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,25 +14,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.config.JwtUtils;
+import com.examly.springapp.exceptions.InvalidCredentialsException;
 import com.examly.springapp.exceptions.UserAlreadyExistsException;
+import com.examly.springapp.model.AuthUser;
 import com.examly.springapp.model.LoginDTO;
 import com.examly.springapp.model.User;
 import com.examly.springapp.repository.UserRepo;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class UserServiceImpl implements UserService{
-
-    // @Override
-    // public User createUser(User user) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'createUser'");
-    // }
-
-    // @Override
-    // public LoginDTO loginUser(User user) {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'loginUser'");
-    // }
 
     @Autowired
     private UserRepo userRepo;
@@ -56,27 +50,44 @@ public class UserServiceImpl implements UserService{
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(user);
+
     }
 
     @Override
-    public ResponseEntity<?> loginUser(LoginDTO request) {
-
-        Optional<User> opt = userRepo.findByEmail(request.getEmail());
-        if(opt.isPresent() && opt.get().getPassword().equals(request.getPassword())) {
-            LoginDTO response = new LoginDTO(
-                opt.get().getEmail(),null,opt.get().getUserRole(),"123456781234567812345678123456781234567812345678"
-            );
-            return ResponseEntity.ok(response);
-        }return ResponseEntity.status(401).body(null);
-        
-        // Authentication authentication = authenticationManager.authenticate(
-        //     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
-        // );
-        // UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        // LoginDTO dto = new LoginDTO();
-
-        // dto.setToken(jwtUtils.generateToken(userDetails));
-        // return dto;
+    public User getUserById(Long id) {
+        Optional<User> opt = userRepo.findById(id);
+        if(opt.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+        return opt.get();
     }
+
+    @Override
+    public AuthUser loginUser(LoginDTO user) {
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+            );
+        if(authentication.isAuthenticated()){
+        List<String> roleList=authentication.getAuthorities().stream().map(r->r.getAuthority()).collect(Collectors.toList());
+        if(roleList.isEmpty()){
+            throw new IllegalStateException("User has no role");
+        }
+        String role=roleList.get(0);
+        AuthUser authUser=new AuthUser();
+        authUser.setUserName(user.getEmail());
+        authUser.setToken(jwtUtils.generateToken(user.getEmail()));
+        authUser.setRole(role);
+        authUser.setUserId(userRepo.findByEmail(user.getEmail()).orElse(null).getUserId());
+        authUser.setName(userRepo.findByEmail(user.getEmail()).orElse(null).getUsername());
+        return authUser;
+       }
+       else{
+        throw new InvalidCredentialsException("Invalid User Name or Password");
+       }
+       
+    }
+ 
+   
+
 
 }

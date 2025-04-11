@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ReviewService {
-  private baseUrl:string="https://ide-fdebbcdaafdadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080/api/reviews";
+  private baseUrl:string="https://ide-fdebbcdaafdadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080";
 
   constructor(private httpClient:HttpClient) { }
   addReview(review:Review):Observable<any>{

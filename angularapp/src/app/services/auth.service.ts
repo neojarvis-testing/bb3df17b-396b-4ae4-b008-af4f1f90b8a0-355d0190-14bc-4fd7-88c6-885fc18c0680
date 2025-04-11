@@ -15,7 +15,6 @@ export class AuthService {
 
   public register(user:User):Observable<any> {
     console.log("+++++++++++",user);
-      if()
      return this.httpClient.post<any>(`${this.baseUrl}/api/register`, user);
 
   }
