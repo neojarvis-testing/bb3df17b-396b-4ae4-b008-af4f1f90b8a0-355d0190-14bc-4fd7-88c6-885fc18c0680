@@ -23,9 +23,13 @@ public class OrderItemController {
     public ResponseEntity<?> getOrderItemsByOrderId(@PathVariable Long orderId) {
         try {
             List<OrderItem> orderItems = orderItemService.getOrderItemsByOrderId(orderId);
+            if (orderItems.isEmpty()) {
+                return ResponseEntity.status(404).body("No items found for order with ID: " + orderId);
+            }
             return ResponseEntity.status(200).body(orderItems);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(404).body("Order not found: " + e.getMessage());
         }
     }
+    
 }
