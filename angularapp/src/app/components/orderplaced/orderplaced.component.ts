@@ -10,7 +10,7 @@ import { OrderService } from 'src/app/services/order.service';
 export class OrderplacedComponent implements OnInit {
 
   orders : Order[] = [];
-  
+  searchId : number ;
   
 
   constructor(private orderService : OrderService) { }
@@ -25,7 +25,22 @@ export class OrderplacedComponent implements OnInit {
     })
   }
 
-  
+ 
+
+  public searchOrder() {
+    this.orderService.getAllOrders().subscribe(data=>{
+      this.orders = data;
+      if (!this.searchId) {
+        this.getAllOrders(); // Reloads all orders when search field is empty
+    } else {
+        this.orders = this.orders.filter(o => o.orderId == this.searchId);
+    }
+    })
+  }
+
+    public sortOrders() {
+      this.orders.sort((a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime());
+    }
 
   // public viewIterms(){
 
