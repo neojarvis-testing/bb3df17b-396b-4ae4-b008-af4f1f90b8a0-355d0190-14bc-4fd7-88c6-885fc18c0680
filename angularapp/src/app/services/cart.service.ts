@@ -1,25 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
 import { Cart } from '../models/cart.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+
+  apiUrl:string="https://ide-aadbcaebbcafddadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080"
   
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
   private products : Cart[] = [];
   public cart : Cart;
 
-  public addToCart(product : Product, quantity : number) : void{
-    this.cart.product = product;
-    this.cart.quantity = quantity;
-    let existingProduct = this.products.find(i => i.productId == this.cart.productId);
-    if(existingProduct){
-      existingProduct.quantity += this.cart.quantity;
-    } else {
-      this.products.push(this.cart);
-    }
+  public addToCart(userId,productId) : Observable<any>{
+    return this.httpClient.post(this.apiUrl+"/api/cart/",userId,productId);
   }
 
   public removeFromCart(productId : number) : void{

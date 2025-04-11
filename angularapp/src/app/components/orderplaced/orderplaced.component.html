@@ -1,5 +1,11 @@
 <div class="container">
-    <ul *ngIf="orders.length > 0">
+    <div style="display: flex; justify-content: flex-end; width: 100%;">
+        <button (click)="sortOrders()">Sort Orders by Date (Ascending)</button>
+    </div>
+
+    <input type="text" id="orderIdInput" placeholder="Enter Order ID" [(ngModel)]="searchId" (keyup)="searchOrder()">
+
+    <ul *ngIf="orders">
         <li *ngFor="let order of orders">
             <p>Order ID: {{order.orderId}}</p>
             <p>Order Date: {{order.orderDate}}</p>
@@ -14,9 +20,11 @@
                 <option value="OutForDelivery">OutForDelivery</option>
                 <option value="Delivered">Delivered</option>
             </select>
+            <!-- <p>product: {{order.user.userId}}</p> -->
         </li>
     </ul>
 </div>
+
 <div *ngIf="orders.length === 0">
     <h1>No Orders Found</h1>
 </div>

@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError} from 'rxjs/operators'
 import { User } from '../models/user.model';
 import { apiUrl } from 'src/url';
+import { LoginComponent } from '../components/login/login.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthService {
 
   private baseUrl=apiUrl;
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient, private router : Router) { }
   
   public getUserById(userId:number):Observable<any>{
     
@@ -28,12 +29,29 @@ export class AuthService {
         return throwError(error);
       })
     );
-     
   }
 
-  public login(username:string,password:string,role:string):Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrl}/api/login`,{username,password,role})
-  }
+//   public login(login : LoginComponent) {
+//     this.httpClient.post<{ token: string; userRole: string }>(`${this.baseUrl}/api/login`, login).subscribe(
+//         response => {
+//             const { token, userRole } = response;
+ 
+//             // Store token and role in localStorage
+//             localStorage.setItem('token', token);
+//             localStorage.setItem('userRole', userRole);
+ 
+//             // Navigate based on user role
+//             if (userRole == 'ADMIN') {
+//                 this.router.navigate(['/adminNav']); // Navigate to adminnavbar
+//             } else if (userRole == 'USER') {
+//                 this.router.navigate(['/userNav']); // Navigate to usernavbar
+//             }
+//         },
+//         error => {
+//             console.error('Login failed', error);
+//         }
+//     );
+// }
 
   public isLoggedIn():boolean {
     return !!localStorage.getItem('token');
@@ -41,7 +59,6 @@ export class AuthService {
   public logout():void {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
-    // this.router.navigate(['/login']);
   }
 
   public isAdmin():boolean {

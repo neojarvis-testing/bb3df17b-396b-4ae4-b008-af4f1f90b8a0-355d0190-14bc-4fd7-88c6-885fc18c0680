@@ -1,8 +1,5 @@
 package com.examly.springapp.controller;
 
-
-
-
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +18,6 @@ import com.examly.springapp.model.Order;
 import com.examly.springapp.service.OrderService;
 
 import jakarta.persistence.EntityNotFoundException;
-
-
-
 
 @RestController
 public class OrderController {
