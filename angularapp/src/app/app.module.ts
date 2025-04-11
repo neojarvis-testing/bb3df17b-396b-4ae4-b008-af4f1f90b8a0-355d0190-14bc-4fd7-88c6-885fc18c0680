@@ -21,6 +21,7 @@ import { AdminnavComponent } from './components/adminnav/adminnav.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './pipes/search.pipe';
+import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SearchPipe } from './pipes/search.pipe';
     UsernavComponent,
     UserviewproductComponent,
     AdminnavComponent,
-    SearchPipe
+    SearchPipe,
+    AddToCartComponent
   ],
   imports: [
     BrowserModule,

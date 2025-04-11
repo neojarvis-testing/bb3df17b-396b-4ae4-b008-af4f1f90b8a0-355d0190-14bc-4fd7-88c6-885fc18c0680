@@ -1,6 +1,7 @@
 <div class="container">
     <form #productForm="ngForm" (ngSubmit)="addProduct()" *ngIf="!isEditMode"> 
     <div>
+        <h1 style="text-align: center;">Create New Product</h1>
         <label for="productName">Product Name</label>
         <input type="text" [(ngModel)]="product.productName" required name="productName" #productName="ngModel">
         <div *ngIf="productName.touched && productName.invalid">
