@@ -4,13 +4,13 @@
         <div *ngIf="reviews && reviews.length > 0">
             <ul>
                 <li class="inside-container" *ngFor="let review of reviews">
-                    <span>Product Name:{{review.product.productName}}</span><br>
+                    <!-- <span>Product Name:{{review.product.productName}}</span><br> -->
                     <span>Rating: {{review.rating}}</span><br>
                     <span>Date: {{review.date}}</span><br>
                     <span>{{review.reviewText}}</span><br>
                     <div class="btn">
                         <button (click)="viewProduct(review.product.productId)" >View Product</button>
-                        <button (click)= "viewProfile(review.user.userId)">View Profile</button>
+                        <button (click)= " viewProfile(review.user.userId) ">View Profile</button>
                     </div>
                     
                 </li>
