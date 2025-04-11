@@ -1,36 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-
+ 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private authService : AuthService, private router : Router) { }
-
-  email : string = "";
-  password : string = "";
-  role : string = "";
+  loginForm: FormGroup;
+ 
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
+ 
   ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email: this.fb.control('', Validators.required),
+      password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
+    });
   }
+ 
+ 
+ 
+  public onSubmit(): void {
+      //  if (this.loginForm.valid) {
+      //  console.log('Login form is valid. Submitting:', this.loginForm.value);
+      //  this.authService.login(this.loginForm.value);
+      //  } else {
+      //  console.error('Login form is invalid:', this.loginForm.errors);
+       
+      //  }
+     }
+   
 
-  public login() : void{
-
-    let loginuser={email : this.email, password: this.password, role: this.role};
-    let isloginuser=this.authService.login(this.email,this.password,this.role);
-    if(isloginuser){
-      const role=loginuser.role;
-      if(role){
-        if(role==='ADMIN'){
-          this.router.navigate(['/admin']);
-        }
-        else if(role === 'USER'){
-          this.router.navigate(['/user']);
-        }else{}
-      }else{}
-    }
-  }
 }
