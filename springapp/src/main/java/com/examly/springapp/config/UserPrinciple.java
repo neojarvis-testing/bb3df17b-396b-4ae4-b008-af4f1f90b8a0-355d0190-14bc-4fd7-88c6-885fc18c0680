@@ -1,5 +1,6 @@
 package com.examly.springapp.config;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -11,67 +12,33 @@ import com.examly.springapp.model.User;
 
 public class UserPrinciple implements UserDetails{
 
-    // @Override
-    // public Collection<? extends GrantedAuthority> getAuthorities() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
-    // }
 
-    // @Override
-    // public String getPassword() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
-    // }
+    private String username;
+    private String password;
+    Collection<? extends GrantedAuthority> authorities;
 
-    // @Override
-    // public String getUsername() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
-    // }
-
-    // @Override
-    // public boolean isAccountNonExpired() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'isAccountNonExpired'");
-    // }
-
-    // @Override
-    // public boolean isAccountNonLocked() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'isAccountNonLocked'");
-    // }
-
-    // @Override
-    // public boolean isCredentialsNonExpired() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'isCredentialsNonExpired'");
-    // }
-
-    // @Override
-    // public boolean isEnabled() {
-    //     // TODO Auto-generated method stub
-    //     throw new UnsupportedOperationException("Unimplemented method 'isEnabled'");
-    // }
-
-    private final User user;
 
     public UserPrinciple(User user){
-        this.user = user;
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getUserRole()));
+        this.authorities = authorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + user.getUserRole()));
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return username;
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return password;
     }
 
     @Override

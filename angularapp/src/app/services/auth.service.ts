@@ -9,13 +9,16 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
 
-  private baseUrl:string="https://ide-aadbcaebbcafddadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080";
+  private baseUrl:string="";
 
   constructor(private httpClient:HttpClient) { }
-
+  
+  public getUserById(userId:number):Observable<any>{
+    return this.httpClient.get(this.baseUrl+"/api/register/"+userId);
+  }
+  
   public register(user:User):Observable<any> {
      return this.httpClient.post<any>(`${this.baseUrl}/api/register`, user);
-
   }
 
   public login(username:string,password:string,role:string):Observable<any> {
@@ -37,6 +40,5 @@ export class AuthService {
 
   public isUser():boolean {
     return localStorage.getItem('role') === 'USER';
-  }
- 
+  } 
 }
