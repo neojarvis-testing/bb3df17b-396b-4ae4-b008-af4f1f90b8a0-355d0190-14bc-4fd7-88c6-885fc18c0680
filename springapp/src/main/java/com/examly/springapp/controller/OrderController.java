@@ -40,14 +40,15 @@ public class OrderController {
      
 
     @GetMapping("/api/orders/user/{userId}")
-    public ResponseEntity<?> getOrderByUserId(@PathVariable Long userId){
-        try{
-            List<Order> orderList = orderService.getOrdersByUserId(userId);
-            return ResponseEntity.status(200).body(orderList);
-        }catch(EntityNotFoundException e){
-            return ResponseEntity.status(404).body(e.getMessage());
-        }
+    public ResponseEntity<?> getOrdersByUserId(@PathVariable Long userId) {
+    try {
+        List<Order> orderList = orderService.getOrdersByUserId(userId);
+        return ResponseEntity.status(200).body(orderList);
+    } catch (OrderNotFoundException e) {
+        return ResponseEntity.status(404).body(e.getMessage());
     }
+}
+
 
 
     @GetMapping("/api/orders")

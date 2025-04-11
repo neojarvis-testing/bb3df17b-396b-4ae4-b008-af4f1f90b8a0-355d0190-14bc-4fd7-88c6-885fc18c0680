@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class OrderItemService {
 
-  apiUrl: string=''; 
+  apiUrl: string='https://ide-fadeafcbaeefadadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080'; 
 
   constructor(private httpClient: HttpClient) { }
 
