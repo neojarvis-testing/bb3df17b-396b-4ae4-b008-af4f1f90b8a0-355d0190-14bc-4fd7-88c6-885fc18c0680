@@ -1,1 +1,16 @@
-<p>myreview works!</p>
+
+<div>
+    <h2>My Reviews</h2>
+    <div>
+        <ul>
+            <li *ngFor="let review of reviews">
+                <span>{{review.product.productName}}</span>
+                <span>{{review.rating}}</span>
+                <span>{{review.date}}</span>
+                <span>{{review.reviewText}}</span>
+                <button>View Product</button>
+                <button>Delete Review</button>
+            </li>
+        </ul>
+    </div>
+</div>
