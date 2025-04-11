@@ -1,32 +1,36 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../models/product.model';
-import { Observable } from 'rxjs';
-import { OrderItem } from '../models/order-item.model';
+import { Cart } from '../models/cart.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-
-  private baseUrl:string="";
   
-  constructor(private httpClient : HttpClient) { }
-  
+  constructor() { }
+  private products : Cart[] = [];
+  public cart : Cart;
 
-  public addToCart(product : Product, quantity : number) : Observable<any>{
-    
+  public addToCart(product : Product, quantity : number) : void{
+    this.cart.product = product;
+    this.cart.quantity = quantity;
+    let existingProduct = this.products.find(i => i.productId == this.cart.productId);
+    if(existingProduct){
+      existingProduct.quantity += this.cart.quantity;
+    } else {
+      this.products.push(this.cart);
+    }
   }
 
-  public removeFromCart(productId : number) : Observable<any>{
-    return null;
+  public removeFromCart(productId : number) : void{
+    this.products = this.products.filter(c => c.productId != productId);
   }
 
-  public getCartItems(OrderItem : any[]) : Observable<any>{
-    return null;
+  public getCartItems() : void{ 
+    this.products.map(c =>({ product : c.product ,quantity : c.quantity }));
   } 
 
-  public clearCart() : Observable<any>{
-    return null;
+  public clearCart() : void{
+    this.products = [];
   }
 }
