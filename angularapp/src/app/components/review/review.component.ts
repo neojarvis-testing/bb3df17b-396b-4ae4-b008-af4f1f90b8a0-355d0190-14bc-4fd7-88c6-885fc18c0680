@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Product } from 'src/app/models/product.model';
+
 import { Review } from 'src/app/models/review.model';
 import { User } from 'src/app/models/user.model';
+import { ProductService } from 'src/app/services/product.service';
 import { ReviewService } from 'src/app/services/review.service';
 
 @Component({
@@ -16,6 +19,7 @@ export class ReviewComponent implements OnInit {
     user: new User,
     product: undefined
   }
+  productId:number;
   stars: boolean[] = [false, false, false, false, false];
   
   
@@ -26,10 +30,11 @@ rate(rating: number) {
   }
   
   
-  constructor(private reviewService :ReviewService,private router:Router) { }
+  constructor(private reviewService :ReviewService,private router:Router,private activatedRoute:ActivatedRoute,private productService:ProductService) { }
 
   ngOnInit(): void {
-    
+    this.productId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+       
   }
   submitReview(){
     this.reviewService.addReview(this.review).subscribe(data=>{

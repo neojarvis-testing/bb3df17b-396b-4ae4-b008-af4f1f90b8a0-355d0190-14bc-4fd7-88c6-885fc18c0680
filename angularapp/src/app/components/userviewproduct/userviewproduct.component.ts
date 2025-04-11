@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/models/product.model';
+import { Review } from 'src/app/models/review.model';
 import { ProductService } from 'src/app/services/product.service';
+import { ReviewService } from 'src/app/services/review.service';
 
 @Component({
   selector: 'app-userviewproduct',
@@ -9,13 +11,15 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class UserviewproductComponent implements OnInit {
 
-  products:Product[]=[]
+  products:Product[]=[];
+  reviews:Review[]=[];
+  productname:string;
   filteredProducts:Product[]=[]
   searchData = '';
   selectedCategory = '';
   selectedQuantity:number;
 
-  constructor(private productService:ProductService) { }
+  constructor(private productService:ProductService,private reviewService:ReviewService) { }
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -26,6 +30,12 @@ export class UserviewproductComponent implements OnInit {
       this.products=data;
       selectedQuantity: 1
       this.filteredProducts=data;
+    })
+  }
+  viewReview(productId:number){
+    this.reviewService.getReviewsByProductId(productId).subscribe(data=>{
+        this.reviews = data;
+        
     })
   }
 
