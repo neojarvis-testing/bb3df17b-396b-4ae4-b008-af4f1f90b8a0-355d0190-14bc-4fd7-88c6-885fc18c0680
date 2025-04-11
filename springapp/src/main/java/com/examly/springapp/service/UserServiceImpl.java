@@ -93,22 +93,28 @@ public class UserServiceImpl implements UserService{
     // }
 
     
+// @Override
+// public User loginUsera(User user) {
+
+//     Authentication authentication = authenticationManager.authenticate(
+//     new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
+//     if (authentication.isAuthenticated()) {
+//         return userRepo.findByEmail(user.getEmail()).orElseThrow(() -> new InvalidCredentialsException("Invalid Email or Password"));
+//     } else {
+//         return null;
+//         } 
+//     }
+
 @Override
 public User loginUser(User user) {
-
-    Authentication authentication = authenticationManager.authenticate(
-    new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
-    );
-    if (authentication.isAuthenticated()) {
-        return userRepo.findByEmail(user.getEmail()).orElseThrow(() -> new InvalidCredentialsException("Invalid Email or Password"));
-    } else {
-        return null;
-        } 
+    Optional<User> userOpt = userRepo.findByEmail(user.getEmail());
+    User existingUser = userOpt.orElseThrow(() -> new InvalidCredentialsException("Invalid Email or Password"));
+    System.out.println("Stored Encoded Password: " + existingUser.getPassword()); // Log the stored encoded password
+    if (passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
+        return existingUser;
     }
+    throw new InvalidCredentialsException("Invalid Email or Password");
 }
 
 
-
-
-
-
+}

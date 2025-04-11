@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError} from 'rxjs/operators'
 import { User } from '../models/user.model';
+import { Login } from '../models/login.model'
 import { apiUrl } from 'src/url';
-import { LoginComponent } from '../components/login/login.component';
 
 @Injectable({
   providedIn: 'root'
@@ -31,27 +31,29 @@ export class AuthService {
     );
   }
 
-//   public login(login : LoginComponent) {
-//     this.httpClient.post<{ token: string; userRole: string }>(`${this.baseUrl}/api/login`, login).subscribe(
-//         response => {
-//             const { token, userRole } = response;
+  public login(login : Login) {
+    this.httpClient.post<{ token: string; role: string }>(`${this.baseUrl}/api/login`, login).subscribe(
+        response => {
+            const { token, role } = response;
  
-//             // Store token and role in localStorage
-//             localStorage.setItem('token', token);
-//             localStorage.setItem('userRole', userRole);
+            // Store token and role in localStorage
+            localStorage.setItem('token', token);
+            localStorage.setItem('userRole', role);
  
-//             // Navigate based on user role
-//             if (userRole == 'ADMIN') {
-//                 this.router.navigate(['/adminNav']); // Navigate to adminnavbar
-//             } else if (userRole == 'USER') {
-//                 this.router.navigate(['/userNav']); // Navigate to usernavbar
-//             }
-//         },
-//         error => {
-//             console.error('Login failed', error);
-//         }
-//     );
-// }
+            // Navigate based on user role
+            if (role == 'ADMIN') {
+                console.log("admin")
+                this.router.navigate(['/admin-nav']); // Navigate to adminnavbar
+            } else if (role == 'USER') {
+              console.log("user")
+                this.router.navigate(['/user-nav']); // Navigate to usernavbar
+            }
+        },
+        error => {
+            console.error('Login failed', error);
+        }
+    );
+}
 
   public isLoggedIn():boolean {
     return !!localStorage.getItem('token');
