@@ -14,7 +14,7 @@ export class AuthService {
 
   private baseUrl=apiUrl;
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,private router:Router) { }
   
   public getUserById(userId:number):Observable<any>{
     
