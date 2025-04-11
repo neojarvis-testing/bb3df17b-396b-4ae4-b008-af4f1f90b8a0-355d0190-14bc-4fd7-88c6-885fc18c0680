@@ -29,7 +29,7 @@ const routes: Routes = [
   {path:'order-placed',component:OrderplacedComponent},
   {path:'product-create',component:ProductCreateComponent},
   {path:'edit-product/:id',component:ProductCreateComponent},
-  {path:'review',component:ReviewComponent},
+  {path:'review/:id',component:ReviewComponent},
   {path:'sign-up',component:SignupComponent},
   {path:'user-nav',component:UsernavComponent},
   {path:'user-view-product',component:UserviewproductComponent},
