@@ -1,5 +1,7 @@
 package com.examly.springapp.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +17,7 @@ public class Cart {
     private Long cartId;
 
     @OneToMany
-    private Product product;
+    private List<Product> products;
 
     @OneToOne
     private User user;
@@ -23,9 +25,9 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(Long cartId, Product product, User user) {
+    public Cart(Long cartId, List<Product> products, User user) {
         this.cartId = cartId;
-        this.product = product;
+        this.products = products;
         this.user = user;
     }
 
@@ -37,12 +39,12 @@ public class Cart {
         this.cartId = cartId;
     }
 
-    public Product getProduct() {
-        return product;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public User getUser() {
@@ -55,7 +57,7 @@ public class Cart {
 
     @Override
     public String toString() {
-        return "Cart [cartId=" + cartId + ", product=" + product + ", user=" + user + "]";
+        return "Cart [cartId=" + cartId + ", products=" + products + ", user=" + user + "]";
     }
 
     
