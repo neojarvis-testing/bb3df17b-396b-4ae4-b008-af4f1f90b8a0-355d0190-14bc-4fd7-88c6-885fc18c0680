@@ -18,7 +18,7 @@ export class ReviewService {
     return this.httpClient.get(this.baseUrl+"/api/reviews/"+reviewId);
   }
   getAllReviews():Observable<any>{
-    return this.httpClient.get(this.baseUrl);
+    return this.httpClient.get(this.baseUrl+"/api/reviews");
   }
   getReviewsByUserId(userId:number):Observable<any>{
     return this.httpClient.get(this.baseUrl+"/api/reviews/user/"+userId);
