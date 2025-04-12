@@ -26,6 +26,11 @@ public class OrderItem {
     @JsonBackReference
     private Order order;
 
+    @ManyToOne
+    @JoinColumn(name="cartId")
+    private Cart cart;
+
+
     public OrderItem() {
     }
 
@@ -81,6 +86,14 @@ public class OrderItem {
     public String toString() {
         return "OrderItem [orderItemId=" + orderItemId + ", quantity=" + quantity + ", price=" + price + ", product="
                 + product + ", order=" + order + "]";
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     
