@@ -4,79 +4,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.model.Cart;
-import com.examly.springapp.model.OrderItem;
-import com.examly.springapp.model.Product;
 import com.examly.springapp.model.User;
 import com.examly.springapp.repository.CartRepo;
-import com.examly.springapp.repository.ProductRepo;
-import com.examly.springapp.repository.UserRepo;
-
 
 @Service
-public class CartServiceImpl implements CartService{
+public class CartServiceImpl implements CartService {
+    
+    @Autowired
+    private CartRepo cartRepository;
 
     @Autowired
-    private ProductRepo productRepo;
+    private UserServiceImpl userService;
 
-    @Autowired
-    private CartRepo cartRepo;
+    public Cart getCartByUser(Long userId) {
+        User user = userService.getUserById(userId);
+        return cartRepository.findByUser(user)
+            .orElseGet(() -> createNewCart(user));
+    }
 
-    @Autowired
-    private UserRepo userRepo;
-
-    @Override
-    public Cart getCartByUserId(Long userId) {
-        User user = userRepo.findById(userId).orElse(null);
-
-
-        // Fetch the product by ID
-        // Product product = productRepo.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
-
-        // Create a new Cart entity and set user and product
+    public  Cart createNewCart(User user) {
         Cart cart = new Cart();
         cart.setUser(user);
-        // cart.setProduct(product);
-        return user.getCart();
+        return cartRepository.save(cart);
     }
 
-
-    @Override
-    public Cart addToCart(Long userId, Long productId, int quantity) {
-        User user = userRepo.findById(userId).orElse(null);
-        Product product = productRepo.findById(productId).orElse(null);
-        
-        Cart cart = user.getCart();
-        if (cart == null) {
-            cart = new Cart();
-            cart.setUser(user);
-            user.setCart(cart);
-        }
-        
-        OrderItem orderItem = cart.getItems().stream()
-                        .filter(item -> item.getProduct().getProductId().equals(productId))
-                        .findFirst()
-                        .orElse(new OrderItem());
-        
-        orderItem.setProduct(product);
-        orderItem.setQuantity(orderItem.getQuantity() + quantity);
-        orderItem.setCart(cart);
-        
-        cart.getItems().add(orderItem);
-        cartRepo.save(cart);
-        
-        return cart;
-        
-    }
-
-    @Override
     public void clearCart(Long userId) {
-        User user = userRepo.findById(userId).orElse(null);
-        Cart cart = user.getCart();
-        if (cart != null) {
-            cart.getItems().clear();
-            cartRepo.save(cart);
-        }
-        
+        Cart cart = getCartByUser(userId);
+        cart.getCartItems().clear();
+        cartRepository.save(cart);
     }
-
 }

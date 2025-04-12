@@ -8,8 +8,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UsernavComponent implements OnInit {
 
-  userId : number = 4;
-
+  userId : number = parseInt(localStorage.getItem('userId'));
+  username : string = localStorage.getItem('username');
+  
   constructor(private authService : AuthService) { }
 
 

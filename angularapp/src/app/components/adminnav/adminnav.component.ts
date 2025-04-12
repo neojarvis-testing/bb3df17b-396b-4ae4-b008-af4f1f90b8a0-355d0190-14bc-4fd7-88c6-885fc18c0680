@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AdminnavComponent implements OnInit {
 
+  username : string = localStorage.getItem('username');
+  
   constructor(private authService : AuthService) { }
 
   ngOnInit(): void {
