@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsernavComponent implements OnInit {
 
+  userId:number=4;
   constructor() { }
 
   ngOnInit(): void {
