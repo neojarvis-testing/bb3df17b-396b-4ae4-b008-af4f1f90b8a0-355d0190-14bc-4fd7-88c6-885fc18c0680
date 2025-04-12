@@ -34,6 +34,7 @@ export class ReviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.productId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.review.user.userId = 1;
     this.productService.getProductById(this.productId).subscribe(product => {
       this.review.product = product;
     });
