@@ -14,7 +14,7 @@ export class AuthService {
 
   private baseUrl=apiUrl;
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient, private router : Router) { }
   
   public getUserById(userId:number):Observable<any>{
     
@@ -43,10 +43,12 @@ export class AuthService {
             // Navigate based on user role
             if (role == 'ADMIN') {
                 console.log("admin")
-               // this.router.navigate(['/admin-nav']); // Navigate to adminnavbar
+                this.router.navigate(['/home-page']); // Navigate to adminnavbar
+                // window.location.href = '/admin-nav';
             } else if (role == 'USER') {
               console.log("user")
-               // this.router.navigate(['/user-nav']); // Navigate to usernavbar
+              // window.location.href = '/user-nav';
+                this.router.navigate(['/home-page']); // Navigate to usernavbar
             }
         },
         error => {
