@@ -24,6 +24,7 @@ export class MyorderComponent implements OnInit {
 
   ngOnInit(): void {
     const routeParam = this.activatedRoute.snapshot.paramMap.get("id");
+    console.log('Route Parameter ID:', routeParam);
     if (routeParam) {
         this.userId = parseInt(routeParam, 10);
         this.getAllOrdersByUserId();
@@ -41,16 +42,16 @@ export class MyorderComponent implements OnInit {
 
   public viewItems(orderId: number): void {
     this.orderItemService.getOrderItems(orderId).subscribe({
-      next: items => {
-          this.selectedOrderItems = items;
-          this.showModal = true;
-      },
-      error: err => {
-          console.error("Failed to fetch order items:", err);
-          alert("Unable to fetch order items. Please try again later.");
-      }
-  });
-  }
+        next: items => {
+            this.selectedOrderItems = items;
+            this.showModal = true;
+        },
+        error: err => {
+            console.error("Failed to fetch order items:", err);
+            alert("Unable to fetch order items. Please try again later.");
+        }
+    });
+}
 
   public closeModal(): void {
     this.showModal = false;

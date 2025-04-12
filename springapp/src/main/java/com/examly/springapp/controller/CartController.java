@@ -2,6 +2,8 @@ package com.examly.springapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +17,23 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @PostMapping("/api/cart/{userId}/{productId}")
-    public ResponseEntity<?> addToCart(@PathVariable Long userId,@PathVariable Long productId){
-        Cart savedCart=cartService.addToCart(userId, productId);
-        return ResponseEntity.status(200).body(savedCart);
+    @GetMapping("/api/cart/{userId}")
+    public ResponseEntity<Cart> getCartByUserId(@PathVariable Long userId) {
+        Cart cart = cartService.getCartByUserId(userId);
+        return ResponseEntity.status(200).body(cart);
     }
 
+    @PostMapping("/{userId}/add/{productId}/{quantity}")
+    public ResponseEntity<Cart> addItemToCart(@PathVariable Long userId, @PathVariable Long productId, @PathVariable int quantity) {
+        Cart cart = cartService.addToCart(userId, productId, quantity);
+        return ResponseEntity.status(201).body(cart);
+    }
+
+
+    @DeleteMapping("/api/cart/{userId}/clear")
+    public ResponseEntity<Void> clearCart(@PathVariable Long userId) {
+        cartService.clearCart(userId);
+        return ResponseEntity.noContent().build();
+    }
 }
+

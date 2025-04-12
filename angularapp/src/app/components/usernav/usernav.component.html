@@ -9,7 +9,7 @@
         <a>Products</a>
         <div class="dropdown-content">
           <a routerLink="/user-view-product">View Products</a>
-          <a routerLink="/my-order">My Orders</a>
+          <a [routerLink]="['/my-order',userId]">My Orders</a>
         </div>
       </div>
       <a routerLink="/my-review">Reviews</a>
