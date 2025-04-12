@@ -2,9 +2,7 @@
     <div style="display: flex; justify-content: flex-end; width: 100%;">
         <button (click)="sortOrders()">Sort Orders by Date (Ascending)</button>
     </div>
-
     <input type="text" id="orderIdInput" placeholder="Enter Order ID" [(ngModel)]="searchId" (keyup)="searchOrder()">
-
     <ul *ngIf="orders">
         <li *ngFor="let order of orders">
             <p>Order ID: {{order.orderId}}</p>
@@ -14,16 +12,59 @@
             <p>Billing Address: {{order.billingAddress}}</p>
             <p>Total Amount: {{order.totalAmount}}</p>
             <select name="orderStatus" id="orderStatus" [(ngModel)]="order.orderStatus">
-                <option value="Pending">Pending</option>
-                <option value="Accepted">Accepted</option>
-                <option value="Dispatched">Dispatched</option>
-                <option value="OutForDelivery">OutForDelivery</option>
-                <option value="Delivered">Delivered</option>
+                <option *ngFor="let status of orderStatus" [value]="status" [selected]="status == order.orderStatus" >{{status}}</option>
             </select>
+            <div class="products-container">
+                <!-- <h3>Products in the Order:</h3> -->
+                <div *ngFor="let item of order.orderItems" class="product-box">
+                    <span class="product-name">Product: {{ item.product.productName }} </span><br>
+                    <span class="product-quantity">Quantity: {{ item.quantity }}</span>
+                </div>
+            </div>
             <!-- <p>product: {{order.user.userId}}</p> -->
+            <div class="button">
+            <button (click)="viewProfile(order.user)">View Profile</button>
+            <button (click)="getOrderItemByOrderId(order.orderId)" class="view-items-button">View Items</button>
+            </div>
         </li>
     </ul>
 </div>
+<div *ngIf="selectedUser" class="popup">
+    <h3>User Details:</h3>
+    <p><strong>Email:</strong> {{selectedUser.email}}</p>
+    <p><strong>Username:</strong> {{selectedUser.username}}</p>
+    <p><strong>Mobile Number:</strong> {{selectedUser.mobileNumber}}</p>
+    <button (click)="closeProfile()">Close</button>
+</div>
+<div class="popup-orderItem">
+    <ul>
+        <li *ngFor="let item of selectedOrderItems" class="product-details-box">
+            <p><strong>Product:</strong> {{ item.product.productName }}</p>
+            <p><strong>Brand:</strong> {{ item.product.brand }}</p>
+            <p><strong>Category:</strong> {{ item.product.category }}</p>
+            <p><strong>Description:</strong> {{ item.product.description }}</p>
+            <p><strong>Price:</strong> ₹{{ item.product.price }}</p>
+            <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+        </li>
+    </ul>
+</div>
+<!-- <div class="modal" *ngIf="showModal">
+    <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>Order Items</h2>
+        <ul>
+            <li *ngFor="let item of selectedOrderItems" class="product-details-box">
+                <p><strong>Product:</strong> {{ item.product.productName }}</p>
+                <p><strong>Brand:</strong> {{ item.product.brand }}</p>
+                <p><strong>Category:</strong> {{ item.product.category }}</p>
+                <p><strong>Description:</strong> {{ item.product.description }}</p>
+                <p><strong>Price:</strong> ₹{{ item.product.price }}</p>
+                <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+            </li>
+        </ul>
+        <button class="close-modal-button" (click)="closeModal()">Close</button>
+    </div>
+</div> -->
 
 <div *ngIf="orders.length === 0">
     <h1>No Orders Found</h1>

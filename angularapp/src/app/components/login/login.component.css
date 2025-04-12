@@ -1,3 +1,4 @@
+/* Full-screen flex container */
 .container-flex {
     padding: 0;
     height: 100vh;
@@ -6,48 +7,89 @@
     align-items: center;
     background: url('../../../assets/images/background.webp') no-repeat center center fixed;
     background-size: cover;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
+/* Glassmorphic Login Box */
 .loginForm {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    transition: transform 0.3s ease-in-out;
 }
 
+.loginForm:hover {
+    transform: scale(1.02);
+}
+
+/* Styling Login Form */
 .login-form {
     display: flex;
     flex-direction: column;
 }
 
+/* Inputs with smooth focus effect */
 .form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
+    position: relative;
 }
 
 .form-group input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    width: 100%;
+    border: 2px solid #007BFF;
+    border-radius: 8px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
 }
 
+/* Input focus effect */
+.form-group input:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+}
+
+/* Login button with hover effect */
 button {
-    padding: 10px;
+    padding: 12px;
     border: none;
-    border-radius: 5px;
-    background-color: #007BFF;
+    border-radius: 8px;
+    background: linear-gradient(to right, #007BFF, #0056b3);
     color: white;
+    font-size: 17px;
     cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 button:hover {
-    background-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
 }
 
-h2{
-    text-align: center;
+/* Signup link with smooth underline animation */
+p a {
+    color: #007BFF;
+    text-decoration: none;
+    position: relative;
+}
+
+p a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background: #007BFF;
+    transition: transform 0.3s ease-in-out;
+    transform: scaleX(0);
+}
+
+p a:hover::after {
+    transform: scaleX(1);
 }
