@@ -39,7 +39,7 @@ export class MyreviewComponent implements OnInit {
   }
   deleteReview(reviewId:number){
       this.reviewService.deleteReview(reviewId).subscribe(data=>{
-        
+        this.getAllReviewsByUserId();
       })
   }
   
