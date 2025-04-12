@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CartItem } from 'src/app/models/cart-item.model';
 import { Product } from 'src/app/models/product.model';
 import { Review } from 'src/app/models/review.model';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ReviewService } from 'src/app/services/review.service';
 
@@ -18,8 +21,10 @@ export class UserviewproductComponent implements OnInit {
   searchData = '';
   selectedCategory = '';
   selectedQuantity:number;
+  userId:number;
+  cartItems:CartItem;
 
-  constructor(private productService:ProductService,private reviewService:ReviewService) { }
+  constructor(private productService:ProductService,private reviewService:ReviewService, private cartService:CartService,private router:Router ) { }
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -59,7 +64,16 @@ export class UserviewproductComponent implements OnInit {
     this.filteredProducts = this.products.filter(data =>{
      return data.productName.toLowerCase().includes(this.searchData.toLowerCase()) &&
      (this.selectedCategory ? data.category === this.selectedCategory : true)
-    });
+    }
+  );
  }
+ addToCart(){
+  let productId = this.cartItems.product.productId;
+  let qty = this.cartItems.quantity;
+
+  this.cartService.addToCart(this.userId,productId,qty,null).subscribe(data => {
+    this.router.navigate(['/cart']);
+  });
+}
 
 }

@@ -16,13 +16,13 @@ export class CartService {
   private products : Cart[] = [];
   public cart : Cart;
 
-  public addToCart(userId,productId) : Observable<any>{
-    return this.httpClient.post(this.apiUrl+"/api/cart/",userId,productId);
+  public addToCart(userId,productId,quantity,cart) : Observable<any>{
+    return this.httpClient.post(this.apiUrl+"/api/cart/"+userId+"/"+productId+"/"+quantity,cart);
   }
 
-  public removeFromCart(productId : number) : void{
-    this.products = this.products.filter(c => c.productId != productId);
-  }
+  // public removeFromCart(productId : number) : void{
+  //   this.products = this.products.filter(c => c.productId != productId);
+  // }
 
   public getCartItems() : void{ 
     this.products.map(c =>({ product : c.product ,quantity : c.quantity }));

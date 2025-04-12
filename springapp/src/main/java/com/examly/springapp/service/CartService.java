@@ -1,10 +1,9 @@
 package com.examly.springapp.service;
 
 import com.examly.springapp.model.Cart;
+import com.examly.springapp.model.User;
 
 public interface CartService {
-
-    public Cart getCartByUserId(Long userId);
-    public Cart addToCart(Long userId,Long productId,int quantity);
-    public void clearCart(Long userId);
+    public Cart getCartByUser(Long userId);
+    public Cart createNewCart(User user);
 }

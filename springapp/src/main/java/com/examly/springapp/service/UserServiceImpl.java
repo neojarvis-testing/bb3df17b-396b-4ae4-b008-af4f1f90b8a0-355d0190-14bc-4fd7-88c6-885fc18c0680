@@ -116,5 +116,15 @@ public User loginUser(User user) {
     throw new InvalidCredentialsException("Invalid Email or Password");
 }
 
+@Override
+public User getUserByEmail(String email) {
+    Optional<User> opt = userRepo.findByEmail(email);
+        if(opt.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
+        return opt.get();
+    
+}
+
 
 }

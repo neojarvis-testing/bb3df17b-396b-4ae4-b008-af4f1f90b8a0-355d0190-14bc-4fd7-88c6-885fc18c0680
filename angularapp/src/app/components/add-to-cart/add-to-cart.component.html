@@ -1,0 +1,9 @@
+<div class="container">
+    <h2>Your Cart</h2>
+    <ul>
+        <li *ngFor="let cartItem of cartItems">
+            <b>{{cartItem.product.productName}}</b>
+            {{quantity}}
+        </li>
+    </ul>
+</div>
