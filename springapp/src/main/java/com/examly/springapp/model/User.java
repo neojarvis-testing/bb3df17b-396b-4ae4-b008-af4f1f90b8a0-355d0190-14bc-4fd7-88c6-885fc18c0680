@@ -23,8 +23,8 @@ public class User {
     private String mobileNumber;
     private String userRole;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    // private List<Order> orders;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id", referencedColumnName = "cartId")
@@ -79,13 +79,13 @@ public class User {
         this.userRole = userRole;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
+    // public List<Order> getOrders() {
+    //     return orders;
+    // }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
+    // public void setOrders(List<Order> orders) {
+    //     this.orders = orders;
+    // }
 
     public Cart getCart() {
         return cart;
