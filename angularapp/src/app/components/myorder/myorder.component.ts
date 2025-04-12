@@ -15,6 +15,8 @@ export class MyorderComponent implements OnInit {
   showModal: boolean = false;
   orders: Order[] = [];
   userId: number;
+  currentOrderStatus: string = '';
+  showTrackOrderModal: boolean = false;
 
   constructor(
     private orderService: OrderService,
@@ -58,9 +60,41 @@ export class MyorderComponent implements OnInit {
     this.selectedOrderItems = [];
   }
 
+  // public deleteOrder(orderId: number): void {
+  //   this.orderService.deleteOrder(orderId).subscribe(() => {
+  //     this.orders = this.orders.filter(order => order.orderId !== orderId); // Update the orders list
+  //   });
+  // }
+
+  public openTrackOrderModal(orderStatus: string): void {
+    this.currentOrderStatus = orderStatus; // Set the current order status
+    this.showTrackOrderModal = true;
+  }
+
+  public closeTrackOrderModal(): void {
+    this.showTrackOrderModal = false;
+  }
+
+  public getOrderStatusClass(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'pending':
+        return 'pending';
+      case 'accepted':
+        return 'accepted';
+      case 'dispatched':
+        return 'dispatched';
+      case 'outfordelivery':
+        return 'outfordelivery';
+      case 'delivered':
+        return 'delivered';
+      default:
+        return 'pending'; // Default to "Pending"
+    }
+  }
+
   public deleteOrder(orderId: number): void {
     this.orderService.deleteOrder(orderId).subscribe(() => {
-      this.orders = this.orders.filter(order => order.orderId !== orderId); // Update the orders list
+      this.orders = this.orders.filter(order => order.orderId !== orderId);
     });
   }
 }

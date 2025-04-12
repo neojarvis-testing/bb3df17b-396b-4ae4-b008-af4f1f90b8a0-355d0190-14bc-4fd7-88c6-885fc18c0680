@@ -18,7 +18,7 @@
             </div>
 
             <div class="buttons-container">
-                <button class="track-order-button">Track Order</button>
+                <button (click)="openTrackOrderModal(order.orderStatus)" class="track-order-button">Track Order</button>
                 <button (click)="viewItems(order.orderId)" class="view-items-button">View Items</button>
                 <button (click)="deleteOrder(order.orderId)" class="cancel-order-button">Cancel Order</button>
             </div>
@@ -30,6 +30,7 @@
     </div>
 </div>
 
+<!-- Items List Modal -->
 <div class="modal" *ngIf="showModal">
     <div class="modal-content">
         <span class="close" (click)="closeModal()">&times;</span>
@@ -45,5 +46,24 @@
             </li>
         </ul>
         <button class="close-modal-button" (click)="closeModal()">Close</button>
+    </div>
+</div>
+
+<!-- Track Order Modal -->
+<div class="modal" *ngIf="showTrackOrderModal">
+    <div class="modal-content">
+        <span class="close" (click)="closeTrackOrderModal()">&times;</span>
+        <h2>Track Order</h2>
+        <div class="progress-container">
+            <div class="progress-bar" [ngClass]="getOrderStatusClass(currentOrderStatus)"></div>
+            <div class="status-indicators">
+                <span>Pending</span>
+                <span>Accepted</span>
+                <span>Dispatched</span>
+                <span>OutForDelivery</span>
+                <span>Delivered</span>
+            </div>
+        </div>
+        <button class="close-modal-button" (click)="closeTrackOrderModal()">Close</button>
     </div>
 </div>
