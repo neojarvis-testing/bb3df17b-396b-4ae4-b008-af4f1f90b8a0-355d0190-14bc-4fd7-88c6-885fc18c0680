@@ -71,6 +71,7 @@ loginDTO.setToken(token);
  loginDTO.setEmail(loggedInUser.getEmail());
  loginDTO.setRole(loggedInUser.getUserRole());
  loginDTO.setUserId(loggedInUser.getUserId().intValue());
+ loginDTO.setUsername(loggedInUser.getUsername());
 
  return new ResponseEntity<>(loginDTO, HttpStatus.OK);
  } catch (RuntimeException e) {
