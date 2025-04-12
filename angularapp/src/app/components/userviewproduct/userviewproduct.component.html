@@ -21,6 +21,7 @@
                 <option value="beauty">Beauty</option>
             </select>
         </div>
+
     </div>
     
     <!-- Product Cards -->
@@ -53,3 +54,24 @@
 
     </div>
 </div>
+
+
+<div class="popup" *ngIf="popupVisible">
+    
+    <div *ngIf="reviews && reviews.length > 0">
+      <h2>Reviews</h2>
+      <ul>
+        <li *ngFor="let review of reviews">
+          <span>Rating: {{ review.rating }}/5</span>
+          <span>{{ review.reviewText }}</span>
+          <span>Date: {{ review.date | date:'mediumDate' }}</span>
+        </li>
+      </ul>
+    </div>
+    
+    <div *ngIf="!reviews || reviews.length === 0">
+      <span>No review found for this product.</span>
+    </div>
+    <button (click)="closePopup()">Close</button>
+  </div>
+

@@ -20,7 +20,10 @@ export class UserviewproductComponent implements OnInit {
   filteredProducts:Product[]=[]
   searchData = '';
   selectedCategory = '';
-  selectedQuantity:number=0;
+
+  selectedQuantity:number;
+  popupVisible: boolean = false;
+
   userId:number = parseInt(localStorage.getItem('userId'));
   cartItems:CartItem;
 
@@ -39,14 +42,11 @@ export class UserviewproductComponent implements OnInit {
   }
   viewReview(productId:number){
     this.reviewService.getReviewsByProductId(productId).subscribe(data=>{
-        this.reviews = data;
-        
+        this.reviews = data;   
     })
+    this.popupVisible= true;
   }
 
-  // generateQuantityOptions(stock: number): number[] {
-  //   return Array.from({ length: stock }, (_, i) => i + 1); // Generates [1, 2, ..., stock]
-  // }
 
   validateQuantity(product: Product) {
     if (this.selectedQuantity > product.stockQuantity) {
@@ -67,6 +67,10 @@ export class UserviewproductComponent implements OnInit {
     }
   );
  }
+
+ closePopup() {
+  this.popupVisible = !(this.popupVisible);
+
  addToCart(product:Product){
   let productId = product.productId;
   let qty:number = this.selectedQuantity;
@@ -75,6 +79,7 @@ export class UserviewproductComponent implements OnInit {
     this.router.navigate(['/cart']);
     product.stockQuantity -= qty;
   });
+
 }
 
 }

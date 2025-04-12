@@ -1,0 +1,95 @@
+
+.container{
+    background-color: whitesmoke;
+    padding : 10px;
+}
+.container h2{
+    text-align: center;
+    padding: 15px 0;
+}
+ul{
+    padding: 0;
+}
+ul li{
+    list-style: none;
+    border:1px solid rgba(0, 0, 0, 0.213);
+    margin: 5px 0;
+}
+.container .inner-div{
+    background-color: white;
+}
+.container .item{
+    padding: 10px;
+}
+.item .bold{
+    font-weight: 700;
+    font-size: 23px;
+
+}
+.item span{
+}
+.item .btn{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    padding:5px 0px;
+}
+.btn button{
+    padding:5px;
+    border-radius: 7px;
+}
+.btn .left{
+    background-color: rgb(9, 180, 243);
+    color: white;
+}
+.btn .right{
+    background-color: rgb(255, 6, 6);
+    color: white;
+    
+}
+
+.fa-star, .fa-star-o {
+    color: gold;
+    font-size: 20px;
+}
+    
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .popup button {
+    margin-top: 10px;
+  }
+  .star-rating {
+    display: flex;
+    cursor: pointer;
+ 
+ }
+ 
+ .star-rating span {
+    font-size: 2em;
+    color: lightgray;
+ }
+ 
+ .star-rating span.filled {
+    color: gold;
+ }
+ 
+  
