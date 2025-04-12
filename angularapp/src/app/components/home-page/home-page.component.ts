@@ -12,4 +12,12 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isAdmin() : boolean{
+    return localStorage.getItem('userRole') === 'ADMIN';
+  }
+
+  isUser() : boolean{
+    return localStorage.getItem('userRole') === 'USER';
+  }
+
 }

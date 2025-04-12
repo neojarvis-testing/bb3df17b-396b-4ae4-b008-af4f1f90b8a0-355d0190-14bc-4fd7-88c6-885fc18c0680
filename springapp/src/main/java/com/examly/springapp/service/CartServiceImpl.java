@@ -29,7 +29,16 @@ public class CartServiceImpl implements CartService{
         User user = userRepo.findById(userId).orElse(null);
         return user.getCart();
 
+
+        // Fetch the product by ID
+        Product product = productRepo.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
+
+        // Create a new Cart entity and set user and product
+        Cart cart = new Cart();
+        cart.setUser(user);
+        // cart.setProduct(product);
     }
+
 
     @Override
     public Cart addToCart(Long userId, Long productId, int quantity) {
@@ -69,10 +78,5 @@ public class CartServiceImpl implements CartService{
         }
         
     }
-
-    
-    
-
-    
 
 }
