@@ -26,7 +26,7 @@ const routes: Routes = [
   {path:'check-out',component:CheckoutComponent},
   {path:'error',component:ErrorComponent},
   {path:'login',component:LoginComponent},
-  {path:'my-order',component:MyorderComponent},
+  {path:'my-order/:id',component:MyorderComponent},
   {path:'my-review',component:MyreviewComponent},
   {path:'order-placed',component:OrderplacedComponent},
   {path:'product-create',component:ProductCreateComponent},

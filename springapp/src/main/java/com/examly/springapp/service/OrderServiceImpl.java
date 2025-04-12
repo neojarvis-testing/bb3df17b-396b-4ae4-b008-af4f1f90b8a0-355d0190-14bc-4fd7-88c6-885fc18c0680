@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.examly.springapp.exceptions.OrderNotFoundException;
 import com.examly.springapp.model.Order;
+import com.examly.springapp.model.OrderItem;
 import com.examly.springapp.model.User;
+import com.examly.springapp.repository.OrderItemRepo;
 import com.examly.springapp.repository.OrderRepo;
 import com.examly.springapp.repository.UserRepo;
 
@@ -27,9 +29,23 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private OrderItemRepo orderItemRepo;
+
     @Override
     public Order addOrder(Order order) {
-        return orderRepository.save(order); // Returns the saved order
+        Order savedOrder = orderRepository.save(order);
+
+    // Ensure each OrderItem is linked to the saved Order
+    if (order.getOrderItems() != null) {
+        for (OrderItem item : order.getOrderItems()) {
+            item.setOrder(savedOrder); // Link the OrderItem to the saved Order
+            item.setPrice(item.getProduct().getPrice() * item.getQuantity()); // Calculate price
+        }
+        orderItemRepo.saveAll(order.getOrderItems()); // Save all OrderItems
+    }
+
+    return savedOrder;// Returns the saved order
     }
 
     @Override
