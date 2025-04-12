@@ -36,7 +36,7 @@ export class UserviewproductComponent implements OnInit {
   getAllProducts(){
     this.productService.getAllProducts().subscribe(data=>{
       this.products=data;
-      selectedQuantity: 1
+      this.selectedQuantity= 1
       this.filteredProducts=data;
     })
   }
