@@ -1,9 +1,9 @@
 
-/* Container styling */
+
 .container {
     margin: 20px auto;
     padding: 20px;
-    max-width: 1200px; /* Increased max-width for more space */
+    max-width: 1200px; 
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #f9f9f9;
@@ -11,31 +11,30 @@
     font-family: Arial, sans-serif;
 }
 
-/* Style the product list */
+
 ul {
-    display: grid; /* Use grid layout for responsive columns */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Dynamic column layout */
-    gap: 20px; /* Space between items */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
     padding: 0;
     margin: 0;
-    list-style-type: none; /* Remove default list bullets */
+    list-style-type: none; 
 }
 
-/* Style individual products */
+
 li {
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;                /* Enables flexbox */
-    flex-direction: column;       /* Stack content vertically */
-    align-items: center;          /* Center-aligns content */
-    text-align: center;           /* Center-aligns text and buttons */
-    margin-bottom: 20px;          /* Adds spacing between items */
+    display: flex;               
+    flex-direction: column;     
+    align-items: center;         
+    text-align: center;           
+    margin-bottom: 20px;          
 }
 
-/* Product details styling */
 li span {
     font-weight: bold;
     display: block;
@@ -49,11 +48,11 @@ li p {
 
 /* Style the buttons */
 button {
-    margin: 5px 0;                /* Adjusted spacing for better balance */
-    padding: 10px 20px;           /* Increased padding for better usability */
+    margin: 5px 0;                
+    padding: 10px 20px;          
     font-size: 14px;
     color: #fff;
-    background-color: #1961ae;    /* Primary button color */
+    background-color: #1961ae;    
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -61,44 +60,116 @@ button {
 }
 
 button:hover {
-    background-color: #144a85;    /* Slightly darker shade for hover */
-    transform: scale(1.05);       /* Adds a subtle scaling effect */
+    background-color: #144a85;    
+    transform: scale(1.05);      
 }
 
-/* Adjust hover for disabled buttons */
+
 button:disabled {
-    background-color: #ccc;       /* Gray for disabled state */
-    cursor: not-allowed;          /* Indicate unclickable state */
+    background-color: #ccc;       
+    cursor: not-allowed;          
 }
 
-/* Adjust spacing between buttons */
+
 li button + button {
-    margin-top: 5px;              /* Ensures consistent spacing */
+    margin-top: 5px;            
 }
 
-/* Center align the heading */
+
 h1 {
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-/* Align search and dropdown */
+
 .controls {
-    display: flex;                  /* Enables flexbox */
-    justify-content: space-between; /* Aligns elements to opposite sides */
-    align-items: center;            /* Vertically aligns elements */
+    display: flex;                  
+    justify-content: space-between;
+    align-items: center;          
     margin-bottom: 20px;
-    padding: 0 20px;                /* Adds horizontal padding */
+    padding: 0 20px;                
 }
 
-/* Styling for search input */
+
 .controls input[type="text"] {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: 50%; /* Adjust width as needed */
+    width: 50%; 
 }
 
-/* Styling for dropdown */
+/* 88888888888888888888888888 */
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+  }
+  
+  .popup h2 {
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  .popup ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .popup li {
+    margin-bottom: 10px;
+    font-size: 1em;
+  }
+  
+  .popup button {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  
+  .popup button:hover {
+    background-color: #0056b3;
+  }
+  
+  .popup span {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .popup button.close {
+    background-color: red;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 0.9em;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+  

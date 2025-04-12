@@ -1,27 +1,36 @@
-
-<div>
+<div class="container">
     <h2>My Reviews</h2>
-    <div>
+    <div class="inner-div">
         <ul>
-            <li *ngFor="let review of reviews">
-                <span>{{review.product.productName}}</span><br>
-                <span>{{review.rating}}</span><br>
-                <span>{{review.date | date:'dd/MM/yyyy' }}</span><br>
+            <li class="item" *ngFor="let review of reviews">
+                <span class="bold">{{review.product.productName}}</span><br>
+
+                <div class="star-rating">
+                    <span *ngFor="let star of stars; let i = index" (click)="rate(i + 1)"
+                        [ngClass]="{'filled': i < review.rating}">&#9733;
+                    </span>
+                </div>
+                <span>Date: {{review.date | date:'mediumDate' }}</span><br>
                 <span>{{review.reviewText}}</span><br>
-                <button (click)="viewProduct(review.product.productId)">View Product</button>
-                <button (click)="deleteReview(review.reviewId)">Delete Review</button>
+                <div class="btn">
+                    <button class="left" (click)="viewProduct(review.product.productId)">View Product</button>
+                    <button class="right" (click)="deleteReview(review.reviewId)">Delete Review</button>
+                </div>
+
             </li>
         </ul>
     </div>
 </div>
-<div *ngIf= "showProductDetails" class="productDetails" >
-    <h2>Product Details</h2>
-    <div class="iproductDetails">
-        <span>Name: {{product.productName}}</span><br>
-        <span>Price: {{product.price}}</span><br>
-        <span>Category: {{product.category}}</span><br>
-        <span>Brand: {{product.brand}}</span><br>
-        <span>Description: {{product.description}}</span><br>
+<div *ngIf="showProductDetails" class="popup-overlay">
+    <div class="popup">
+        <h2>Product Details</h2>
+        <div class="iproductDetails">
+            <span>Name: {{ product.productName }}</span><br>
+            <span>Price: {{ product.price }}</span><br>
+            <span>Category: {{ product.category }}</span><br>
+            <span>Brand: {{ product.brand }}</span><br>
+            <span>Description: {{ product.description }}</span><br>
+        </div>
+        <button (click)="closePopup()">Close</button>
     </div>
-    
 </div>

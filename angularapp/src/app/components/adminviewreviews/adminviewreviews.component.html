@@ -9,7 +9,7 @@
                 <li class="inside-container" *ngFor="let review of reviews | search:searchData">
                     <span>Product Name:{{review.product.productName}}</span><br>
                     <span>Rating: {{review.rating}}</span><br>
-                    <span>Date: {{review.date}}</span><br>
+                    <span>Date: {{review.date | date:'mediumDate'}}</span><br>
                     <span>{{review.reviewText}}</span><br>
                     <div class="btn">
                         <button (click)="viewProduct(review.product.productId)" >View Product</button>

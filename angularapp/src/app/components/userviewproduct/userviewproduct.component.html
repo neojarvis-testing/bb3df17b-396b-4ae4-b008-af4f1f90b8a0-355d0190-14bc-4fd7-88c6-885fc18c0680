@@ -1,12 +1,9 @@
 <div>
     <h1>Products</h1>
 
-    <!-- Controls for search and category -->
+
     <div class="controls">
-        <!-- Search bar on the left -->
         <input type="text" placeholder="Search by product name" [(ngModel)]="searchData" (input)="searchProducts()">
-        
-        <!-- Dropdown on the right -->
         <select [(ngModel)]="selectedCategory" (change)="searchProducts()">
             <option value="">All Categories</option>
             <option value="electronics">Electronics</option>
@@ -35,7 +32,6 @@
                        [placeholder]="'Enter up to ' + product.stockQuantity" 
                        min="1">
 
-                <!-- <button [routerLink]="['/cart',product.user.userId,product.productId]">Add To Cart</button><br> -->
                 <button (click)= "viewReview(product.productId)">View Reviews</button><br>
                 <button [routerLink]="['/review',product.productId]">Write a Review</button><br>
             </li>
@@ -47,19 +43,24 @@
     </div>
 </div>
 
-<div *ngIf= "reviews && reviews.length>0">
-    <h2>Reviews</h2>
-    <ul>    
-        <li  *ngFor="let review of reviews">
-            <span>{{review.user.userName}}</span>
-            <span>Rating: {{review.rating}}/5</span>
-            <span>{{review.reviewText}}</span>
-            <span>Date: {{review.date | date:'dd/MM/yyyy'}}</span>
+<div class="popup" *ngIf="popupVisible">
+    
+    <div *ngIf="reviews && reviews.length > 0">
+      <h2>Reviews</h2>
+      <ul>
+        <li *ngFor="let review of reviews">
+          <span>Rating: {{ review.rating }}/5</span>
+          <span>{{ review.reviewText }}</span>
+          <span>Date: {{ review.date | date:'mediumDate' }}</span>
         </li>
-    </ul>
-</div>
+      </ul>
+    </div>
+    
+    <div *ngIf="!reviews || reviews.length === 0">
+      <span>No review found for this product.</span>
+    </div>
+    <button (click)="closePopup()">Close</button>
+  </div>
+  
 
-<div *ngIf= "!reviews && reviews.length==0">
-    <span>No review found for this product.</span>
-</div>
 

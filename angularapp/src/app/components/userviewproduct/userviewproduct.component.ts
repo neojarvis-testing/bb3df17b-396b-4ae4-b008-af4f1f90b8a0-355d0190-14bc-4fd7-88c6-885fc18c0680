@@ -18,6 +18,7 @@ export class UserviewproductComponent implements OnInit {
   searchData = '';
   selectedCategory = '';
   selectedQuantity:number;
+  popupVisible: boolean = false;
 
   constructor(private productService:ProductService,private reviewService:ReviewService) { }
 
@@ -34,14 +35,11 @@ export class UserviewproductComponent implements OnInit {
   }
   viewReview(productId:number){
     this.reviewService.getReviewsByProductId(productId).subscribe(data=>{
-        this.reviews = data;
-        
+        this.reviews = data;   
     })
+    this.popupVisible= true;
   }
 
-  // generateQuantityOptions(stock: number): number[] {
-  //   return Array.from({ length: stock }, (_, i) => i + 1); // Generates [1, 2, ..., stock]
-  // }
 
   validateQuantity(product: Product) {
     if (this.selectedQuantity > product.stockQuantity) {
@@ -61,5 +59,8 @@ export class UserviewproductComponent implements OnInit {
      (this.selectedCategory ? data.category === this.selectedCategory : true)
     });
  }
+ closePopup() {
+  this.popupVisible = !(this.popupVisible);
+}
 
 }

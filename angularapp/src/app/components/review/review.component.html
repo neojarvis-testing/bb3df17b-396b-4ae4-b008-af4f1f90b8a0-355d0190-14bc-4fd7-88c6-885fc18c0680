@@ -1,15 +1,13 @@
-
-
-<div class="review-container">
-    <h2>Sumbit Your Review</h2>
-    <textarea [(ngModel)]="review.reviewText"  placeholder="Write your review here..."></textarea>
-    <div class="ireview-container">
-        <div class="star-rating">
-            <span *ngFor="let star of stars; let i = index" (click)="rate(i + 1)" [ngClass]="{'filled': i < review.rating}">&#9733;
-             </span>
-             </div>
-             <button (click)="submitReview()">Submit Review</button>
+<div class="container">
+    <div class="review-container">
+        <h2>Submit Your Review</h2>
+        <div class="ireview-container">
+            <textarea [(ngModel)]="review.reviewText" placeholder="Write your review here..."></textarea>
+            <div class="star-rating" id="cstars">
+                <span *ngFor="let star of stars; let i = index" (click)="rate(i + 1)"
+                    [ngClass]="{'filled': i < review.rating}">&#9733;</span>
+            </div>
+            <button (click)="submitReview()">Submit Review</button>
+        </div>
     </div>
-    
 </div>
-    
