@@ -19,7 +19,7 @@ import { AddToCartComponent } from './components/add-to-cart/add-to-cart.compone
 
 const routes: Routes = [
   {path:'home-page',component:HomePageComponent},
-  {path:'cart/:userId/:productId',component:AddToCartComponent},
+  {path:'cart',component:AddToCartComponent},
   {path:'admin-nav',component:AdminnavComponent},
   {path:'admin-view-product',component:AdminviewproductComponent},
   {path:'admin-view-reviews',component:AdminviewreviewsComponent},

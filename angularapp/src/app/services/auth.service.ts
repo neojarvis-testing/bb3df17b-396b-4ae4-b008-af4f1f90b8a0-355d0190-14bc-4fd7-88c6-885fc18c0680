@@ -35,12 +35,12 @@ export class AuthService {
     this.httpClient.post<{ token: string; role: string, userId : number, username : string }>(`${this.baseUrl}/api/login`, login).subscribe(
         response => {
             const { token, role, userId, username } = response;
- 
+
             // Store token and role in localStorage
             localStorage.setItem('token', token);
             localStorage.setItem('userRole', role);
-            localStorage.setItem('userId', userId.toString());
             localStorage.setItem('username', username);
+            localStorage.setItem('userId', userId);
  
             // Navigate based on user role
             if (role == 'ADMIN') {
