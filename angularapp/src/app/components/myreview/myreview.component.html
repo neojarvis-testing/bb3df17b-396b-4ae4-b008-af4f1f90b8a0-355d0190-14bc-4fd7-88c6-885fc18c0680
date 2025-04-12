@@ -6,7 +6,7 @@
             <li *ngFor="let review of reviews">
                 <span>{{review.product.productName}}</span><br>
                 <span>{{review.rating}}</span><br>
-                <span>{{review.date}}</span><br>
+                <span>{{review.date | date: 'dd/MM/yyyy'}}</span><br>
                 <span>{{review.reviewText}}</span><br>
                 <button (click)="viewProduct(review.product.productId)">View Product</button>
                 <button (click)="deleteReview(review.reviewId)">Delete Review</button>

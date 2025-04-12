@@ -38,22 +38,20 @@ public register(registerForm: NgForm): void {
   if (registerForm.valid) {
     let user:User = {
       username: this.username,
-          mobileNumber: this.mobile,
-          email: this.email,
-          password: this.password,
-          userRole: this.role
-        };
+      mobileNumber: this.mobile,
+      email: this.email,
+      password: this.password,
+      userRole: this.role
+    };
       
-        this.authService.register(user).subscribe(
-          response => {
-            console.log('Registration successful', response);
-            this.router.navigate(['/login']);
-          },
-          error => {
-            console.error('Registration failed', error);
-          }
-        );
-      }
-    }
-  
+    this.authService.register(user).subscribe(
+      response => {
+        console.log('Registration successful', response);
+        this.router.navigate(['/login']);
+      },
+      error => {
+        console.error('Registration failed', error);
+      });
+    }
+  }
 }

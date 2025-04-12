@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UsernavComponent implements OnInit {
 
+  userId : number = 4;
 
   constructor(private authService : AuthService) { }
 
