@@ -12,11 +12,11 @@ export class AddToCartComponent implements OnInit {
   userId:number
   productId:number
 
-  constructor(private cartService:CartService,private activatedRoute:ActivatedRoute) { }
+  constructor(private cartService:CartService) { }
 
   ngOnInit(): void {
-    this.userId=parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
-    this.productId=parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    // this.userId=parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    // this.productId=parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
   }
 
   addToCart(){
