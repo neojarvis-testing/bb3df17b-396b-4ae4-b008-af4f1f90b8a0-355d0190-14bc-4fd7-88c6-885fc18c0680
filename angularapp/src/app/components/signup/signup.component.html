@@ -7,26 +7,33 @@
             <form #registrationForm="ngForm" (ngSubmit)="register(registrationForm)" class="registration-form">
                 <h4>Register</h4>
                 <div>
-                    <input type="text" name="username" id="username" placeholder="Username" [(ngModel)]="username" username required #usernameNgModel="ngModel" class="form-control">
+                    <input type="text" name="username" id="username" placeholder="Username" [(ngModel)]="username" required #usernameNgModel="ngModel" class="form-control">
+                    <div *ngIf="usernameNgModel.invalid && usernameNgModel.touched" class="error">Username is required</div>
                 </div>
                 <div>
-                    <input type="text" name="email" id="email" placeholder="Email" [(ngModel)]="email" email required #emailNgModel="ngModel" class="form-control">
+                    <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email" required #emailNgModel="ngModel" class="form-control">
+                    <div *ngIf="emailNgModel.invalid && emailNgModel.touched" class="error">Valid email is required</div>
                 </div>
                 <div>
-                    <input type="number" name="mobile" id="mobile" placeholder="Mobile" [(ngModel)]="mobile" mobile required #mobileNgModel="ngModel" class="form-control">
+                    <input type="number" name="mobile" id="mobile" placeholder="Mobile" [(ngModel)]="mobile" required #mobileNgModel="ngModel" class="form-control">
+                    <div *ngIf="mobileNgModel.invalid && mobileNgModel.touched" class="error">Mobile number is required</div>
                 </div>            
                 <div>
-                    <input type="password" name="password" placeholder="Password" id="password" [(ngModel)]="password" password required #passwordNgModel="ngModel" class="form-control">
+                    <input type="password" name="password" placeholder="Password" id="password" [(ngModel)]="password" required #passwordNgModel="ngModel" class="form-control">
+                    <div *ngIf="passwordNgModel.invalid && passwordNgModel.touched" class="error">Password is required</div>
                 </div>            
                 <div>
-                    <input type="password" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword" [(ngModel)]="confirmPassword" confirmPassassword required #confirmPasswordNgModel="ngModel" class="form-control">
+                    <input type="password" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword" [(ngModel)]="confirmPassword" required #confirmPasswordNgModel="ngModel" class="form-control">
+                    <div *ngIf="confirmPasswordNgModel.invalid && confirmPasswordNgModel.touched" class="error">Confirm Password is required</div>
+                    <div *ngIf="confirmPassword !== password && confirmPasswordNgModel.touched" class="error">Passwords do not match</div>
                 </div>
                 <div>
-                    <select name="role" [(ngModel)]="role" id="role" class="form-control">
+                    <select name="role" [(ngModel)]="role" id="role" required class="form-control">
                         <option value="" disabled selected>Select Role</option>
-                        <option value="ADMIN">Admin</option>S
+                        <option value="ADMIN">Admin</option>
                         <option value="USER">User</option>
                     </select>
+                    <div *ngIf="role === '' && registrationForm.submitted" class="error">Role is required</div>
                 </div>
                 <button type="submit">Sign Up</button>
                 <p>Already have an account? <a [routerLink]="['/login']">Login</a></p>
@@ -34,3 +41,10 @@
         </div>
     </div>
 </div>
+
+<style>
+    .error {
+        color: red;
+        font-size: 0.9em;
+    }
+</style>
