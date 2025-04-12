@@ -1,9 +1,27 @@
 <div class="container">
     <h2>Your Cart</h2>
-    <ul>
-        <li *ngFor="let cartItem of cartItems">
-            <b>{{cartItem.product.productName}}</b>
-            {{quantity}}
-        </li>
+    <ul class="cart-list" style="list-style: none; padding: 0;">
+      <li *ngFor="let cartItem of cartItems" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 8px;">
+        <div class="cart-item" style="display: flex; align-items: center;">
+          <div class="product-image" style="margin-right: 20px;">
+            <img [src]="cartItem.product.coverImage" alt="{{ cartItem.product.productName }}" style="width: 100px; border-radius: 4px;">
+          </div>
+          <div class="product-details">
+            <h3>{{ cartItem.product.productName }}</h3>
+            <p>{{ cartItem.product.description }}</p>
+            <p>
+              <strong>Price:</strong>
+              {{ cartItem.product.price | currency }}
+            </p>
+            <p>
+              <strong>Quantity:</strong>
+              {{ cartItem.quantity }}
+            </p>
+          </div>
+        </div>
+      </li>
     </ul>
-</div>
+    
+    <button class="btn btn-primary" (click)="clearCart()"> Clear Cart</button>
+  </div>
+  

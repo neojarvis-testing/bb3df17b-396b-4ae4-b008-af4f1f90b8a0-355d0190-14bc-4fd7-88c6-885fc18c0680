@@ -20,8 +20,8 @@ export class UserviewproductComponent implements OnInit {
   filteredProducts:Product[]=[]
   searchData = '';
   selectedCategory = '';
-  selectedQuantity:number;
-  userId:number;
+  selectedQuantity:number=0;
+  userId:number = parseInt(localStorage.getItem('userId'));
   cartItems:CartItem;
 
   constructor(private productService:ProductService,private reviewService:ReviewService, private cartService:CartService,private router:Router ) { }
@@ -67,12 +67,13 @@ export class UserviewproductComponent implements OnInit {
     }
   );
  }
- addToCart(){
-  let productId = this.cartItems.product.productId;
-  let qty = this.cartItems.quantity;
+ addToCart(product:Product){
+  let productId = product.productId;
+  let qty:number = this.selectedQuantity;
 
   this.cartService.addToCart(this.userId,productId,qty,null).subscribe(data => {
     this.router.navigate(['/cart']);
+    product.stockQuantity -= qty;
   });
 }
 

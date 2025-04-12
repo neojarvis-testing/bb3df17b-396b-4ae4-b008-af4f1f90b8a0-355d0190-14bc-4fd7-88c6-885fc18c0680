@@ -27,4 +27,10 @@ public class CartServiceImpl implements CartService {
         cart.setUser(user);
         return cartRepository.save(cart);
     }
+
+    public void clearCart(Long userId) {
+        Cart cart = getCartByUser(userId);
+        cart.getCartItems().clear();
+        cartRepository.save(cart);
+    }
 }

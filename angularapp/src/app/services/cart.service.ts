@@ -16,19 +16,21 @@ export class CartService {
   private products : Cart[] = [];
   public cart : Cart;
 
-  public addToCart(userId,productId,quantity,cart) : Observable<any>{
-    return this.httpClient.post(this.apiUrl+"/api/cart/"+userId+"/"+productId+"/"+quantity,cart);
+  public addToCart(userId:number,productId:number,quantity:number,cart:Cart) : Observable<any>{
+    return this.httpClient.post(this.apiUrl+"/api/cart/add/"+userId+"/"+productId+"/"+quantity,cart);
   }
 
   // public removeFromCart(productId : number) : void{
   //   this.products = this.products.filter(c => c.productId != productId);
   // }
 
-  public getCartItems() : void{ 
-    this.products.map(c =>({ product : c.product ,quantity : c.quantity }));
-  } 
-
-  public clearCart() : void{
-    this.products = [];
+  public getCart(userId: number): Observable<Cart> {    
+    console.log(userId);
+    
+    return this.httpClient.get<Cart>(apiUrl+"/api/cart/"+userId);
   }
+
+  public clearCart(userId: number): Observable<any> {
+  return this.httpClient.delete(`${this.apiUrl}/api/cart/clear/${userId}`);
+}
 }

@@ -35,7 +35,7 @@
                        [placeholder]="'Enter up to ' + product.stockQuantity" 
                        min="1">
 
-                <button (click)="addToCart()"> Add To Cart</button><br>
+                <button (click)="addToCart(product)"> Add To Cart</button><br>
                 <button (click)= "viewReview(product.productId)">View Reviews</button><br>
                 <button [routerLink]="['/review',product.productId]">Write a Review</button><br>
             </li>
