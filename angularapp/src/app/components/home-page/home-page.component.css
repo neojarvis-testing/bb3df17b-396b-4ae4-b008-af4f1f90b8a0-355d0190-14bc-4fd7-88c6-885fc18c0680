@@ -1,0 +1,5 @@
+nav {
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for nav */
+    padding: 10px;
+    border-radius: 5px;
+}

@@ -3,13 +3,14 @@ import { Product } from '../models/product.model';
 import { Cart } from '../models/cart.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { apiUrl } from 'src/url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  apiUrl:string="https://ide-aadbcaebbcafddadafbbadbcfdcfcc.premiumproject.examly.io/proxy/8080"
+  apiUrl=apiUrl;
   
   constructor(private httpClient: HttpClient) { }
   private products : Cart[] = [];
