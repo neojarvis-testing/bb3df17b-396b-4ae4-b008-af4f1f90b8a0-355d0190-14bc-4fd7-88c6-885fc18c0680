@@ -1,7 +1,9 @@
 package com.examly.springapp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,19 +18,15 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartId;
 
-    @OneToMany
-    private List<Product> products;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<OrderItem> items = new ArrayList<>();
 
-    @OneToOne
+
+
+    @OneToOne(mappedBy = "cart")
     private User user;
 
     public Cart() {
-    }
-
-    public Cart(Long cartId, List<Product> products, User user) {
-        this.cartId = cartId;
-        this.products = products;
-        this.user = user;
     }
 
     public Long getCartId() {
@@ -39,12 +37,12 @@ public class Cart {
         this.cartId = cartId;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<OrderItem> getItems() {
+        return items;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 
     public User getUser() {
@@ -55,10 +53,10 @@ public class Cart {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "Cart [cartId=" + cartId + ", products=" + products + ", user=" + user + "]";
+    public Cart(Long cartId, List<OrderItem> items, User user) {
+        this.cartId = cartId;
+        this.items = items;
+        this.user = user;
     }
-
     
 }
