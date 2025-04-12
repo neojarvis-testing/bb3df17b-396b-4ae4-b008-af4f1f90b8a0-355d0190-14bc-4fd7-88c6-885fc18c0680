@@ -13,32 +13,36 @@ import { ReviewService } from 'src/app/services/review.service';
   styleUrls: ['./review.component.css']
 })
 export class ReviewComponent implements OnInit {
- 
-  review:Review = {
+
+  review: Review = {
     reviewText: "", rating: 0, date: "",
     user: new User,
     product: undefined
   }
-  productId:number;
+  productId: number;
   stars: boolean[] = [false, false, false, false, false];
-  
-  
-rate(rating: number) {
-  this.review.rating = rating;
-  this.stars = this.stars.map((_, index) => index < rating);
+
+
+  rate(rating: number) {
+    this.review.rating = rating;
+    this.stars = this.stars.map((_, index) => index < rating);
 
   }
-  
-  
-  constructor(private reviewService :ReviewService,private router:Router,private activatedRoute:ActivatedRoute,private productService:ProductService) { }
+
+
+  constructor(private reviewService: ReviewService, private router: Router, private activatedRoute: ActivatedRoute, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.productId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-       
+    this.productService.getProductById(this.productId).subscribe(product => {
+      this.review.product = product;
+    });
+
+
   }
-  submitReview(){
-    this.reviewService.addReview(this.review).subscribe(data=>{
-      console.log("Componenet"+this.review);
+  submitReview() {
+    this.reviewService.addReview(this.review).subscribe(data => {
+      console.log("Componenet" + this.review);
       this.router.navigate(['/home-page'])
     })
   }
