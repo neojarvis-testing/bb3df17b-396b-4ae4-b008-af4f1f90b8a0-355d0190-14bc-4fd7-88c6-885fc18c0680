@@ -3,13 +3,13 @@
       <span>ProKart</span>
     </div>
     <div class="navbar-right"> <!-- Links ordered from left to right -->
-      <b><span class="user-box">user/User</span></b>
+      <b><span class="user-box">{{username}} /User</span></b>
       <a routerLink="/home-page">Home</a>
       <div class="dropdown">
         <a>Products</a>
         <div class="dropdown-content">
           <a routerLink="/user-view-product">View Products</a>
-          <a [routerLink]="['/my-order',userId]">My Orders</a>
+          <a [routerLink]="['/my-order']">My Orders</a>
         </div>
       </div>
       <a routerLink="/my-review">Reviews</a>

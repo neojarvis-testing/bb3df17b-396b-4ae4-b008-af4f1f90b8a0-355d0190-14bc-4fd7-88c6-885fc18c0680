@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CartItem } from 'src/app/models/cart-item.model';
 import { Product } from 'src/app/models/product.model';
 import { Review } from 'src/app/models/review.model';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ReviewService } from 'src/app/services/review.service';
 
@@ -17,10 +20,14 @@ export class UserviewproductComponent implements OnInit {
   filteredProducts:Product[]=[]
   searchData = '';
   selectedCategory = '';
+
   selectedQuantity:number;
   popupVisible: boolean = false;
 
-  constructor(private productService:ProductService,private reviewService:ReviewService) { }
+  userId:number = parseInt(localStorage.getItem('userId'));
+  cartItems:CartItem;
+
+  constructor(private productService:ProductService,private reviewService:ReviewService, private cartService:CartService,private router:Router ) { }
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -57,10 +64,22 @@ export class UserviewproductComponent implements OnInit {
     this.filteredProducts = this.products.filter(data =>{
      return data.productName.toLowerCase().includes(this.searchData.toLowerCase()) &&
      (this.selectedCategory ? data.category === this.selectedCategory : true)
-    });
+    }
+  );
  }
+
  closePopup() {
   this.popupVisible = !(this.popupVisible);
+
+ addToCart(product:Product){
+  let productId = product.productId;
+  let qty:number = this.selectedQuantity;
+
+  this.cartService.addToCart(this.userId,productId,qty,null).subscribe(data => {
+    this.router.navigate(['/cart']);
+    product.stockQuantity -= qty;
+  });
+
 }
 
 }

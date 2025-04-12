@@ -1,47 +1,60 @@
-<div>
-    <h1>Products</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Products</h1>
+    
+    <!-- Controls for search and category -->
+    <div class="row mb-4 justify-content-between align-items-center">
+        <!-- Search bar -->
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Search by product name" [(ngModel)]="searchData" (input)="searchProducts()">
+        </div>
+        
+        <!-- Dropdown -->
+        <div class="col-md-4">
+            <select class="form-select" [(ngModel)]="selectedCategory" (change)="searchProducts()">
+                <option value="">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="homeAppliances">Home Appliances</option>
+                <option value="books">Books</option>
+                <option value="fashion">Fashion</option>
+                <option value="toys">Toys</option>
+                <option value="furniture">Furniture</option>
+                <option value="beauty">Beauty</option>
+            </select>
+        </div>
 
-
-    <div class="controls">
-        <input type="text" placeholder="Search by product name" [(ngModel)]="searchData" (input)="searchProducts()">
-        <select [(ngModel)]="selectedCategory" (change)="searchProducts()">
-            <option value="">All Categories</option>
-            <option value="electronics">Electronics</option>
-            <option value="homeAppliances">Home Appliances</option>
-            <option value="books">Books</option>
-            <option value="fashion">Fashion</option>
-            <option value="toys">Toys</option>
-            <option value="furniture">Furniture</option>
-            <option value="beauty">Beauty</option>
-        </select>
     </div>
+    
+    <!-- Product Cards -->
+    <div class="row g-4">
+        <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let product of filteredProducts">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.productName }}</h5>
+                    <p class="card-text">
+                        <strong>Price:</strong> ₹{{ product.price }} <br>
+                        <strong>Category:</strong> {{ product.category }} <br>
+                        <strong>Brand:</strong> {{ product.brand }}
+                    </p>
+                    
+                    <!-- Input for Quantity -->
+                    <label for="quantity" class="form-label">Quantity:</label>
+                    <input type="number" id="quantity" [(ngModel)]="product.selectedQuantity" class="form-control" 
+                           (change)="validateQuantity(product)" 
+                           [placeholder]="'Enter up to ' + product.stockQuantity" 
+                           min="1">
+                    
+                    <!-- Action Buttons -->
+                    <div class="d-flex justify-content-between mt-3">
+                        <button class="btn btn-primary btn-sm" (click)="viewReview(product.productId)">View Reviews</button>
+                        <button class="btn btn-secondary btn-sm" [routerLink]="['/review', product.productId]">Write a Review</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div class="container">
-        <ul *ngIf="filteredProducts">
-            <li *ngFor="let product of filteredProducts">
-                <p>{{ product.productName }}</p>
-                <p>Price: {{ product.price }}</p>
-                <p>{{ product.description }}</p>
-                <p>In stock: {{ product.stockQuantity }}</p>
-                <p>Category: {{ product.category }}</p>
-                <p>Brand: {{ product.brand }}</p>
-
-                <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" [(ngModel)]="product.selectedQuantity" 
-                       (change)="validateQuantity(product)" 
-                       [placeholder]="'Enter up to ' + product.stockQuantity" 
-                       min="1">
-
-                <button (click)= "viewReview(product.productId)">View Reviews</button><br>
-                <button [routerLink]="['/review',product.productId]">Write a Review</button><br>
-            </li>
-        </ul>
-    </div>
-
-    <div *ngIf="!products.length">
-        <p>No Products Found</p>
     </div>
 </div>
+
 
 <div class="popup" *ngIf="popupVisible">
     
@@ -61,6 +74,4 @@
     </div>
     <button (click)="closePopup()">Close</button>
   </div>
-  
-
 

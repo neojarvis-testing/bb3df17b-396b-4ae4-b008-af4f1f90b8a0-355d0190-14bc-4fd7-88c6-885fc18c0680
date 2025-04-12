@@ -1,34 +1,47 @@
-
-<div>
-    <h1>Products</h1>
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Products</h1>
+    
     <!-- Controls for search and category -->
-    <div class="controls">
-        <!-- Search bar on the left -->
-        <input type="text" placeholder="Search by product name" [(ngModel)]="searchData" (input)="searchProducts()">
+    <div class="row mb-4 align-items-center">
+        <!-- Search bar -->
+        <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Search by product name" [(ngModel)]="searchData" (input)="searchProducts()">
+        </div>
         
-        <!-- Dropdown on the right -->
-        <select [(ngModel)]="selectedCategory" (change)="searchProducts()">
-            <option value="">All Categories</option>
-            <option value="electronics">Electronics</option>
-            <option value="homeAppliances">Home Appliances</option>
-            <option value="books">Books</option>
-            <option value="fashion">Fashion</option>
-            <option value="toys">Toys</option>
-            <option value="furniture">Furniture</option>
-            <option value="beauty">Beauty</option>
-        </select>
+        <!-- Dropdown -->
+        <div class="col-md-6">
+            <select class="form-select" [(ngModel)]="selectedCategory" (change)="searchProducts()">
+                <option value="">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="homeAppliances">Home Appliances</option>
+                <option value="books">Books</option>
+                <option value="fashion">Fashion</option>
+                <option value="toys">Toys</option>
+                <option value="furniture">Furniture</option>
+                <option value="beauty">Beauty</option>
+            </select>
+        </div>
     </div>
-    <div class="products-container">
-        <div class="product-card" *ngFor="let product of filteredProducts">
-            <h2>{{ product.productName }}</h2>
-            <p>{{ product.description }}</p>
-            <p>Price: {{ product.price }}</p>
-            <p>Stock Quantity: {{ product.stockQuantity }}</p>
-            <p>Category: {{ product.category }}</p>
-            <p>Brand: {{ product.brand }}</p>
-            <button (click)="editProduct(product.productId)">Edit</button>
-            <button (click)="deleteProduct(product.productId)">Delete</button>
+    
+    <!-- Product Cards -->
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let product of filteredProducts">
+            <div class="card h-100 shadow">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ product.productName }}</h5>
+                    <p class="card-text">
+                        {{ product.description }} <br>
+                        <strong>Price:</strong> ₹{{ product.price }} <br>
+                        <strong>Stock:</strong> {{ product.stockQuantity }}
+                    </p>
+                    <p><strong>Category:</strong> {{ product.category }}</p>
+                    <p><strong>Brand:</strong> {{ product.brand }}</p>
+                    
+                    <!-- Action Buttons -->
+                    <button class="btn btn-primary btn-sm me-2" (click)="editProduct(product.productId)">Edit</button>
+                    <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.productId)">Delete</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-    
