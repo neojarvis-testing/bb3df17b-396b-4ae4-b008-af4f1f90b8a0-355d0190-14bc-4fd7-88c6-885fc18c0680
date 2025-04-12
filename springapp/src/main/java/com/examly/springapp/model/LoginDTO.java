@@ -6,16 +6,18 @@ public class LoginDTO {
     private int userId;
     private String email;
     private String role;
+    private String username;
 
     public LoginDTO() {
 
     }
 
-    public LoginDTO(String token, int userId, String email, String role) {
+    public LoginDTO(String token, int userId, String email, String role, String username) {
         this.token = token;
         this.userId = userId;
         this.email = email;
         this.role = role;
+        this.username = username;
     }
 
     public String getToken() {
@@ -50,10 +52,20 @@ public class LoginDTO {
         this.role = role;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
-        return "LoginDTO [token=" + token + ", userId=" + userId + ", email=" + email + ", role=" + role + "]";
+        return "LoginDTO [token=" + token + ", userId=" + userId + ", email=" + email + ", role=" + role + ", username="
+                + username + "]";
     }
+
 
     
 
