@@ -12,7 +12,7 @@
           <div class="form-group">
             <input id="loginPassword" type="password" formControlName="password" class="form-control" placeholder="Enter Password"/>
             <div *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid" class="text-danger">
-              Password is required (min 8 characters)
+              Password is required (min 6 characters)
             </div>
           </div>        
           <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>

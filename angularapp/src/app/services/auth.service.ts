@@ -62,7 +62,8 @@ export class AuthService {
   }
   public logout():void {
     localStorage.removeItem('token');
-    localStorage.removeItem('role');
+    localStorage.removeItem('userRole');
+    this.router.navigate(['/login']);
   }
 
   public isAdmin():boolean {

@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+<div class="container-flex">
+    <div class="log" *ngIf="isLoggedIn()">
+        <div class="nav" *ngIf="isAdmin(); else usernav">
+            <app-adminnav></app-adminnav>
+        </div>
+        <ng-template #usernav>
+            <app-usernav></app-usernav>
+        </ng-template>
+    </div>
+    <router-outlet></router-outlet>
+</div>
