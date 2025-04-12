@@ -3,6 +3,8 @@ package com.examly.springapp.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy="order" , cascade=CascadeType.ALL)
+    @JsonManagedReference
     private List<OrderItem> orderItems;
 
     public Order() {
