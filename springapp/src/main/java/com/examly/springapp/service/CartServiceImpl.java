@@ -33,7 +33,7 @@ public class CartServiceImpl implements CartService{
         // Create a new Cart entity and set user and product
         Cart cart = new Cart();
         cart.setUser(user);
-        cart.setProduct(product);
+        // cart.setProduct(product);
 
         // Save the cart to the repository
         Cart savedCart=cartRepo.save(cart);
