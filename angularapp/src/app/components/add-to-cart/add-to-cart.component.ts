@@ -39,24 +39,40 @@ export class AddToCartComponent implements OnInit {
   }
 
   clearCart(): void {
-    if(this.cartItems.length==0) {
-      this.emptyMgs="Cart is Empty";
+    if (this.cartItems.length === 0) {
+        this.emptyMgs = "Cart is Empty";
+        return;
     }
-    this.cartService.clearCart(this.userId)
-      .subscribe({
+
+    this.cartService.clearCart(this.userId).subscribe({
         next: () => {
-          this.cartItems = [];
+            console.log('Cart cleared successfully');
+            this.cartItems = []; // Clear cart items in the frontend
+            this.fetchUpdatedProducts(); // Fetch updated product list to restore stock
+            alert('Cart has been cleared successfully!');
         },
         error: (error) => {
-          console.error('Error clearing the cart:', error);
+            console.error('Error clearing the cart:', error);
+            alert('Failed to clear the cart. Please try again.');
         }
-      });
-  }
+    });
+}
+
+fetchUpdatedProducts(): void {
+  this.cartService.getCart(this.userId).subscribe({
+      next: (cart) => {
+          this.cartItems = cart.cartItems; // Update cart items
+          console.log('Updated cart items:', this.cartItems);
+      },
+      error: (err) => {
+          console.error('Error fetching updated products:', err);
+      }
+  });
+}
+
 
   checkout() {
     const cartData = encodeURIComponent(JSON.stringify(this.cartItems));
-    this.router.navigate([`/checkout/${cartData}`]);
+    this.router.navigate([`/check-out/${cartData}`]);
   }
-  
-  
 }
