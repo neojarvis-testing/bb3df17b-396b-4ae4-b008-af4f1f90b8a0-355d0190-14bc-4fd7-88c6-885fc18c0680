@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Cart } from 'src/app/models/cart.model';
 import { OrderItem } from 'src/app/models/order-item.model';
 import { Order } from 'src/app/models/order.model';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CartItem } from 'src/app/models/cart-item.model';
 
 @Component({
   selector: 'app-checkout',
@@ -12,7 +13,6 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
-
 
   // cart: Cart;
   // shippingAddress: string = '';
@@ -56,7 +56,6 @@ export class CheckoutComponent implements OnInit {
   order : Order;
   isPopupVisible = false;
 
-
  constructor(private cartService: CartService, private router: Router , private orderService : OrderService) { }
 
   ngOnInit(): void {
@@ -67,8 +66,9 @@ export class CheckoutComponent implements OnInit {
     this.cartService.getCart(parseInt(localStorage.getItem('userId'))).subscribe(data => {
       this.cart = data;
     });
-  }
 
+  }
+  
   calculateTotalAmount(): number {
     if (!this.cart || !this.cart.cartItems) {
       return 0;
@@ -110,8 +110,6 @@ export class CheckoutComponent implements OnInit {
      }
     );
   
-    
-
   //   // Logic to handle order placement
   //   console.log('Order placed successfully!', order);
   //   // Redirect to order success page or show success message
@@ -122,21 +120,10 @@ export class CheckoutComponent implements OnInit {
     
   // }
 
-
-
-
     }
 
     closePopup() {
       this.isPopupVisible = false;
     }
-    
-
 
 }
-
-
-
-
-
-
