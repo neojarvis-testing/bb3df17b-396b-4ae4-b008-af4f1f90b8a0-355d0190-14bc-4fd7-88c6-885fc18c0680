@@ -17,6 +17,8 @@ export class MyorderComponent implements OnInit {
   userId: number;
   currentOrderStatus: string = '';
   showTrackOrderModal: boolean = false;
+  cancelOrderId: number = null; // Store the ID of the order to be canceled
+  showCancelPopup: boolean = false;
 
   constructor(
     private orderService: OrderService,
@@ -38,9 +40,10 @@ export class MyorderComponent implements OnInit {
 
   public getAllOrdersByUserId(): void {
     this.orderService.getOrdersByUserId(this.userId).subscribe(data => {
-      this.orders = data;
+        this.orders = data;
     });
-  }
+}
+
 
   public viewItems(orderId: number): void {
     this.orderItemService.getOrderItems(orderId).subscribe({
@@ -97,4 +100,21 @@ export class MyorderComponent implements OnInit {
       this.orders = this.orders.filter(order => order.orderId !== orderId);
     });
   }
+
+  openCancelPopup(orderId: number): void {
+    this.cancelOrderId = orderId; // Set the order ID to be canceled
+    this.showCancelPopup = true; // Show the popup
+}
+
+closeCancelPopup(): void {
+    this.showCancelPopup = false; // Hide the popup
+    this.cancelOrderId = null; // Clear the order ID
+}
+
+confirmCancelOrder(): void {
+    if (this.cancelOrderId) {
+        this.deleteOrder(this.cancelOrderId); // Call deleteOrder method
+        this.closeCancelPopup(); // Close the popup
+    }
+}
 }

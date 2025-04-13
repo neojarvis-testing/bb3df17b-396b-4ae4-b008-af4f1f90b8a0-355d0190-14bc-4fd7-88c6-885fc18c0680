@@ -26,10 +26,15 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/api/orders")
-    public ResponseEntity<?> addOrder(@RequestBody Order order){
-      orderService.addOrder(order);
-      return ResponseEntity.status(201).body("Order Placed Successfully!!");
+public ResponseEntity<?> addOrder(@RequestBody Order order) {
+    try {
+        Order savedOrder = orderService.addOrder(order);
+        return ResponseEntity.status(201).body(savedOrder);
+    } catch (Exception e) {
+        return ResponseEntity.status(500).body("Order placement failed: " + e.getMessage());
     }
+}
+
 
 
     @GetMapping("/api/orders/{orderId}")

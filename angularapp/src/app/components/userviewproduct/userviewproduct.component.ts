@@ -35,11 +35,19 @@ export class UserviewproductComponent implements OnInit {
 
   getAllProducts() {
     this.productService.getAllProducts().subscribe(data => {
-      this.products = data;
-      this.selectedQuantity = 1;
-      this.filteredProducts = data;
-    })
-  }
+        this.products = data.map(product => ({ ...product, selectedQuantity: 1 })); // Initialize selectedQuantity
+        this.filteredProducts = this.products; // Ensure filtered list matches initialized products
+    });
+}
+
+
+  // getAllProducts() {
+  //   this.productService.getAllProducts().subscribe(data => {
+  //     this.products = data;
+  //     this.selectedQuantity = 1;
+  //     this.filteredProducts = data;
+  //   })
+  // }
   viewReview(productId: number) {
     this.reviewService.getReviewsByProductId(productId).subscribe(data => {
       this.reviews = data;
@@ -47,15 +55,27 @@ export class UserviewproductComponent implements OnInit {
     this.popupVisible = true;
   }
 
+  // validateQuantity(product: Product) {
+  //   if (this.selectedQuantity > product.stockQuantity) {
+  //     this.selectedQuantity = product.stockQuantity; // Limit to stock
+  //     alert(`The maximum quantity for ${product.productName} is ${product.stockQuantity}.`);
+  //   } else if (this.selectedQuantity < 1) {
+  //     this.selectedQuantity = 1; // Set minimum value
+  //     alert(`Please enter a quantity of at least 1 for ${product.productName}.`);
+  //   }
+  // }
+
   validateQuantity(product: Product) {
-    if (this.selectedQuantity > product.stockQuantity) {
-      this.selectedQuantity = product.stockQuantity; // Limit to stock
-      alert(`The maximum quantity for ${product.productName} is ${product.stockQuantity}.`);
-    } else if (this.selectedQuantity < 1) {
-      this.selectedQuantity = 1; // Set minimum value
-      alert(`Please enter a quantity of at least 1 for ${product.productName}.`);
+    if (product.selectedQuantity > product.stockQuantity) {
+        product.selectedQuantity = product.stockQuantity; // Limit to available stock
+        alert(`The maximum quantity for ${product.productName} is ${product.stockQuantity}.`);
+    } else if (product.selectedQuantity < 1) {
+        product.selectedQuantity = 1; // Set minimum value
+        alert(`Please enter a quantity of at least 1 for ${product.productName}.`);
     }
-  }
+}
+
+
 
   searchProducts() {
     this.filteredProducts = this.products.filter(data => {
@@ -76,13 +96,38 @@ export class UserviewproductComponent implements OnInit {
 
   // }
   public addToCart(product: Product) {
-    let productId = product.productId;
-    let qty: number = this.selectedQuantity;
+    const productId = product.productId;
+    const qty = product.selectedQuantity;
 
-    this.cartService.addToCart(this.userId, productId, qty, null).subscribe(data => {
-      this.router.navigate(['/cart']);
-      product.stockQuantity -= qty;
+    if (qty > product.stockQuantity) {
+        alert(`You can only add up to ${product.stockQuantity} of ${product.productName}.`);
+        return;
+    }
+
+    this.cartService.addToCart(this.userId, productId, qty, null).subscribe({
+        next: () => {
+            console.log('Product added to cart successfully');
+            this.getAllProducts(); // Refresh product list to update stock
+        },
+        error: (err) => {
+            console.error('Error adding product to cart:', err);
+            alert('Failed to add product to cart. Please try again.');
+        }
     });
+}
 
-  }
+clearCart(): void {
+    this.cartService.clearCart(this.userId).subscribe({
+        next: () => {
+            console.log('Cart cleared successfully');
+            this.getAllProducts(); // Refresh product list to reflect restored stock
+        },
+        error: (err) => {
+            console.error('Error clearing cart:', err);
+            alert('Failed to clear cart. Please try again.');
+        }
+    });
+}
+
+
 }

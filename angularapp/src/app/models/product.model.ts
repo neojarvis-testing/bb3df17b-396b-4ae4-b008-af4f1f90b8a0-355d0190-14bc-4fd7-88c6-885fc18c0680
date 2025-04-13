@@ -7,4 +7,5 @@ export interface Product {
     category : string;
     brand : string;
     coverImage : string;
+    selectedQuantity ?: number;
 }
