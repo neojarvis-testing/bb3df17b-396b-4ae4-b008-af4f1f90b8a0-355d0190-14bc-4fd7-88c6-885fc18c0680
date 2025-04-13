@@ -1,34 +1,35 @@
-
 <div class="order-confirmation">
-        <h1>Order Confirmation</h1>
-        <div class="invoice-section">
-            <h3>Invoice</h3>
-            <table class="invoice-table">
-                <tr *ngFor="let item of cart.cartItems">
-                    <td>{{ item.product.productName }}</td>
-                    <td>Quantity: {{ item.quantity }}</td>
-                    <td>Price: ₹{{ item.product.price }}</td>
-                </tr>
-            </table>
-            <div class="total-amount">Total Amount: ₹{{ calculateTotalAmount()}}</div>
+    <h1>Order Confirmation</h1>
+    <div class="invoice-section">
+        <h3>Invoice</h3>
+        <table class="invoice-table">
+            <tr *ngFor="let item of cart.cartItems">
+                <td>{{ item.product.productName }}</td>
+                <td>Quantity: {{ item.quantity }}</td>
+                <td>Price: ₹{{ item.product.price }}</td>
+            </tr>
+        </table>
+        <div class="total-amount">Total Amount: ₹{{ calculateTotalAmount()}}</div>
+    </div>
+    <h1>Enter Shipping Details</h1>
+    <form (ngSubmit)="placeOrder()" #orderForm="ngForm">
+        <label for="shippingAddress">Shipping Address:</label><br>
+        <input type="text" id="shippingAddress" name="shippingAddress" [(ngModel)]="shippingAddress" required #shippingAddressModel="ngModel"><br>
+        <div *ngIf="shippingAddressModel.touched && shippingAddressModel.invalid">
+            <span style="color: red;">Shipping Address is required</span>
         </div>
-            <h1>Enter Shipping Details</h1>
-     <form (ngSubmit)="placeOrder()">
-                <label for="shippingAddress">Shipping Address:</label><br>
-                <input type="text" id="shippingAddress" name="shippingAddress" [(ngModel)]="shippingAddress" required><br>
-                <label for="billingAddress">Billing Address:</label><br>
-                <input type="text" id="billingAddress" name="billingAddress" [(ngModel)]="billingAddress" required><br>
-                <div class="order-success-popup" id="orderSuccessPopup">
-                    <div class="popup-content">
-                      <h1>Order Placed Successfully!</h1>
-                      <p>Thank you for your purchase. Your order has been placed and is being processed.</p>
-                      <button id="closePopupButton">OK</button>
-                    </div>
-                  </div>
-                  
-                  <!-- Add this button to trigger the popup for demonstration purposes -->
-                  <button id="placeOrderButton">Place Order</button>
-     </form>
+        <label for="billingAddress">Billing Address:</label><br>
+        <input type="text" id="billingAddress" name="billingAddress" [(ngModel)]="billingAddress" required #billingAddressModel="ngModel"><br>
+        <div *ngIf="billingAddressModel.touched && billingAddressModel.invalid">
+            <span style="color: red;">Billing Address is required</span>
+        </div>
+        <div class="order-success-popup" id="orderSuccessPopup">
+            <div class="popup-content">
+                <h1>Order Placed Successfully!</h1>
+                <p>Thank you for your purchase. Your order has been placed and is being processed.</p>
+                <button id="closePopupButton">OK</button>
+            </div>
+        </div>
+        <button type="submit" id="placeOrderButton" [disabled]="orderForm.invalid">Place Order</button>
+    </form>
 </div>
-
-

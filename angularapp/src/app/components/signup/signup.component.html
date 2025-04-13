@@ -11,16 +11,16 @@
                     <div *ngIf="usernameNgModel.invalid && usernameNgModel.touched" class="error">Username is required</div>
                 </div>
                 <div class="form-group">
-                    <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email" required #emailNgModel="ngModel" class="form-control">
+                    <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email" required email #emailNgModel="ngModel" class="form-control">
                     <div *ngIf="emailNgModel.invalid && emailNgModel.touched" class="error">Valid email is required</div>
                 </div>
                 <div class="form-group">
-                    <input type="number" name="mobile" id="mobile" placeholder="Mobile" [(ngModel)]="mobile" required #mobileNgModel="ngModel" class="form-control">
-                    <div *ngIf="mobileNgModel.invalid && mobileNgModel.touched" class="error">Mobile number is required</div>
+                    <input type="number" name="mobile" id="mobile" placeholder="Mobile" [(ngModel)]="mobile" required pattern="[0-9]{10}" #mobileNgModel="ngModel" class="form-control">
+                    <div *ngIf="mobileNgModel.invalid && mobileNgModel.touched" class="error">Valid 10-digit mobile number is required</div>
                 </div>            
                 <div class="form-group">
-                    <input type="password" name="password" placeholder="Password" id="password" [(ngModel)]="password" required #passwordNgModel="ngModel" class="form-control">
-                    <div *ngIf="passwordNgModel.invalid && passwordNgModel.touched" class="error">Password is required</div>
+                    <input type="password" name="password" placeholder="Password" id="password" [(ngModel)]="password" required minlength="6" #passwordNgModel="ngModel" class="form-control">
+                    <div *ngIf="passwordNgModel.invalid && passwordNgModel.touched" class="error">Password must be at least 6 characters long</div>
                 </div>            
                 <div class="form-group">
                     <input type="password" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword" [(ngModel)]="confirmPassword" required #confirmPasswordNgModel="ngModel" class="form-control">

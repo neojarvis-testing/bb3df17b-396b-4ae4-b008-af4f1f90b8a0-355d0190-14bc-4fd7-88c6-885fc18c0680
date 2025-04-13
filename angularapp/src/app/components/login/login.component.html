@@ -4,13 +4,13 @@
         <h2>Login</h2>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
           <div class="form-group">
-            <input id="loginEmail" type="email" placeholder="Enter Email" formControlName="email" class="form-control" />
+            <input id="loginEmail" type="email" placeholder="Enter Email" formControlName="email" class="form-control" required email />
             <div *ngIf="loginForm.get('email').touched && loginForm.get('email').invalid" class="text-danger">
-              Email is required
+              Valid email is required
             </div>
           </div>        
           <div class="form-group">
-            <input id="loginPassword" type="password" formControlName="password" class="form-control" placeholder="Enter Password"/>
+            <input id="loginPassword" type="password" formControlName="password" class="form-control" placeholder="Enter Password" required minlength="6"/>
             <div *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid" class="text-danger">
               Password is required (min 6 characters)
             </div>
