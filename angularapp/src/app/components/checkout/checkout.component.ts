@@ -55,11 +55,16 @@ export class CheckoutComponent implements OnInit {
   orderItems : OrderItem;
   order : Order;
   isPopupVisible = false;
+  cartData:string=''
 
- constructor(private cartService: CartService, private router: Router , private orderService : OrderService) { }
+ constructor(private cartService: CartService,private activatedRoute:ActivatedRoute, private router: Router , private orderService : OrderService) { }
 
   ngOnInit(): void {
     this.getCartDetails();
+    this.activatedRoute.params.subscribe(params => {
+      this.cartData = decodeURIComponent(params['cartData']);
+      console.log('Cart Data:', JSON.parse(this.cartData)); // Parse the JSON data if needed
+    });
   }
 
   getCartDetails() {
@@ -76,51 +81,78 @@ export class CheckoutComponent implements OnInit {
     return this.cart.cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0);
   }
 
+  // placeOrder() {
+  //   const order : Order = {
+  //     orderId: Math.floor(Math.random() * 1000),
+  //     orderDate: "",
+  //     totalAmount: this.calculateTotalAmount(),
+  //     user: {
+  //       userId: this.cart.userId,
+  //       email: '',
+  //       password: '',
+  //       username: '',
+  //       mobileNumber: '',
+  //       userRole: ''
+  //     }, // Assuming user object contains userId
+  //     orderItems: this.cart.cartItems.map(item => ({
+  //       product: item.product,
+  //       quantity: item.quantity,
+  //       price: item.product.price
+  //     })),
+  //     shippingAddress: this.shippingAddress,
+  //     billingAddress: this.billingAddress,
+  //     orderStatus: 'Pending' // Set default status to 'Pending'
+  //   };
+        
+  //    this.orderService.placeOrder(order).subscribe(
+  //     response => {
+  //     console.log('Order placed successfully!', response);
+  //     // this.router.navigate(['/user-view-product']);
+  //       this.isPopupVisible = true;
+  //      },
+  //      error => {
+  //    console.error('Error placing order', error);
+  //    }
+  //   );
+  //   }
+
   placeOrder() {
-    const order : Order = {
+    const orderItems = JSON.parse(this.cartData).map(item => ({
+      product: item.product,
+      quantity: item.quantity,
+      price: item.product.price
+    }));
+  
+    const order: Order = {
       orderId: Math.floor(Math.random() * 1000),
-      orderDate: "",
+      orderDate: '',
       totalAmount: this.calculateTotalAmount(),
       user: {
-        userId: this.cart.userId,
+        userId: 1, // Replace with actual userId
         email: '',
         password: '',
         username: '',
         mobileNumber: '',
         userRole: ''
-      }, // Assuming user object contains userId
-      orderItems: this.cart.cartItems.map(item => ({
-        product: item.product,
-        quantity: item.quantity,
-        price: item.product.price
-      })),
+      },
+      orderItems: orderItems,
       shippingAddress: this.shippingAddress,
       billingAddress: this.billingAddress,
-      orderStatus: 'Pending' // Set default status to 'Pending'
+      orderStatus: 'Pending'
     };
-        
-     this.orderService.placeOrder(order).subscribe(
-      response => {
-      console.log('Order placed successfully!', response);
-      // this.router.navigate(['/user-view-product']);
-        this.isPopupVisible = true;
-       },
-       error => {
-     console.error('Error placing order', error);
-     }
-    );
   
-  //   // Logic to handle order placement
-  //   console.log('Order placed successfully!', order);
-  //   // Redirect to order success page or show success message
-  //   //this.router.navigate(['/order-success']);
-  // }
-
-  // public placeOrder(order : Order){
-    
-  // }
-
-    }
+    this.orderService.placeOrder(order).subscribe(
+      response => {
+        console.log('Order placed successfully!', response);
+        
+        this.isPopupVisible = true; // Show success message or redirect
+      },
+      error => {
+        console.error('Error placing order', error);
+      }
+    );
+  }
+  
 
     closePopup() {
       this.isPopupVisible = false;
