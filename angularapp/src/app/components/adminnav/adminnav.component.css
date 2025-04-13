@@ -1,29 +1,30 @@
 /* Navbar should span full width */
 .navbar {
-    width: 100%; /* Make sure it covers the full width */
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0px 10px;
-    background: linear-gradient(to right, #333, #222);
+    padding: 10px;
+    background-color: #333;
     color: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    position: fixed; /* Ensures it stays at the top */
+    width: 100%;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Ensuring links are properly aligned */
+.navbar-left span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
 .navbar-right {
     display: flex;
     align-items: center;
-    flex-wrap: wrap; /* Ensures wrapping for smaller screens */
 }
 
-/* Dropdown and spacing adjustments */
 .navbar-right a {
-    margin: 10px 18px;
+    margin-left: 15px;
     color: #fff;
     text-decoration: none;
     font-size: 16px;
@@ -36,7 +37,6 @@
     transform: translateY(-2px);
 }
 
-/* Fixing dropdown positioning */
 .navbar-right .dropdown {
     position: relative;
     display: inline-block;
@@ -45,48 +45,43 @@
 .navbar-right .dropdown-content {
     display: none;
     position: absolute;
-    left: 0;
-    min-width: 170px;
-    border-radius: 8px;
-    background: whitesmoke;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
-.navbar-right .dropdown:hover .dropdown-content {
+.navbar-right .dropdown:hover .dropdown-content,
+.navbar-right .dropdown-content:hover {
     display: block;
-    transform: translateY(5px);
 }
 
 .navbar-right .dropdown-content a {
-    display: block;
-    padding: 12px 20px;
     color: #333;
+    padding: 12px 16px;
     text-decoration: none;
-    font-size: 16px;
+    display: block;
     transition: background 0.3s ease-in-out;
 }
 
-/* Hover effect for dropdown */
 .navbar-right .dropdown-content a:hover {
-    background: blue;
-    color: white;
-    border-radius: 5px;
+    background-color: #f1f1f1;
 }
 
-/* Admin box */
 .admin-box {
     display: inline-block;
-    padding: 8px 14px;
-    border: 2px solid #ff4d4d;
-    border-radius: 8px;
-    background-color: rgba(255, 77, 77, 0.1);
-    color: #ff4d4d;
+    padding: 5px 10px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    color: #333;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .admin-box:hover {
     transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(255, 77, 77, 0.4);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
