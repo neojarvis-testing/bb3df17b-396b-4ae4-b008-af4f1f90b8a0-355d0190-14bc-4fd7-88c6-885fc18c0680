@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   public login(login : Login) {
-    this.httpClient.post<{ token: string; role: string, userId : number, username : string }>(`${this.baseUrl}/api/login`, login).subscribe(
+    this.httpClient.post<{ token: string; role: string, userId : string, username : string }>(`${this.baseUrl}/api/login`, login).subscribe(
         response => {
             const { token, role, userId, username } = response;
 

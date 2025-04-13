@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartItem } from 'src/app/models/cart-item.model';
 import { Cart } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
@@ -15,8 +16,9 @@ export class AddToCartComponent implements OnInit {
   
   // Change type to CartItem[] because you expect to receive a list of cart items.
   cartItems: CartItem[] = [];
+  emptyMgs:string="";
 
-  constructor(private cartService: CartService) { }
+  constructor(private cartService: CartService,private router:Router) { }
 
   ngOnInit(): void {
     this.getAllCartItems();
@@ -37,17 +39,24 @@ export class AddToCartComponent implements OnInit {
   }
 
   clearCart(): void {
+    if(this.cartItems.length==0) {
+      this.emptyMgs="Cart is Empty";
+    }
     this.cartService.clearCart(this.userId)
       .subscribe({
         next: () => {
-          console.log('Cart cleared successfully');
-          // Clear local cart items to update the view.
           this.cartItems = [];
-          this.getAllCartItems();
         },
         error: (error) => {
           console.error('Error clearing the cart:', error);
         }
       });
   }
+
+  checkout() {
+    const cartData = encodeURIComponent(JSON.stringify(this.cartItems));
+    this.router.navigate([`/checkout/${cartData}`]);
+  }
+  
+  
 }

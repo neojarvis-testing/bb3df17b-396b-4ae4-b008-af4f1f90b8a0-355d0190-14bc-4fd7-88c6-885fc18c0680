@@ -1,5 +1,6 @@
 <div class="container">
     <h2>Your Cart</h2>
+    {{emptyMgs}}
     <ul class="cart-list" style="list-style: none; padding: 0;">
       <li *ngFor="let cartItem of cartItems" style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 8px;">
         <div class="cart-item" style="display: flex; align-items: center;">
@@ -22,6 +23,9 @@
       </li>
     </ul>
     
-    <button class="btn btn-primary" (click)="clearCart()"> Clear Cart</button>
+    <button class="btn btn-danger" (click)="clearCart()"> Clear Cart</button>
+    <div class="checkout-container" *ngIf="cartItems.length!=0">
+      <button class="btn btn-primary" (click)="checkout()">Checkout</button>
+    </div>
   </div>
   
