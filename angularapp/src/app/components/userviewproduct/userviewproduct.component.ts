@@ -20,6 +20,7 @@ export class UserviewproductComponent implements OnInit {
   filteredProducts:Product[]=[]
   searchData = '';
   selectedCategory = '';
+  
 
   selectedQuantity:number;
   popupVisible: boolean = false;
@@ -70,8 +71,10 @@ export class UserviewproductComponent implements OnInit {
 
  closePopup() {
   this.popupVisible = !(this.popupVisible);
+ }
 
- addToCart(product:Product){
+ 
+  addToCart(product:Product){
   let productId = product.productId;
   let qty:number = this.selectedQuantity;
 
