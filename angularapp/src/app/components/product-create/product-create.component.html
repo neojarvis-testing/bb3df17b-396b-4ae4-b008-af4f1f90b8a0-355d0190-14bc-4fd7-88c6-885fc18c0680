@@ -17,16 +17,16 @@
     </div>
     <div>
         <label for="price">Price</label>
-        <input type="text" [(ngModel)]="product.price" required name="price" #price="ngModel">
-        <div *ngIf="price.touched && price.invalid">
-            <span style="color: red;">Price is required</span>
+        <input type="number" [(ngModel)]="product.price" required name="price" #price="ngModel" min="0" step="0.01">
+        <div *ngIf="price.touched && price.invalid || product.price < 0">
+            <span style="color: red;">Valid non-negative price is required</span>
         </div>
     </div>
     <div>
         <label for="stockQuantity">Stock Quantity</label>
-        <input type="text" [(ngModel)]="product.stockQuantity" required name="stockQuantity" #stockQuantity="ngModel">
+        <input type="number" [(ngModel)]="product.stockQuantity" required name="stockQuantity" #stockQuantity="ngModel" min="0">
         <div *ngIf="stockQuantity.touched && stockQuantity.invalid">
-            <span style="color: red;">Stock Quantity is required</span>
+            <span style="color: red;">Valid stock quantity is required</span>
         </div>
     </div>
     <div>
@@ -73,28 +73,28 @@
         <label for="productName">Product Name</label>
         <input type="text" [(ngModel)]="product.productName" required name="productName" #productName="ngModel">
         <div *ngIf="productName.touched && productName.invalid">
-            Product Name is required
+            <span style="color: red;">Product Name is required</span>
         </div>
     </div>
     <div>
         <label for="description">Description</label>
         <input type="text" [(ngModel)]="product.description" required name="description" #description="ngModel">
         <div *ngIf="description.touched && description.invalid">
-            Description is required
+            <span style="color: red;">Description is required</span>
         </div>
     </div>
     <div>
         <label for="price">Price</label>
-        <input type="text" [(ngModel)]="product.price" required name="price" #price="ngModel">
-        <div *ngIf="price.touched && price.invalid">
-            Price is required
+        <input type="number" [(ngModel)]="product.price" required name="price" #price="ngModel" min="0" step="0.01">
+        <div *ngIf="price.touched && price.invalid || product.price < 0">
+            <span style="color: red;">Valid non-negative price is required</span>
         </div>
     </div>
     <div>
         <label for="stockQuantity">Stock Quantity</label>
-        <input type="text" [(ngModel)]="product.stockQuantity" required name="stockQuantity" #stockQuantity="ngModel">
+        <input type="number" [(ngModel)]="product.stockQuantity" required name="stockQuantity" #stockQuantity="ngModel" min="0">
         <div *ngIf="stockQuantity.touched && stockQuantity.invalid">
-            Stock Quantity is required
+            <span style="color: red;">Valid stock quantity is required</span>
         </div>
     </div>
     <div>
@@ -110,28 +110,23 @@
             <option value="beauty">Beauty</option>
         </select>
         <div *ngIf="category.touched && category.invalid">
-            Category is required
+            <span style="color: red;">Category is required</span>
         </div>
     </div>
     <div>
         <label for="brand">Brand</label>
         <input type="text" [(ngModel)]="product.brand" required name="brand" #brand="ngModel">
         <div *ngIf="brand.touched && brand.invalid">
-            Brand is required
+            <span style="color: red;">Brand is required</span>
         </div>
     </div>
     <div>
         <label for="coverImage">Cover Image</label>
         <input type="file" [(ngModel)]="product.coverImage" required name="coverImage" #coverImage="ngModel">
         <div *ngIf="coverImage.touched && coverImage.invalid">
-            Cover Image is required
+            <span style="color: red;">Cover Image is required</span>
         </div>
     </div>
     <button type="submit">Update Product</button>
     </form>
 </div>
-
-
-
-
- 

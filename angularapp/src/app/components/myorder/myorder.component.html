@@ -20,7 +20,12 @@
             <div class="buttons-container">
                 <button (click)="openTrackOrderModal(order.orderStatus)" class="track-order-button">Track Order</button>
                 <button (click)="viewItems(order.orderId)" class="view-items-button">View Items</button>
-                <button (click)="deleteOrder(order.orderId)" class="cancel-order-button">Cancel Order</button>
+                <button
+                    [disabled]="order.orderStatus.toLowerCase() === 'dispatched' || order.orderStatus.toLowerCase() === 'outfordelivery' || order.orderStatus.toLowerCase() === 'delivered'"
+                    (click)="openCancelPopup(order.orderId)" class="cancel-order-button">
+                    Cancel Order
+                </button>
+
             </div>
         </li>
     </ul>
@@ -65,5 +70,17 @@
             </div>
         </div>
         <button class="close-modal-button" (click)="closeTrackOrderModal()">Close</button>
+    </div>
+</div>
+
+<div class="modal" *ngIf="showCancelPopup">
+    <div class="modal-content">
+        <span class="close" (click)="closeCancelPopup()">&times;</span>
+        <h2>Confirm Cancelation</h2>
+        <p>Are you sure you want to cancel this order?</p>
+        <div class="popup-buttons-container">
+            <button class="popup-cancel-button" (click)="closeCancelPopup()">Cancel</button>
+            <button class="popup-confirm-button" (click)="confirmCancelOrder()">Confirm</button>
+        </div>
     </div>
 </div>

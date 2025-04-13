@@ -14,37 +14,6 @@ import { CartItem } from 'src/app/models/cart-item.model';
 })
 export class CheckoutComponent implements OnInit {
 
-  // cart: Cart;
-  // shippingAddress: string = '';
-  // billingAddress: string = '';
-
-  // constructor(private cartService: CartService, private router: Router) { }
-
-  // ngOnInit(): void {
-  //   this.getCartDetails();
-  // }
-
-  // getCartDetails() {
-  //   this.cartService.getCart(parseInt(localStorage.getItem('userId'))).subscribe(data => {
-  //     this.cart = data;
-  //   });
-  // }
-
-  // placeOrder() {
-  //   const order: Order = {
-  //     orderId: Math.floor(Math.random() * 1000),
-  //     cart : this.cart,
-  //     shippingAddress: this.shippingAddress,
-  //     billingAddress: this.billingAddress,
-  //     orderStatus: 'Pending' // Set default status to 'Pending'
-  //   };
-
-  //   // Logic to handle order placement
-  //   console.log('Order placed successfully!', order);
-  //   // Redirect to order success page or show success message
-  //   this.router.navigate(['/order-success']);
-  // }
-
   cart: Cart = {
     cartItems: [], userId: 0,
     quantity: 0,
@@ -55,6 +24,7 @@ export class CheckoutComponent implements OnInit {
   orderItems : OrderItem;
   order : Order;
   isPopupVisible = false;
+
   cartData:string=''
 
  constructor(private cartService: CartService,private activatedRoute:ActivatedRoute, private router: Router , private orderService : OrderService) { }
@@ -68,9 +38,21 @@ export class CheckoutComponent implements OnInit {
   }
 
   getCartDetails() {
-    this.cartService.getCart(parseInt(localStorage.getItem('userId'))).subscribe(data => {
-      this.cart = data;
-    });
+  const userId = parseInt(localStorage.getItem('userId') || '0', 10);
+  if (!userId) {
+    alert('Invalid user. Please log in again.');
+    this.router.navigate(['/login']); // Redirect to login if user is not valid
+    return;
+  }
+
+  this.cartService.getCart(userId).subscribe({
+    next: (cart) => {
+      this.cart = cart;
+    },
+    error: (error) => {
+      console.error('Failed to load cart details:', error);
+    }
+  });
 
   }
   
@@ -122,7 +104,7 @@ export class CheckoutComponent implements OnInit {
       quantity: item.quantity,
       price: item.product.price
     }));
-  
+
     const order: Order = {
       orderId: Math.floor(Math.random() * 1000),
       orderDate: '',
@@ -144,7 +126,7 @@ export class CheckoutComponent implements OnInit {
     this.orderService.placeOrder(order).subscribe(
       response => {
         console.log('Order placed successfully!', response);
-        
+
         this.isPopupVisible = true; // Show success message or redirect
       },
       error => {
@@ -152,10 +134,69 @@ export class CheckoutComponent implements OnInit {
       }
     );
   }
-  
 
+  //   // Logic to handle order placement
+  //   console.log('Order placed successfully!', order);
+  //   // Redirect to order success page or show success message
+  //   //this.router.navigate(['/order-success']);
+  // }
+
+//     placeOrder() {
+//       const userId = parseInt(localStorage.getItem('userId') || '0', 10);
+//   const userEmail = localStorage.getItem('email') || '';
+//   const userName = localStorage.getItem('username') || '';
+//   const userMobileNumber = localStorage.getItem('mobileNumber') || '';
+  
+//   if (!userId) {
+//     alert('Invalid user. Please log in again.');
+//     this.router.navigate(['/login']);
+//     return;
+//   }
+
+//   const order: Order = {
+//     user: {
+//       userId: userId,
+//       email: userEmail,
+//       username: userName,
+//       mobileNumber: userMobileNumber,
+//       password: '', // Populate if needed
+//       userRole: 'USER' // Default role
+//     },
+//     shippingAddress: this.shippingAddress,
+//     billingAddress: this.billingAddress,
+//     orderDate: new Date().toISOString(),
+//     orderItems: this.cart.cartItems.map(item => ({
+//       product: item.product,
+//       quantity: item.quantity,
+//       price: item.product.price
+//     })),
+//     totalAmount: this.calculateTotalAmount(),
+//     orderStatus: 'Pending'
+//   };
+
+//   // Log to confirm the payload
+//   console.log('Order payload:', order);
+
+//   // Send order data to backend
+//   this.orderService.placeOrder(order).subscribe({
+//     next: () => {
+//       console.log('Order placed successfully');
+//       this.cartService.clearCart(this.cart.userId).subscribe(() => {
+//         console.log('Cart cleared successfully');
+//       });
+
+//       this.isPopupVisible = true;
+//       setTimeout(() => {
+//         this.router.navigate(['/home-page']);
+//       }, 2000);
+//     },
+//     error: (error) => {
+//       console.error('Order placement failed:', error);
+//       alert(`Order placement failed: ${error.message || 'Unknown error'}`);
+//     }
+//   });
+  
     closePopup() {
       this.isPopupVisible = false;
     }
-
 }
