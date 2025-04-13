@@ -21,10 +21,6 @@ export class CartService {
     return this.httpClient.post(this.apiUrl + "/api/cart/add/" + userId + "/" + productId + "/" + quantity, cart);
   }
 
-  // public removeFromCart(productId : number) : void{
-  //   this.products = this.products.filter(c => c.productId != productId);
-  // }
-
   public getCart(userId: number): Observable<Cart> {
     console.log(userId);
 

@@ -24,9 +24,10 @@ export class CheckoutComponent implements OnInit {
   orderItems : OrderItem;
   order : Order;
   isPopupVisible = false;
-  cartData : string = '';
 
- constructor(private cartService: CartService, private router: Router , private orderService : OrderService , private activatedRoute : ActivatedRoute) { }
+  cartData:string=''
+
+ constructor(private cartService: CartService,private activatedRoute:ActivatedRoute, private router: Router , private orderService : OrderService) { }
 
   ngOnInit(): void {
     this.getCartDetails();
@@ -62,16 +63,51 @@ export class CheckoutComponent implements OnInit {
     return this.cart.cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0);
   }
 
+  // placeOrder() {
+  //   const order : Order = {
+  //     orderId: Math.floor(Math.random() * 1000),
+  //     orderDate: "",
+  //     totalAmount: this.calculateTotalAmount(),
+  //     user: {
+  //       userId: this.cart.userId,
+  //       email: '',
+  //       password: '',
+  //       username: '',
+  //       mobileNumber: '',
+  //       userRole: ''
+  //     }, // Assuming user object contains userId
+  //     orderItems: this.cart.cartItems.map(item => ({
+  //       product: item.product,
+  //       quantity: item.quantity,
+  //       price: item.product.price
+  //     })),
+  //     shippingAddress: this.shippingAddress,
+  //     billingAddress: this.billingAddress,
+  //     orderStatus: 'Pending' // Set default status to 'Pending'
+  //   };
+        
+  //    this.orderService.placeOrder(order).subscribe(
+  //     response => {
+  //     console.log('Order placed successfully!', response);
+  //     // this.router.navigate(['/user-view-product']);
+  //       this.isPopupVisible = true;
+  //      },
+  //      error => {
+  //    console.error('Error placing order', error);
+  //    }
+  //   );
+  //   }
+
   placeOrder() {
     const orderItems = JSON.parse(this.cartData).map(item => ({
       product: item.product,
       quantity: item.quantity,
       price: item.product.price
     }));
- 
+
     const order: Order = {
       orderId: Math.floor(Math.random() * 1000),
-      orderDate: "",
+      orderDate: '',
       totalAmount: this.calculateTotalAmount(),
       user: {
         userId: 1, // Replace with actual userId
@@ -86,10 +122,11 @@ export class CheckoutComponent implements OnInit {
       billingAddress: this.billingAddress,
       orderStatus: 'Pending'
     };
- 
+  
     this.orderService.placeOrder(order).subscribe(
       response => {
         console.log('Order placed successfully!', response);
+
         this.isPopupVisible = true; // Show success message or redirect
       },
       error => {
@@ -97,7 +134,6 @@ export class CheckoutComponent implements OnInit {
       }
     );
   }
- 
 
   //   // Logic to handle order placement
   //   console.log('Order placed successfully!', order);
@@ -159,7 +195,7 @@ export class CheckoutComponent implements OnInit {
 //       alert(`Order placement failed: ${error.message || 'Unknown error'}`);
 //     }
 //   });
-
+  
     closePopup() {
       this.isPopupVisible = false;
     }

@@ -89,12 +89,6 @@ export class UserviewproductComponent implements OnInit {
   this.popupVisible = !(this.popupVisible);
  }
 
- 
-  // addToCart(product:Product){
-  // let productId = product.productId;
-  // let qty:number = this.selectedQuantity;
-
-  // }
   public addToCart(product: Product) {
     const productId = product.productId;
     const qty = product.selectedQuantity;
@@ -128,6 +122,5 @@ clearCart(): void {
         }
     });
 }
-
 
 }

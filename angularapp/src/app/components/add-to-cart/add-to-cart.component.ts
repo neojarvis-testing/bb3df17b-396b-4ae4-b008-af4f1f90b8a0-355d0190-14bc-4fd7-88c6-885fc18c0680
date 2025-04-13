@@ -74,8 +74,6 @@ fetchUpdatedProducts(): void {
   checkout() {
     const cartData = encodeURIComponent(JSON.stringify(this.cartItems));
     this.router.navigate([`/check-out/${cartData}`]);
-
     this.router.navigate(['/check-out/${cartData}']);
-
   }
 }
