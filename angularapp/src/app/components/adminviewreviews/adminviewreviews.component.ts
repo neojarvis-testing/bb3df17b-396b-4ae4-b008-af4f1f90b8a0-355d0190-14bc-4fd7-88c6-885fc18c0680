@@ -13,52 +13,70 @@ import { ReviewService } from 'src/app/services/review.service';
   styleUrls: ['./adminviewreviews.component.css']
 })
 export class AdminviewreviewsComponent implements OnInit {
-  reviews:Review [] =[];
-  searchData:string="";
-  product :Product = {
+  reviews: Review[] = [];
+  searchData: string = "";
+  product: Product = {
     productName: "", price: 0, category: "", brand: "", description: "",
     stockQuantity: 0,
     coverImage: ''
   };
-  productId:number;
-  user:User = {
+  productId: number;
+  user: User = {
     email: '',
     password: '',
     username: '',
     mobileNumber: '',
     userRole: ''
   }
-  review:Review={
+  review: Review = {
     reviewText: '',
     rating: 0,
     date: '',
     user: new User,
     product: undefined
   }
-  showProductDetails:boolean = false;
-  showUserDetails:boolean = false;
-  constructor(private reviewService :ReviewService,private router :Router,private activateRoute:ActivatedRoute,private productService:ProductService,private authService:AuthService) { }
+  showProductDetails: boolean = false;
+  showUserDetails: boolean = false;
+  constructor(private reviewService: ReviewService, private router: Router, private activateRoute: ActivatedRoute, private productService: ProductService, private authService: AuthService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getAllReviews();
   }
-  getAllReviews(){
-    this.reviewService.getAllReviews().subscribe(data=>{
+  getAllReviews() {
+    this.reviewService.getAllReviews().subscribe(data => {
       this.reviews = data;
     })
   }
-  viewProduct(productId:number){
-    this.productService.getProductById(productId).subscribe(data=>{
+  viewProduct(productId: number) {
+    this.productService.getProductById(productId).subscribe(data => {
       this.product = data;
       this.showProductDetails = !(this.showProductDetails);
+
+      this.showPopup('productPopup');
+
     })
+
   }
-  viewProfile(reviewId:number){
-    this.reviewService.getReviewById(reviewId).subscribe(data=>{
+  viewProfile(reviewId: number) {
+    this.reviewService.getReviewById(reviewId).subscribe(data => {
       this.review = data;
       this.showUserDetails = !(this.showUserDetails);
-    })  
+    })
+
+    this.showPopup('userPopup');
+
   }
+
+  showPopup(popupId: string) {
+    document.getElementById(popupId).classList.add('active');
+    document.getElementById(popupId + 'Overlay').classList.add('active');
+  }
+
+  closePopup(popupId: string) {
+    document.getElementById(popupId).classList.remove('active');
+    document.getElementById(popupId + 'Overlay').classList.remove('active');
+  }
+
 
 }
 
