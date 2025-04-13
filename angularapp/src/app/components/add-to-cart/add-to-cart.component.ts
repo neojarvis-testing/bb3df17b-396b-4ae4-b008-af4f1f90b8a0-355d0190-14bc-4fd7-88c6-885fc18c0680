@@ -55,7 +55,7 @@ export class AddToCartComponent implements OnInit {
 
   checkout() {
     const cartData = encodeURIComponent(JSON.stringify(this.cartItems));
-    this.router.navigate([`/checkout/${cartData}`]);
+    this.router.navigate(['/check-out/${cartData}']);
   }
   
   

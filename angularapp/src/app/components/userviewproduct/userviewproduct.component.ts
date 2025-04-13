@@ -70,11 +70,11 @@ export class UserviewproductComponent implements OnInit {
  }
 
  
-  addToCart(product:Product){
-  let productId = product.productId;
-  let qty:number = this.selectedQuantity;
+  // addToCart(product:Product){
+  // let productId = product.productId;
+  // let qty:number = this.selectedQuantity;
 
-  }
+  // }
   public addToCart(product: Product) {
     let productId = product.productId;
     let qty: number = this.selectedQuantity;

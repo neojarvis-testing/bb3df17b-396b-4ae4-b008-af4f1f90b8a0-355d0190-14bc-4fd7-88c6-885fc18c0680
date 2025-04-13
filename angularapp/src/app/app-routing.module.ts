@@ -23,7 +23,7 @@ const routes: Routes = [
   {path:'admin-nav',component:AdminnavComponent},
   {path:'admin-view-product',component:AdminviewproductComponent},
   {path:'admin-view-reviews',component:AdminviewreviewsComponent},
-  {path:'check-out',component:CheckoutComponent},
+  {path:'check-out/${cartData}',component:CheckoutComponent},
   {path:'error',component:ErrorComponent},
   {path:'login',component:LoginComponent},
   {path:'my-order/:id',component:MyorderComponent},
