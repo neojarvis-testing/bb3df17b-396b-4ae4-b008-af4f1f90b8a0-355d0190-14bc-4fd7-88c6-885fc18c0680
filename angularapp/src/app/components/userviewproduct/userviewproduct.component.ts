@@ -20,7 +20,7 @@ export class UserviewproductComponent implements OnInit {
   filteredProducts: Product[] = []
   searchData = '';
   selectedCategory = '';
-
+  
   selectedQuantity: number;
   popupVisible: boolean = false;
 
@@ -47,7 +47,6 @@ export class UserviewproductComponent implements OnInit {
     this.popupVisible = true;
   }
 
-
   validateQuantity(product: Product) {
     if (this.selectedQuantity > product.stockQuantity) {
       this.selectedQuantity = product.stockQuantity; // Limit to stock
@@ -58,8 +57,6 @@ export class UserviewproductComponent implements OnInit {
     }
   }
 
-
-
   searchProducts() {
     this.filteredProducts = this.products.filter(data => {
       return data.productName.toLowerCase().includes(this.searchData.toLowerCase()) &&
@@ -68,9 +65,14 @@ export class UserviewproductComponent implements OnInit {
     );
   }
 
-  closePopup() {
-    this.popupVisible = !(this.popupVisible);
+ closePopup() {
+  this.popupVisible = !(this.popupVisible);
+ }
 
+ 
+  addToCart(product:Product){
+  let productId = product.productId;
+  let qty:number = this.selectedQuantity;
 
   }
   public addToCart(product: Product) {
