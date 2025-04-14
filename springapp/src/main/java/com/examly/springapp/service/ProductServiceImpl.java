@@ -25,6 +25,9 @@ public class ProductServiceImpl implements ProductService{
         // if(opt.isPresent()){
         //     throw new DuplicateProductException();
         // }
+        if (product.getCoverImage() != null && !product.getCoverImage().startsWith("data:image")) {
+            product.setCoverImage("data:image/jpeg;base64," + product.getCoverImage());
+        }
         Product savedProduct=productRepo.save(product);
         return savedProduct;
     }
@@ -47,6 +50,9 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product updateProduct(Long productId, Product product) {
+        if (product.getCoverImage() != null && !product.getCoverImage().startsWith("data:image")) {
+            product.setCoverImage("data:image/jpeg;base64," + product.getCoverImage());
+        }
     if (productRepo.existsById(productId)) {
         product.setProductId(productId); // Ensure the correct ID is set
         return productRepo.save(product); // Save updated product to the database

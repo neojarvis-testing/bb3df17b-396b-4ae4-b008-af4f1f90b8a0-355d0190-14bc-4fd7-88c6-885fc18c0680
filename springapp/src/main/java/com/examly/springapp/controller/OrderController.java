@@ -29,28 +29,28 @@ public class OrderController {
     @Autowired
     private EmailService emailService;
 
-//     @PostMapping("/api/orders")
-// public ResponseEntity<?> addOrder(@RequestBody Order order) {
-//     try {
-//         Order savedOrder = orderService.addOrder(order);
-//         return ResponseEntity.status(201).body(savedOrder);
-//     } catch (Exception e) {
-//         return ResponseEntity.status(500).body("Order placement failed: " + e.getMessage());
-//     }
-// }
-@PostMapping("/api/orders")
+    @PostMapping("/api/orders")
 public ResponseEntity<?> addOrder(@RequestBody Order order) {
     try {
         Order savedOrder = orderService.addOrder(order);
-
-        // Send order confirmation email
-        emailService.sendOrderConfirmation(savedOrder);
-
         return ResponseEntity.status(201).body(savedOrder);
     } catch (Exception e) {
         return ResponseEntity.status(500).body("Order placement failed: " + e.getMessage());
     }
 }
+// @PostMapping("/api/orders")
+// public ResponseEntity<?> addOrder(@RequestBody Order order) {
+//     try {
+//         Order savedOrder = orderService.addOrder(order);
+
+//         // Send order confirmation email
+//         // emailService.sendOrderConfirmation(savedOrder);
+
+//         return ResponseEntity.status(201).body(savedOrder);
+//     } catch (Exception e) {
+//         return ResponseEntity.status(500).body("Order placement failed: " + e.getMessage());
+//     }
+// }
 
 
     @GetMapping("/api/orders/{orderId}")
