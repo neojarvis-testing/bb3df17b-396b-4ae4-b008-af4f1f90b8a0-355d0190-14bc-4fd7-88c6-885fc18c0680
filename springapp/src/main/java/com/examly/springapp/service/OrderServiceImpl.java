@@ -16,9 +16,6 @@ import com.examly.springapp.repository.UserRepo;
 
 import jakarta.persistence.EntityNotFoundException;
 
-
-
-
 @Service
 public class OrderServiceImpl implements OrderService{
 
