@@ -31,12 +31,13 @@ export class AuthService {
   }
 
   public login(login : Login) {
-    this.httpClient.post<{ token: string; role: string, userId : string, username : string }>(`${this.baseUrl}/api/login`, login).subscribe(
+    this.httpClient.post<{ token: string; email : string, role: string, userId : string, username : string }>(`${this.baseUrl}/api/login`, login).subscribe(
         response => {
-            const { token, role, userId, username } = response;
+            const { token, email, role, userId, username } = response;
 
             // Store token and role in localStorage
             localStorage.setItem('token', token);
+            localStorage.setItem('email', email);
             localStorage.setItem('userRole', role);
             localStorage.setItem('username', username);
             localStorage.setItem('userId', userId.toString());

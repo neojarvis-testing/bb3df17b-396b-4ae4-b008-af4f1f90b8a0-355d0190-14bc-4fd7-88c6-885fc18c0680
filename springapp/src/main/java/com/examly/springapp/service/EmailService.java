@@ -30,7 +30,7 @@ public class EmailService {
 
    public void sendOrderConfirmation(Order order) {
         try {
-            byte[] pdfContent = PdfGeneratorUtil.generateInvoicePdf(order);
+            byte[] pdfContent = PdfGeneratorUtil.generateInvoicePdfWithGST(order);
 
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
