@@ -51,9 +51,10 @@ public class ReviewController {
     }
 
     @GetMapping("/api/reviews/product/{productId}")
-    public ResponseEntity<?> getReviewsByProductid(@PathVariable Long productId){
-        List<Review> reviews = reviewService.getReviewsByProductid(productId);
-        return ResponseEntity.status(200).body(reviews);
+    public ResponseEntity<?> getReviewsByProductid(@PathVariable Long productId) {
+    List<Review> reviews = reviewService.getReviewsByProductid(productId);
+    reviews.forEach(r -> System.out.println(r)); // Log reviews for debugging
+    return ResponseEntity.status(200).body(reviews);
     }
 
     @DeleteMapping("/api/reviews/{reviewId}")

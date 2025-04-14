@@ -22,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './pipes/search.pipe';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
-import { FooterComponent } from './components/footer/footer.component';
+import { FooterComponent } from './components/footer/footer.component'
 
 @NgModule({
   declarations: [
