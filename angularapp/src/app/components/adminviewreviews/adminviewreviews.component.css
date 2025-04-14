@@ -3,42 +3,130 @@
     padding: 0;
     box-sizing: border-box;
 }
-.container{
+
+.container {
     width: 80%;
     display: block;
     margin: 0 auto;
-    
-    padding:20px;
-    background-color: rgb(249, 248, 248);
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-.container h2{
+
+.container h2 {
     text-align: center;
     margin-bottom: 15px;
 }
-ul li{
+
+ul li {
     list-style: none;
     padding: 5px 0;
 }
-.container .inside-container{
-    
+
+.container .inside-container {
+
     padding: 20px;
-    
+
 }
-.inside-container .btn{
-    margin:2px;
+
+.inside-container .btn {
+    margin: 2px;
     display: flex;
     justify-content: space-between;
 }
-.btn{
+
+/* .btn{
     margin-top: 13px;
 }
 .btn button{
     padding: 3px;
 
+} */
+
+.btn {
+    display: flex;
+    gap: 10px;
 }
-.iproductDetails{
+
+.btn button {
+    background-color: #007BFF;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: background-color 0.3s;
+    
+}
+
+.btn button:hover {
+    background-color: #0056b3;
+    
+}
+
+
+
+
+.m-container {
+    padding: 20px;
+}
+
+.inside-container {
+    border: 1px solid #ccc;
+    margin-bottom: 5px;
+
+    background-color: #fff;
+}
+
+.iproductDetails {
     padding: 5px;
 }
-.iproductDetails span{
+
+.iproductDetails span {
     padding: 4px;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    background-color: #fff;
+    z-index: 1000;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.popup.active {
+    display: block;
+}
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup-overlay.active {
+    display: block;
+}
+
+.popup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
 }

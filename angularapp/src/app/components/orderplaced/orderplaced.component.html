@@ -11,8 +11,8 @@
             <p>Shipping Address: {{order.shippingAddress}}</p>
             <p>Billing Address: {{order.billingAddress}}</p>
             <p>Total Amount: {{order.totalAmount}}</p>
-            <select name="orderStatus" id="orderStatus" [(ngModel)]="order.orderStatus">
-                <option *ngFor="let status of orderStatus" [value]="status" [selected]="status == order.orderStatus" >{{status}}</option>
+            <select name="orderStatus" id="orderStatus" [(ngModel)]="order.orderStatus" (change)="updateOrderStatus(order)">
+                <option *ngFor="let status of orderStatus" [value]="status">{{status}}</option>
             </select>
             <div class="products-container">
                 <!-- <h3>Products in the Order:</h3> -->

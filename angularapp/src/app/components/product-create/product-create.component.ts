@@ -13,7 +13,7 @@ export class ProductCreateComponent implements OnInit {
   product:Product = {productName:"",description:"",price:0,stockQuantity:0,category:"",brand:"",coverImage:""}
   productId:number;
   isEditMode:boolean=false;
-
+  isFormInvalid = false;
 
   constructor(private productService : ProductService,private router :Router,private activatedRoute:ActivatedRoute) { }
 
@@ -30,9 +30,22 @@ export class ProductCreateComponent implements OnInit {
   }
 
   public addProduct(){
+    if (!this.product.productName || 
+      !this.product.description || 
+      !this.product.price || this.product.price < 0 || 
+      !this.product.stockQuantity || this.product.stockQuantity < 0 || 
+      !this.product.category || 
+      !this.product.brand || 
+      !this.product.coverImage) {
+    this.isFormInvalid = true;
+    return; // Prevent form submission
+  }
+  else{
+    this.isFormInvalid = false;
     this.productService.addProduct(this.product).subscribe(data=>{
       this.router.navigate(['/admin-view-product'])
     })
+  }
   }
 
 

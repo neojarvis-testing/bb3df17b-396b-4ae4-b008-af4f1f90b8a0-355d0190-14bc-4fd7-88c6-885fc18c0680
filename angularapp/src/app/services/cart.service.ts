@@ -31,5 +31,14 @@ export class CartService {
     return this.httpClient.delete(`${this.apiUrl}/api/cart/clear/${userId}`);
   }
 
+  updateCartItem(userId: number, cartItem: CartItem) {
+    if (!cartItem.product.productId || cartItem.quantity === undefined) {
+      console.error("Invalid cart item data:", cartItem);
+      return;
+    }
+  
+    return this.httpClient.put(`${apiUrl}/api/cart/updateItem/${userId}/${cartItem.product.productId}/${cartItem.quantity}`, {});
+  }
+  
   
 }

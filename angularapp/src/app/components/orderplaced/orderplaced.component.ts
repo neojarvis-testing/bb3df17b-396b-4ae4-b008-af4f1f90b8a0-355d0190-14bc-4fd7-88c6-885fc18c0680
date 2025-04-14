@@ -109,6 +109,18 @@ export class OrderplacedComponent implements OnInit {
   //   //this.router.navigate(['/api/'])
   // }
 
+  public updateOrderStatus(order: Order): void {
+    this.orderService.updateOrder(order.orderId, order).subscribe({
+      next: () => {
+        console.log(`Order status updated successfully for Order ID: ${order.orderId}`);
+        alert('Order status updated successfully.');
+      },
+      error: (error) => {
+        console.error('Failed to update order status:', error);
+        alert('Failed to update order status. Please try again later.');
+      }
+    });
+  }
   
 
 

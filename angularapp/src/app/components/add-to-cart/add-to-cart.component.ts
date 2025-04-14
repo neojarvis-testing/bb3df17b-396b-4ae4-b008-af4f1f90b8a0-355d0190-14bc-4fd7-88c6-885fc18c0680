@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CartItem } from 'src/app/models/cart-item.model';
 import { Cart } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-add-to-cart',
@@ -11,68 +12,105 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class AddToCartComponent implements OnInit {
 
-  // Ensure that userId is retrieved correctly (provide a fallback if needed)
   userId: number = parseInt(localStorage.getItem('userId') || '0');
-  
-  // Change type to CartItem[] because you expect to receive a list of cart items.
   cartItems: CartItem[] = [];
-  emptyMgs:string="";
+  emptyMgs: string = "";
+  products: any[] = []; // Store all products for stock restoration
 
-  constructor(private cartService: CartService,private router:Router) { }
+  constructor(private cartService: CartService, private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
     this.getAllCartItems();
+    this.fetchProducts(); // Fetch products initially
   }
 
   public getAllCartItems() {
-    this.cartService.getCart(this.userId)
-      .subscribe({
-        next: (cart: Cart) => {
-          console.log('Cart received:', cart);
-          // Assign the cartItems array from the cart received from backend.
-          this.cartItems = cart.cartItems;
-        },
-        error: (err) => {
-          console.error('Error fetching cart:', err);
-        }
-      });
+    this.cartService.getCart(this.userId).subscribe({
+      next: (cart: Cart) => {
+        console.log('Cart received:', cart);
+        this.cartItems = cart.cartItems;
+      },
+      error: (err) => {
+        console.error('Error fetching cart:', err);
+      }
+    });
+  }
+
+  fetchProducts(): void {
+    this.productService.getAllProducts().subscribe({
+      next: (products) => {
+        this.products = products; // Store product list for stock restoration
+        console.log("Fetched all products:", this.products);
+      },
+      error: (err) => console.error("Error fetching products:", err)
+    });
   }
 
   clearCart(): void {
     if (this.cartItems.length === 0) {
-        this.emptyMgs = "Cart is Empty";
-        return;
+      this.emptyMgs = "Cart is Empty";
+      return;
     }
 
-    this.cartService.clearCart(this.userId).subscribe({
-        next: () => {
-            console.log('Cart cleared successfully');
-            this.cartItems = []; // Clear cart items in the frontend
-            this.fetchUpdatedProducts(); // Fetch updated product list to restore stock
-            alert('Cart has been cleared successfully!');
-        },
-        error: (error) => {
-            console.error('Error clearing the cart:', error);
-            alert('Failed to clear the cart. Please try again.');
-        }
-    });
-}
-
-fetchUpdatedProducts(): void {
-  this.cartService.getCart(this.userId).subscribe({
-      next: (cart) => {
-          this.cartItems = cart.cartItems; // Update cart items
-          console.log('Updated cart items:', this.cartItems);
-      },
-      error: (err) => {
-          console.error('Error fetching updated products:', err);
+    // Restore stock **before** clearing the cart
+    this.cartItems.forEach(cartItem => {
+      let product = this.products.find(p => p.productId === cartItem.product.productId);
+      if (product) {
+        product.stockQuantity += cartItem.quantity; // Restore stock locally
+        console.log(`Stock restored for product ${product.productId}: ${product.stockQuantity}`);
       }
-  });
-}
+    });
 
+    this.cartService.clearCart(this.userId).subscribe({
+      next: () => {
+        console.log("Cart cleared successfully");
+
+        this.fetchUpdatedProducts(); // Refresh UI after clearing the cart
+
+        alert("Cart has been cleared successfully!");
+      },
+      error: (error) => {
+        console.error("Error clearing the cart:", error);
+        alert("Failed to clear the cart. Please try again.");
+      }
+    });
+  }
+
+  fetchUpdatedProducts(): void {
+    this.productService.getAllProducts().subscribe({
+      next: (products) => {
+        console.log("Updated product stock:", this.products);
+      },
+      error: (err) => console.error("Error fetching updated products:", err)
+    });
+
+    this.getAllCartItems();  // Refresh cart UI
+  }
+
+  updateQuantity(cartItem: CartItem, newQuantity: number) {
+    if (newQuantity < 1) return;
+
+    cartItem.quantity = newQuantity;
+
+    this.cartService.updateCartItem(this.userId, cartItem).subscribe({
+      next: () => console.log("Quantity updated successfully"),
+      error: (err) => console.error("Error updating quantity:", err)
+    });
+  }
 
   checkout() {
+
     const cartData = encodeURIComponent(JSON.stringify(this.cartItems));
     this.router.navigate(['/check-out/${cartData}']);
+    this.router.navigate([`/check-out/${cartData}`]);
+//     this.cartService.getCart(this.userId).subscribe({
+//       next: (cart) => {
+//         this.cartItems = cart.cartItems; 
+//         const cartData = encodeURIComponent(JSON.stringify(this.cartItems));
+//         this.router.navigate([`/check-out/${cartData}`]);
+//       },
+//       error: (err) => console.error('Error fetching updated cart before checkout:', err)
+//     });
+
   }
 }
