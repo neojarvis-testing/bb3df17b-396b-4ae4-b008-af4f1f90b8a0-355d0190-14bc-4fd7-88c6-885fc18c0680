@@ -1,3 +1,6 @@
+.container{
+    margin: 60px;
+}
 /* Add hover effects to the product card */
 .card {
     border-radius: 10px; /* Slightly round corners for a sleek look */
