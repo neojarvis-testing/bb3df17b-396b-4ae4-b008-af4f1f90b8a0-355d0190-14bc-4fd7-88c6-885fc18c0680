@@ -34,6 +34,7 @@ export class OrderplacedComponent implements OnInit {
 
   //userId : number;
   selectedOrderItems: OrderItem[] = [];
+  showModal: boolean = false;
   // showModal: boolean = false;
 
   constructor(private orderService : OrderService , private orderItemService : OrderItemService) { }
@@ -75,12 +76,29 @@ export class OrderplacedComponent implements OnInit {
       this.selectedUser = null;
     }
 
-    public getOrderItemByOrderId(orderId:number){
-      this.orderItemService.getOrderItems(orderId).subscribe(data=>{
-      this.selectedOrderItems = data;
-      })
-    }
+    // public getOrderItemByOrderId(orderId:number){
+    //   this.orderItemService.getOrderItems(orderId).subscribe(data=>{
+    //   this.selectedOrderItems = data;
+    //   })
+    // }
 
+    public viewItems(orderId: number): void {
+      this.orderItemService.getOrderItems(orderId).subscribe({
+          next: items => {
+              this.selectedOrderItems = items;
+              this.showModal = true;
+          },
+          error: err => {
+              console.error("Failed to fetch order items:", err);
+              alert("Unable to fetch order items. Please try again later.");
+          }
+      });
+  }
+    
+  public closeModal(): void {
+    this.showModal = false;
+    this.selectedOrderItems = [];
+  }   
   //   public getAllOrdersByUserId(): void {
   //     this.orderService.getOrdersByUserId(this.userId).subscribe(data => {
   //       this.orders = data;
@@ -121,6 +139,15 @@ export class OrderplacedComponent implements OnInit {
       }
     });
   }
+  
+
+  
+  public isStatusDisabled(currentStatus: string, status: string): boolean {
+    const statusOrder = ["Pending", "Accepted", "Dispatched", "Out For Delivery", "Delivered"];
+    const currentIndex = statusOrder.indexOf(currentStatus);
+    const statusIndex = statusOrder.indexOf(status);
+     return statusIndex < currentIndex;
+    }
   
 
 
