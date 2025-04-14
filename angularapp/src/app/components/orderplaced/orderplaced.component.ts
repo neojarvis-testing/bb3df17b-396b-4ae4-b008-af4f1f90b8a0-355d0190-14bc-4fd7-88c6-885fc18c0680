@@ -18,6 +18,8 @@ export class OrderplacedComponent implements OnInit {
   selectedUser : User ;
   selectedOrderItems: OrderItem[] = [];
 
+  showModal: boolean = false;
+
   constructor(private orderService : OrderService , private orderItemService : OrderItemService) { }
 
   ngOnInit(): void {
@@ -41,6 +43,43 @@ export class OrderplacedComponent implements OnInit {
     }
     })
   }
+    public sortOrders() {
+      this.orders.sort((a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime());
+    }
+
+
+    public viewProfile(user: User): void {
+      // console.log(this.user1)
+      this.selectedUser = user;
+    }
+   
+    public closeProfile(): void {
+      this.selectedUser = null;
+    }
+
+    // public getOrderItemByOrderId(orderId:number){
+    //   this.orderItemService.getOrderItems(orderId).subscribe(data=>{
+    //   this.selectedOrderItems = data;
+    //   })
+    // }
+
+    public viewItems(orderId: number): void {
+      this.orderItemService.getOrderItems(orderId).subscribe({
+          next: items => {
+              this.selectedOrderItems = items;
+              this.showModal = true;
+          },
+          error: err => {
+              console.error("Failed to fetch order items:", err);
+              alert("Unable to fetch order items. Please try again later.");
+          }
+      });
+  }
+    
+  public closeModal(): void {
+    this.showModal = false;
+    this.selectedOrderItems = [];
+  }   
 
   public sortOrders() {
     this.orders.sort((a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime());
@@ -73,4 +112,11 @@ export class OrderplacedComponent implements OnInit {
       }
     });
   }
+ 
+  public isStatusDisabled(currentStatus: string, status: string): boolean {
+    const statusOrder = ["Pending", "Accepted", "Dispatched", "Out For Delivery", "Delivered"];
+    const currentIndex = statusOrder.indexOf(currentStatus);
+    const statusIndex = statusOrder.indexOf(status);
+     return statusIndex < currentIndex;
+    }
 }

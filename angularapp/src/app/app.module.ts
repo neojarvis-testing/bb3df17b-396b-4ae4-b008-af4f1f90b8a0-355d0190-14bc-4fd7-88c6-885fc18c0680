@@ -23,7 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './pipes/search.pipe';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
-import { FooterComponent } from './components/footer/footer.component'
+import { FooterComponent } from './components/footer/footer.component';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { FooterComponent } from './components/footer/footer.component'
     AdminnavComponent,
     SearchPipe,
     AddToCartComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
     FooterComponent
   ],
   imports: [

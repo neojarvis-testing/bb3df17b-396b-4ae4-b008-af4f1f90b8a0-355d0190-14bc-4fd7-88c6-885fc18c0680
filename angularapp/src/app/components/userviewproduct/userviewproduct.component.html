@@ -6,6 +6,7 @@
     <div class="col-md-6">
       <input type="text" class="form-control" placeholder="Search by product name" [(ngModel)]="searchData"
         (input)="searchProducts()" />
+
     </div>
     <div class="col-md-4">
       <select class="form-select" [(ngModel)]="selectedCategory" (change)="searchProducts()">
@@ -45,13 +46,15 @@
             <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0"
               (click)="addToCart(product)">
               Add to Cart
-            </button>
+            </button>&nbsp;&nbsp;
+
 
             <!-- Out of Stock Message -->
             <p class="text-muted" *ngIf="product.stockQuantity === 0">Out of Stock</p>
 
             <!-- View Reviews -->
             <button class="btn btn-primary btn-sm" (click)="viewReview(product.productId)">View Reviews</button>
+            &nbsp;&nbsp;
 
             <!-- Write a Review -->
             <button class="btn btn-secondary btn-sm" [routerLink]="['/review', product.productId]">
@@ -64,6 +67,11 @@
   </div>
 
   <!-- Pop-up Modal -->
+
+  <div class="popup" *ngIf="popupVisible">
+    <div class="popup-content">
+      <h3>{{ popupMessage }}</h3>
+
   <!-- <div class="popup" *ngIf="popupVisible">
       <div class="popup-content">
         <h3>{{ popupMessage }}</h3>
@@ -91,6 +99,7 @@
         </ul>
         <p *ngIf="reviews.length === 0">No reviews available for this product.</p>
       </div>
+
 
       <button (click)="closePopup()">OK</button>
     </div>
