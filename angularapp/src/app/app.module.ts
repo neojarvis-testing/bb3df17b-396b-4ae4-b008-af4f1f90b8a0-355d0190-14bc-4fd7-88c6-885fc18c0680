@@ -22,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './pipes/search.pipe';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { AddToCartComponent } from './components/add-to-cart/add-to-cart.compone
     UserviewproductComponent,
     AdminnavComponent,
     SearchPipe,
-    AddToCartComponent
+    AddToCartComponent,
+    ChangePasswordComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
