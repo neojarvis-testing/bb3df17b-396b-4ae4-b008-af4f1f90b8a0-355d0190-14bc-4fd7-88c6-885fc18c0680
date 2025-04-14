@@ -16,6 +16,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { UsernavComponent } from './components/usernav/usernav.component';
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 const routes: Routes = [
   {path:'home-page',component:HomePageComponent},
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path:'sign-up',component:SignupComponent},
   {path:'user-nav',component:UsernavComponent},
   {path:'user-view-product',component:UserviewproductComponent},
+  {path:'change-password',component:ChangePasswordComponent},
   {path:'**',component:LoginComponent}
 ];
 
