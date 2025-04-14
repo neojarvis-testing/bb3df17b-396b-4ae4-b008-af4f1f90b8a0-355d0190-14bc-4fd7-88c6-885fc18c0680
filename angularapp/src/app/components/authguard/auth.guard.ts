@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
     }
     const routePath = route.url[0]?.path;
 
-    if((routePath === 'admin' && !this.authService.isAdmin()) || (routePath === 'user' && !this.authService.isUser())){
+    if((routePath === 'ADMIN' && !this.authService.isAdmin()) || (routePath === 'USER' && !this.authService.isUser())){
       alert('You are not authorized to view this page');
       this.router.navigate(['/error']);
       return false;
