@@ -25,7 +25,6 @@ import { AddToCartComponent } from './components/add-to-cart/add-to-cart.compone
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { FooterComponent } from './components/footer/footer.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
