@@ -1,13 +1,21 @@
    .container{
       margin-top: 10px;
+      font-family: Arial, sans-serif;
+      
    }
    .review-container {
-      border:1px solid rgba(128, 128, 128, 0.483);
       width: 40%;
+      height: 350px;
       display: block;
-      margin: 20px auto; 
+      margin: auto; 
       padding:10px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      
    }
+
 
    .review-container h2{
       font-size: 30px;
@@ -49,6 +57,7 @@
       display: block;
       margin:0 auto;
       color:white;
+      border-radius: 5px;
       background-color: rgb(100 7 213);
    }
 

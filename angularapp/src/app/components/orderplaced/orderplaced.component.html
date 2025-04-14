@@ -11,8 +11,8 @@
             <p>Shipping Address: {{order.shippingAddress}}</p>
             <p>Billing Address: {{order.billingAddress}}</p>
             <p>Total Amount: {{order.totalAmount}}</p>
-            <select name="orderStatus" id="orderStatus" [(ngModel)]="order.orderStatus">
-                <option *ngFor="let status of orderStatus" [value]="status" [selected]="status == order.orderStatus" >{{status}}</option>
+            <select name="orderStatus" id="orderStatus" [(ngModel)]="order.orderStatus" (change)="updateOrderStatus(order)">
+                <option *ngFor="let status of orderStatus" [value]="status">{{status}}</option>
             </select>
             <div class="products-container">
                 <!-- <h3>Products in the Order:</h3> -->
@@ -24,7 +24,7 @@
             <!-- <p>product: {{order.user.userId}}</p> -->
             <div class="button">
             <button (click)="viewProfile(order.user)">View Profile</button>
-            <button (click)="getOrderItemByOrderId(order.orderId)" class="view-items-button">View Items</button>
+            <!-- <button (click)="getOrderItemByOrderId(order.orderId)" class="view-items-button">View Items</button> -->
             </div>
         </li>
     </ul>

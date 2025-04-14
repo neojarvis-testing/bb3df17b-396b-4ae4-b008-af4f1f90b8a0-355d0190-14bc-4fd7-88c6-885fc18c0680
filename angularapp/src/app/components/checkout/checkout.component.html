@@ -14,22 +14,24 @@
     <h1>Enter Shipping Details</h1>
     <form (ngSubmit)="placeOrder()" #orderForm="ngForm">
         <label for="shippingAddress">Shipping Address:</label><br>
-        <input type="text" id="shippingAddress" name="shippingAddress" [(ngModel)]="shippingAddress" required #shippingAddressModel="ngModel"><br>
+        <textarea id="shippingAddress" name="shippingAddress" [(ngModel)]="shippingAddress" required #shippingAddressModel="ngModel" style="width: 100%; height: 100px;"></textarea><br>
         <div *ngIf="shippingAddressModel.touched && shippingAddressModel.invalid">
             <span style="color: red;">Shipping Address is required</span>
         </div>
         <label for="billingAddress">Billing Address:</label><br>
-        <input type="text" id="billingAddress" name="billingAddress" [(ngModel)]="billingAddress" required #billingAddressModel="ngModel"><br>
+        <textarea id="billingAddress" name="billingAddress" [(ngModel)]="billingAddress" required #billingAddressModel="ngModel" style="width: 100%; height: 100px;"></textarea><br>
         <div *ngIf="billingAddressModel.touched && billingAddressModel.invalid">
             <span style="color: red;">Billing Address is required</span>
         </div>
-        <div class="order-success-popup" id="orderSuccessPopup">
-            <div class="popup-content">
-                <h1>Order Placed Successfully!</h1>
-                <p>Thank you for your purchase. Your order has been placed and is being processed.</p>
-                <button id="closePopupButton">OK</button>
-            </div>
-        </div>
         <button type="submit" id="placeOrderButton" [disabled]="orderForm.invalid">Place Order</button>
     </form>
+    
 </div>
+<div class="order-success-popup" *ngIf="isPopupVisible">
+    <div class="popup-content">
+      <h1>Order Placed Successfully!</h1>
+      <p>Thank you for your purchase. Your order has been placed and is being processed.</p>
+      <button (click)="closePopup()">OK</button>
+    </div>
+  </div>
+   

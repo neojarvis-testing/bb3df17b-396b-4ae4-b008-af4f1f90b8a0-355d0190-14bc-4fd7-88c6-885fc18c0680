@@ -144,16 +144,18 @@ button:hover {
     background: #0056b3;
 }
 .order-success-popup {
-    display: none; /* Hidden by default */
+    display: flex; /* Ensure visibility */
+    justify-content: center;
+    align-items: center;
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
-  }
+}
+
   
   .popup-content {
     background-color: #fefefe;
@@ -190,4 +192,4 @@ button:hover {
   .popup-content button:hover {
     background-color: #45a049; /* Darker green on hover */
   }
-  
+   
