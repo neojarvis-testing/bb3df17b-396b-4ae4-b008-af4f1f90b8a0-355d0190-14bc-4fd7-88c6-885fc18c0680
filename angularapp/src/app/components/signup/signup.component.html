@@ -13,6 +13,11 @@
                 <div class="form-group">
                     <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email" required email #emailNgModel="ngModel" class="form-control">
                     <div *ngIf="emailNgModel.invalid && emailNgModel.touched" class="error">Valid email is required</div>
+                    <button (click)="sendOTP()">Send OTP</button>
+                </div>
+                <div class="form-group">
+                    <input [(ngModel)]="otp" #otpNgModel="ngModel" placeholder="Enter OTP" name="otp" />
+                    <button (click)="verifyOTP()">Verify OTP</button>
                 </div>
                 <div class="form-group">
                     <input type="number" name="mobile" id="mobile" placeholder="Mobile" [(ngModel)]="mobile" required pattern="[0-9]{10}" #mobileNgModel="ngModel" class="form-control">
@@ -37,7 +42,7 @@
                     </select>
                     <div *ngIf="role === '' && registrationForm.submitted" class="error">Role is required</div>
                 </div>
-                <button type="submit">Sign Up</button>
+                <button type="submit" [disabled]="!registrationForm.valid || !otpVerified">Sign Up</button>
                 <p>Already have an account? <a [routerLink]="['/login']">Login</a></p>
             </form>
         </div>
