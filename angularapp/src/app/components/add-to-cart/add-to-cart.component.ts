@@ -99,13 +99,18 @@ export class AddToCartComponent implements OnInit {
   }
 
   checkout() {
-    this.cartService.getCart(this.userId).subscribe({
-      next: (cart) => {
-        this.cartItems = cart.cartItems; 
-        const cartData = encodeURIComponent(JSON.stringify(this.cartItems));
-        this.router.navigate([`/check-out/${cartData}`]);
-      },
-      error: (err) => console.error('Error fetching updated cart before checkout:', err)
-    });
+
+    const cartData = encodeURIComponent(JSON.stringify(this.cartItems));
+    this.router.navigate(['/check-out/${cartData}']);
+    this.router.navigate([`/check-out/${cartData}`]);
+//     this.cartService.getCart(this.userId).subscribe({
+//       next: (cart) => {
+//         this.cartItems = cart.cartItems; 
+//         const cartData = encodeURIComponent(JSON.stringify(this.cartItems));
+//         this.router.navigate([`/check-out/${cartData}`]);
+//       },
+//       error: (err) => console.error('Error fetching updated cart before checkout:', err)
+//     });
+
   }
 }
