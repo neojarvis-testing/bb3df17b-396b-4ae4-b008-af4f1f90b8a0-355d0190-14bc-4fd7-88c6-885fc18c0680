@@ -3,7 +3,7 @@
     <div>
         <input type="text" name="search" [(ngModel)]="searchData" id="search" placeholder="search reviews">
     </div>
-    <div>
+    <div class="m-container">
         <div *ngIf="reviews && reviews.length > 0">
             <ul>
                 <li class="inside-container" *ngFor="let review of reviews | search:searchData">
@@ -19,20 +19,11 @@
                 </li>
             </ul>
         </div>
-        <div *ngIf="!reviews && reviews.length == 0">
+        <div class="inside-container" *ngIf="!reviews && reviews.length == 0">
             <span>No reviews found.</span>
         </div>
     </div>
-    <!-- <div *ngIf="showProductDetails" class="productDetails">
-        <h2>Product Details</h2>
-        <div class="iproductDetails">
-            <span>Name: {{product.productName}}</span><br>
-            <span>Price: {{product.price}}</span><br>
-            <span>Category: {{product.category}}</span><br>
-            <span>Brand: {{product.brand}}</span><br>
-            <span>Description: {{product.description}}</span><br>
-        </div>
-    </div> -->
+
     <div class="popup-overlay" id="productPopupOverlay">
         <div class="popup" id="productPopup">
             <span class="close-btn" (click)="closePopup('productPopup')">X</span>
@@ -46,12 +37,6 @@
             </div>
         </div>
     </div>
-    <!-- <div *ngIf="showUserDetails" class="userDetails">
-            <h2>User Profile</h2>
-            <span>Username: {{review.user.username}}</span> <br>
-            <span>Email: {{review.user.email}}</span> <br>
-            <span>Mobile no: {{review.user.mobileNumber}}</span> <br>
-        </div>  -->
     <div class="popup-overlay" id="userPopupOverlay">
         <div class="popup" id="userPopup">
             <span class="close-btn" (click)="closePopup('userPopup')">X</span>
