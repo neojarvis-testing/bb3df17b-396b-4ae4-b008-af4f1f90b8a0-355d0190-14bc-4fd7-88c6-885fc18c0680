@@ -12,7 +12,9 @@ public interface ReviewRepo extends JpaRepository<Review,Long> {
     List<Review> findByUserId(Long userId); 
 
 
-    @Query("SELECT r FROM Review r WHERE r.product.id =:productId")
+    @Query("SELECT r FROM Review r JOIN FETCH r.product p WHERE r.product.id = :productId")
     List<Review> findByProductId(Long productId);
+
+
     //we have to update jpql query after adding user and product repo
 }
