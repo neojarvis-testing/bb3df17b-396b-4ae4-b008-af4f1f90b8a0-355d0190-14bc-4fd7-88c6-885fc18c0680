@@ -1,0 +1,24 @@
+.footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 2x;
+    text-align: center;
+    border-top: 1px solid #eaeaea;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .footer-content div {
+    margin-bottom: 1px;
+  }
+  
+  .view-products-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .view-products-link:hover {
+    text-decoration: underline;
+  }
+  

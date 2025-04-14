@@ -17,8 +17,7 @@ export class AuthService {
   constructor(private httpClient:HttpClient, private router : Router) { }
   
   public getUserById(userId:number):Observable<any>{
-    
-    return this.httpClient.get(this.baseUrl+"/api/register/"+userId);
+    return this.httpClient.get(this.baseUrl+"/api/user/"+userId);
   }
   
   public register(user:User):Observable<any> {

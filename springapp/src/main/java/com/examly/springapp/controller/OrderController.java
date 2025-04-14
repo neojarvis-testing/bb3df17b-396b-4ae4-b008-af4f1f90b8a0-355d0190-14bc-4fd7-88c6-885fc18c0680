@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.examly.springapp.exceptions.OrderNotFoundException;
 import com.examly.springapp.model.Order;
+import com.examly.springapp.service.EmailService;
 import com.examly.springapp.service.OrderService;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -25,16 +26,31 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/api/orders")
+    @Autowired
+    private EmailService emailService;
+
+//     @PostMapping("/api/orders")
+// public ResponseEntity<?> addOrder(@RequestBody Order order) {
+//     try {
+//         Order savedOrder = orderService.addOrder(order);
+//         return ResponseEntity.status(201).body(savedOrder);
+//     } catch (Exception e) {
+//         return ResponseEntity.status(500).body("Order placement failed: " + e.getMessage());
+//     }
+// }
+@PostMapping("/api/orders")
 public ResponseEntity<?> addOrder(@RequestBody Order order) {
     try {
         Order savedOrder = orderService.addOrder(order);
+
+        // Send order confirmation email
+        emailService.sendOrderConfirmation(savedOrder);
+
         return ResponseEntity.status(201).body(savedOrder);
     } catch (Exception e) {
         return ResponseEntity.status(500).body("Order placement failed: " + e.getMessage());
     }
 }
-
 
 
     @GetMapping("/api/orders/{orderId}")
