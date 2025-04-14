@@ -110,17 +110,5 @@ export class UserviewproductComponent implements OnInit {
     });
 }
 
-clearCart(): void {
-    this.cartService.clearCart(this.userId).subscribe({
-        next: () => {
-            console.log('Cart cleared successfully');
-            this.getAllProducts(); // Refresh product list to reflect restored stock
-        },
-        error: (err) => {
-            console.error('Error clearing cart:', err);
-            alert('Failed to clear cart. Please try again.');
-        }
-    });
-}
 
 }

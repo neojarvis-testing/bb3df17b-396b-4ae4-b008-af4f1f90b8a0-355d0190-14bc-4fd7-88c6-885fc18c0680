@@ -43,7 +43,7 @@ export class ReviewComponent implements OnInit {
   submitReview() {
     this.reviewService.addReview(this.review).subscribe(data => {
       console.log("Componenet" + this.review);
-      this.router.navigate(['/home-page'])
+      this.router.navigate(['/user-view-product'])
     })
   }
 }

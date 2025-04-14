@@ -63,41 +63,6 @@ export class CheckoutComponent implements OnInit {
     return this.cart.cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0);
   }
 
-  // placeOrder() {
-  //   const order : Order = {
-  //     orderId: Math.floor(Math.random() * 1000),
-  //     orderDate: "",
-  //     totalAmount: this.calculateTotalAmount(),
-  //     user: {
-  //       userId: this.cart.userId,
-  //       email: '',
-  //       password: '',
-  //       username: '',
-  //       mobileNumber: '',
-  //       userRole: ''
-  //     }, // Assuming user object contains userId
-  //     orderItems: this.cart.cartItems.map(item => ({
-  //       product: item.product,
-  //       quantity: item.quantity,
-  //       price: item.product.price
-  //     })),
-  //     shippingAddress: this.shippingAddress,
-  //     billingAddress: this.billingAddress,
-  //     orderStatus: 'Pending' // Set default status to 'Pending'
-  //   };
-        
-  //    this.orderService.placeOrder(order).subscribe(
-  //     response => {
-  //     console.log('Order placed successfully!', response);
-  //     // this.router.navigate(['/user-view-product']);
-  //       this.isPopupVisible = true;
-  //      },
-  //      error => {
-  //    console.error('Error placing order', error);
-  //    }
-  //   );
-  //   }
-
   placeOrder() {
     const orderItems = JSON.parse(this.cartData).map(item => ({
       product: item.product,
@@ -135,66 +100,6 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
-  //   // Logic to handle order placement
-  //   console.log('Order placed successfully!', order);
-  //   // Redirect to order success page or show success message
-  //   //this.router.navigate(['/order-success']);
-  // }
-
-//     placeOrder() {
-//       const userId = parseInt(localStorage.getItem('userId') || '0', 10);
-//   const userEmail = localStorage.getItem('email') || '';
-//   const userName = localStorage.getItem('username') || '';
-//   const userMobileNumber = localStorage.getItem('mobileNumber') || '';
-  
-//   if (!userId) {
-//     alert('Invalid user. Please log in again.');
-//     this.router.navigate(['/login']);
-//     return;
-//   }
-
-//   const order: Order = {
-//     user: {
-//       userId: userId,
-//       email: userEmail,
-//       username: userName,
-//       mobileNumber: userMobileNumber,
-//       password: '', // Populate if needed
-//       userRole: 'USER' // Default role
-//     },
-//     shippingAddress: this.shippingAddress,
-//     billingAddress: this.billingAddress,
-//     orderDate: new Date().toISOString(),
-//     orderItems: this.cart.cartItems.map(item => ({
-//       product: item.product,
-//       quantity: item.quantity,
-//       price: item.product.price
-//     })),
-//     totalAmount: this.calculateTotalAmount(),
-//     orderStatus: 'Pending'
-//   };
-
-//   // Log to confirm the payload
-//   console.log('Order payload:', order);
-
-//   // Send order data to backend
-//   this.orderService.placeOrder(order).subscribe({
-//     next: () => {
-//       console.log('Order placed successfully');
-//       this.cartService.clearCart(this.cart.userId).subscribe(() => {
-//         console.log('Cart cleared successfully');
-//       });
-
-//       this.isPopupVisible = true;
-//       setTimeout(() => {
-//         this.router.navigate(['/home-page']);
-//       }, 2000);
-//     },
-//     error: (error) => {
-//       console.error('Order placement failed:', error);
-//       alert(`Order placement failed: ${error.message || 'Unknown error'}`);
-//     }
-//   });
   
     closePopup() {
       this.isPopupVisible = false;
