@@ -20,9 +20,9 @@
             <div class="buttons-container">
                 <button (click)="openTrackOrderModal(order.orderStatus)" class="track-order-button">Track Order</button>
                 <button (click)="viewItems(order.orderId)" class="view-items-button">View Items</button>
-                <button
-                    [disabled]="order.orderStatus.toLowerCase() === 'dispatched' || order.orderStatus.toLowerCase() === 'outfordelivery' || order.orderStatus.toLowerCase() === 'delivered'"
-                    (click)="openCancelPopup(order.orderId)" class="cancel-order-button">
+                <button class="cancel-button"
+                    [disabled]="order.orderStatus.toLowerCase() !== 'accepted' && order.orderStatus.toLowerCase() !== 'pending'"
+                    (click)="openCancelPopup(order.orderId)">
                     Cancel Order
                 </button>
 
@@ -68,7 +68,7 @@
                 <span>OutForDelivery</span>
                 <span>Delivered</span>
             </div>
-        </div>
+        </div>        
         <button class="close-modal-button" (click)="closeTrackOrderModal()">Close</button>
     </div>
 </div>
