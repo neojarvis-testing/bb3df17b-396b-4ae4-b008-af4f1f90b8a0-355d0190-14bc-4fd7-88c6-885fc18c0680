@@ -68,17 +68,12 @@ export class OrderplacedComponent implements OnInit {
           }
       });
   }
-    
-  public closeModal(): void {
-    this.showModal = false;
-    this.selectedOrderItems = [];
-  }   
-
-  // public getOrderItemByOrderId(orderId:number){
-  //   this.orderItemService.getOrderItems(orderId).subscribe(data=>{
-  //   this.selectedOrderItems = data;
-  //   })
-  // }
+      
+  public getOrderItemByOrderId(orderId:number){
+    this.orderItemService.getOrderItems(orderId).subscribe(data=>{
+    this.selectedOrderItems = data;
+    })
+  }
 
   public updateOrderStatus(order: Order): void {
     this.orderService.updateOrder(order.orderId, order).subscribe({
