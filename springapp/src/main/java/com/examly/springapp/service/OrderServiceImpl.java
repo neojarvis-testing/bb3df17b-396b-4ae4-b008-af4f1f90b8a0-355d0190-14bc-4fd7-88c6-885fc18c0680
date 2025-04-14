@@ -56,18 +56,30 @@ public class OrderServiceImpl implements OrderService{
         return orderRepository.findAll();
     }
 
-    @Override
-    public Order updateOrder(Long orderId, Order updatedOrder) {
-        updatedOrder.setOrderId(orderId);
-        if(orderRepository.existsById(orderId)){
-           Order savedOrder = orderRepository.save(updatedOrder);
-           return savedOrder;
-        }
-        else{
-            throw new OrderNotFoundException("Order Not Found");
-        }
+    // @Override
+    // public Order updateOrder(Long orderId, Order updatedOrder) {
+    //     updatedOrder.setOrderId(orderId);
+    //     if(orderRepository.existsById(orderId)){
+    //        Order savedOrder = orderRepository.save(updatedOrder);
+    //        return savedOrder;
+    //     }
+    //     else{
+    //         throw new OrderNotFoundException("Order Not Found");
+    //     }
 
+    // }
+
+    public Order updateOrder(Long orderId, Order updatedOrder) {
+        Optional<Order> existingOrder = orderRepository.findById(orderId);
+        if (existingOrder.isPresent()) {
+            Order order = existingOrder.get();
+            order.setOrderStatus(updatedOrder.getOrderStatus()); // Update the status
+            return orderRepository.save(order); // Persist the changes
+        } else {
+            throw new EntityNotFoundException("Order not found with ID: " + orderId);
+        }
     }
+    
 
     @Override
     public List<Order> getOrdersByUserId(Long userId) {

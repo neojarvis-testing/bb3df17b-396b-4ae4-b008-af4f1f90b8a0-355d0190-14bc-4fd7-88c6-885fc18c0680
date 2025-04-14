@@ -70,9 +70,10 @@ export class MyorderComponent implements OnInit {
   // }
 
   public openTrackOrderModal(orderStatus: string): void {
-    this.currentOrderStatus = orderStatus; // Set the current order status
-    this.showTrackOrderModal = true;
-  }
+    this.currentOrderStatus = orderStatus; // Set the current order status dynamically
+    this.showTrackOrderModal = true; // Open the modal
+}
+
 
   public closeTrackOrderModal(): void {
     this.showTrackOrderModal = false;
