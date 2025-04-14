@@ -76,23 +76,23 @@ export class OrderplacedComponent implements OnInit {
       });
   }
     
-  public closeModal(): void {
-    this.showModal = false;
-    this.selectedOrderItems = [];
-  }   
+  // public closeModal(): void {
+  //   this.showModal = false;
+  //   this.selectedOrderItems = [];
+  // }   
 
-  public sortOrders() {
-    this.orders.sort((a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime());
-  }
+  // public sortOrders() {
+  //   this.orders.sort((a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime());
+  // }
 
-  public viewProfile(user: User): void {
-    // console.log(this.user1)
-    this.selectedUser = user;
-  }
+  // public viewProfile(user: User): void {
+  //   // console.log(this.user1)
+  //   this.selectedUser = user;
+  // }
    
-  public closeProfile(): void {
-    this.selectedUser = null;
-  }
+  // public closeProfile(): void {
+  //   this.selectedUser = null;
+  // }
 
   public getOrderItemByOrderId(orderId:number){
     this.orderItemService.getOrderItems(orderId).subscribe(data=>{
