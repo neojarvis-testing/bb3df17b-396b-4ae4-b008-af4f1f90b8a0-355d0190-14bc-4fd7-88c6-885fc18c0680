@@ -22,7 +22,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './pipes/search.pipe';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
-import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +42,7 @@ import { ChatComponent } from './chat/chat.component';
     UserviewproductComponent,
     AdminnavComponent,
     SearchPipe,
-    AddToCartComponent,
-    ChatComponent
+    AddToCartComponent
   ],
   imports: [
     BrowserModule,
