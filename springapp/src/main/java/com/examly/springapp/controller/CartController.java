@@ -5,6 +5,7 @@ import com.examly.springapp.service.CartItemService;
 import com.examly.springapp.service.CartService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,18 @@ public class CartController {
     public ResponseEntity<?> clearCart(@PathVariable Long userId) {
     cartService.clearCart(userId);
     return ResponseEntity.status(201).body("");
-}
+    }
+    
+    @PutMapping("/updateItem/{userId}/{productId}/{quantity}")
+    public ResponseEntity<?> updateCartItemQuantity(@PathVariable Long userId, @PathVariable Long productId, @PathVariable int quantity) {
+        try {
+            cartService.updateCartItemQuantity(userId, productId, quantity);
+            return ResponseEntity.ok("Quantity updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                .body("Error updating quantity: " + e.getMessage());
+        }
+
+    }
 
 }

@@ -19,8 +19,10 @@
                     <div *ngIf="mobileNgModel.invalid && mobileNgModel.touched" class="error">Valid 10-digit mobile number is required</div>
                 </div>            
                 <div class="form-group">
-                    <input type="password" name="password" placeholder="Password" id="password" [(ngModel)]="password" required minlength="6" #passwordNgModel="ngModel" class="form-control">
-                    <div *ngIf="passwordNgModel.invalid && passwordNgModel.touched" class="error">Password must be at least 6 characters long</div>
+                    <input type="password" name="password" placeholder="Password" id="password" [(ngModel)]="password" required minlength="6" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}" #passwordNgModel="ngModel" class="form-control">
+                    <div *ngIf="passwordNgModel.invalid && passwordNgModel.touched" class="error">
+                        Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.
+                    </div>
                 </div>            
                 <div class="form-group">
                     <input type="password" name="confirmPassword" placeholder="Confirm Password" id="confirmPassword" [(ngModel)]="confirmPassword" required #confirmPasswordNgModel="ngModel" class="form-control">

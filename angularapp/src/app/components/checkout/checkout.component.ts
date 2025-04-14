@@ -57,7 +57,6 @@ export class CheckoutComponent implements OnInit {
     return this.cart.cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0);
   }
 
-
   placeOrder() {
     const userId = parseInt(localStorage.getItem('userId') || '0', 10);
     const userEmail = localStorage.getItem('email');
@@ -126,5 +125,4 @@ export class CheckoutComponent implements OnInit {
     this.isPopupVisible = false;
     this.router.navigate(['/home-page']); // Redirect after popup is dismissed
   }
-
 }

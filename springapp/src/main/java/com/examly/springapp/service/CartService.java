@@ -7,4 +7,5 @@ public interface CartService {
     public Cart getCartByUser(Long userId);
     public Cart createNewCart(User user);
     public void clearCart(Long userId);
+    public void updateCartItemQuantity(Long userId, Long productId, int quantity);
 }
