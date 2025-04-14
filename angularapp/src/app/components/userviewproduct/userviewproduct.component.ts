@@ -24,6 +24,8 @@ export class UserviewproductComponent implements OnInit {
   selectedQuantity: number;
   popupVisible: boolean = false; // Track pop-up visibility
   popupMessage: string = ""; // Message for the pop-up
+  loading: boolean = false; // Track loading state
+
 
   userId: number = parseInt(localStorage.getItem('userId')); // Retrieve user ID
   cartItems: CartItem;
@@ -47,11 +49,27 @@ export class UserviewproductComponent implements OnInit {
   }
 
   viewReview(productId: number) {
-    this.reviewService.getReviewsByProductId(productId).subscribe(data => {
-      this.reviews = data;
+    this.loading = true; // Start loading
+    this.reviewService.getReviewsByProductId(productId).subscribe({
+      next: (data) => {
+        this.reviews = data; // Assign fetched reviews
+        if (this.reviews.length === 0) {
+          this.popupMessage = 'No reviews found for this product.';
+        } else {
+          this.popupMessage = 'Reviews loaded successfully!';
+        }
+        this.loading = false; // Stop loading
+      },
+      error: (err) => {
+        console.error('Error fetching reviews:', err); // Log error
+        this.popupMessage = 'Failed to load reviews. Please try again.';
+        this.loading = false; // Stop loading in case of error
+      },
     });
-    this.popupVisible = true;
+    this.popupVisible = true; // Show the popup
   }
+  
+  
 
   validateQuantity(product: Product) {
     if (product.selectedQuantity > product.stockQuantity) {
