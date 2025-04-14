@@ -17,7 +17,6 @@ export class OrderplacedComponent implements OnInit {
   searchId : number ;
   selectedUser : User ;
   selectedOrderItems: OrderItem[] = [];
-
   showModal: boolean = false;
 
   constructor(private orderService : OrderService , private orderItemService : OrderItemService) { }
@@ -57,12 +56,6 @@ export class OrderplacedComponent implements OnInit {
       this.selectedUser = null;
     }
 
-    // public getOrderItemByOrderId(orderId:number){
-    //   this.orderItemService.getOrderItems(orderId).subscribe(data=>{
-    //   this.selectedOrderItems = data;
-    //   })
-    // }
-
     public viewItems(orderId: number): void {
       this.orderItemService.getOrderItems(orderId).subscribe({
           next: items => {
@@ -75,25 +68,7 @@ export class OrderplacedComponent implements OnInit {
           }
       });
   }
-    
-  // public closeModal(): void {
-  //   this.showModal = false;
-  //   this.selectedOrderItems = [];
-  // }   
-
-  // public sortOrders() {
-  //   this.orders.sort((a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime());
-  // }
-
-  // public viewProfile(user: User): void {
-  //   // console.log(this.user1)
-  //   this.selectedUser = user;
-  // }
-   
-  // public closeProfile(): void {
-  //   this.selectedUser = null;
-  // }
-
+      
   public getOrderItemByOrderId(orderId:number){
     this.orderItemService.getOrderItems(orderId).subscribe(data=>{
     this.selectedOrderItems = data;

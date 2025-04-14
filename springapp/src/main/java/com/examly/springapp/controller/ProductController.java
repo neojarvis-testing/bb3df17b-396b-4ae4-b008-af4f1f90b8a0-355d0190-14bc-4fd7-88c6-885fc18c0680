@@ -26,6 +26,9 @@ public class ProductController {
     @PostMapping("/api/products")
     public ResponseEntity<?> addProduct(@RequestBody Product product){
         try{
+            if (product.getCoverImage() == null || product.getCoverImage().isEmpty()) {
+                return ResponseEntity.status(400).body("Error: Image data is missing or invalid.");
+            }
         Product savedProduct=productService.addProduct(product);
         return ResponseEntity.status(201).body(savedProduct);
         }

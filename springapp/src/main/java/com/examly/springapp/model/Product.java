@@ -1,9 +1,11 @@
 package com.examly.springapp.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 
 @Entity
 public class Product {
@@ -17,6 +19,8 @@ public class Product {
     private Integer stockQuantity;
     private String category;
     private String brand;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String coverImage;
 
     public Product(Long productId, String productName, String description, Double price, Integer stockQuantity,
