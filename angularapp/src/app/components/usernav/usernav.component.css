@@ -1,10 +1,17 @@
-/* Navbar should span full width */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&display=swap');
+
+* {
+  scroll-behavior: smooth;
+  font-family: 'Merriweather', serif;
+}
+
+/* Navbar Styling */
 .navbar {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  background-color: #333;
+  padding: 12px;
+  background-color: #2c79c2; /* Calm Blue */
   color: #fff;
   width: 100%;
   position: fixed;
@@ -14,11 +21,13 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Navbar Left */
 .navbar-left span {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
 }
 
+/* Navbar Right */
 .navbar-right {
   display: flex;
   align-items: center;
@@ -33,12 +42,14 @@
   transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
+/* Navbar Hover Effects */
 .navbar-right a:hover {
   color: #ff4d4d;
   transform: translateY(-2px);
-  cursor:pointer;
+  cursor: pointer;
 }
 
+/* Dropdown Styling */
 .navbar-right .dropdown {
   position: relative;
   display: inline-block;
@@ -47,7 +58,7 @@
 .navbar-right .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
+  background-color: #f5faff; /* Light pastel background */
   min-width: 160px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -67,16 +78,17 @@
 }
 
 .navbar-right .dropdown-content a:hover {
-  background-color: #f1f1f1;
+  background-color: #e3f2fd; /* Light hover */
 }
 
+/* Admin Box */
 .admin-box {
   display: inline-block;
-  padding: 5px 10px;
-  border: 2px solid #333;
-  border-radius: 5px;
-  background-color: #f8f8f8;
-  color: #333;
+  padding: 6px 12px;
+  border: 2px solid #2c79c2;
+  border-radius: 6px;
+  background-color: #f5faff;
+  color: #2c79c2;
   font-weight: bold;
   font-size: 14px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -94,43 +106,50 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: #ffffff;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+  width: 320px;
   text-align: center;
   z-index: 1000;
 }
 
+/* Popup Header */
 .popup-content h3 {
   margin-bottom: 20px;
-  color: #333;
+  color: #2c79c2; /* Calm Blue */
 }
 
+/* Popup Buttons */
 .popup-buttons {
   display: flex;
   justify-content: space-around;
 }
 
 .popup-buttons button {
-  background-color: #007bff;
+  background-color: #3498db; /* Calm Blue */
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
+  padding: 12px 18px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
+/* Button Hover Effects */
 .popup-buttons button:hover {
-  background-color: #0056b3;
+  background-color: #2c79c2;
+  transform: scale(1.05);
 }
 
+/* Red Cancel Button */
 .popup-buttons button:nth-child(2) {
-  background-color: #e74c3c; /* Red for No button */
+  background-color: #e74c3c;
 }
 
 .popup-buttons button:nth-child(2):hover {
-  background-color: #c0392b; /* Darker red for hover */
+  background-color: #c0392b;
 }

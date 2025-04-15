@@ -13,14 +13,14 @@
                 <h3>Products in the Order:</h3>
                 <div *ngFor="let item of order.orderItems" class="product-box">
                     <span class="product-name">Product: {{ item.product.productName }} </span>
-                    <span class="product-quantity">Quantity: {{ item.quantity }}</span>
+                    <span class="product-quantity">Quantity: {{ item.quantity }}</span><hr>
                     <button class="review" [disabled]="order.orderStatus.toLowerCase() !== 'delivered'" [routerLink]="['/review',item.product.productId]">Write a review</button>
                 </div>
             </div>
 
             <div class="buttons-container">
-                <button (click)="openTrackOrderModal(order.orderStatus)" class="track-order-button">Track Order</button>
-                <button (click)="viewItems(order.orderId)" class="view-items-button">View Items</button>
+                <button (click)="openTrackOrderModal(order.orderStatus)" class="track-order-button">Track Order</button>&nbsp;&nbsp;
+                <button (click)="viewItems(order.orderId)" class="view-items-button">View Items</button>&nbsp;&nbsp;
                 <button class="cancel-button"
                     [disabled]="order.orderStatus.toLowerCase() !== 'accepted' && order.orderStatus.toLowerCase() !== 'pending'"
                     (click)="openCancelPopup(order.orderId)">
