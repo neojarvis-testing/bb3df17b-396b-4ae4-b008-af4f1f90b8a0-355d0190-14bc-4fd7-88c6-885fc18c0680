@@ -41,25 +41,22 @@ export class AuthService {
         localStorage.setItem('userRole', role);
         localStorage.setItem('username', username);
         localStorage.setItem('userId', userId.toString());
- 
-            if (role == 'ADMIN') {
-                console.log("admin")
-                this.router.navigate(['/home-page']);
-                // window.location.href = '/admin-nav';
-            } else if (role == 'USER') {
-              console.log("user")
-              // window.location.href = '/user-nav';
-                this.router.navigate(['/home-page']); 
-            }
-        },
-        error => {
-            console.error('Login failed', error);
-            alert("Wrong Password, Try Again!");
 
+        if (role == 'ADMIN') {
+          console.log("admin")
+          this.router.navigate(['/home-page']);
+          // window.location.href = '/admin-nav';
+        } else if (role == 'USER') {
+          console.log("user")
+          // window.location.href = '/user-nav';
+          this.router.navigate(['/home-page']);
         }
       },
       error => {
         console.error('Login failed', error);
+        alert("Wrong Password, Try Again!");
+
+
       }
     );
   }

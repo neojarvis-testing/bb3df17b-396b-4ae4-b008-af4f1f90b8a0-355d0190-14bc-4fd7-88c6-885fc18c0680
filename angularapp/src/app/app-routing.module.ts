@@ -39,7 +39,7 @@ const routes: Routes = [
   {path:'sign-up',component:SignupComponent},
   {path:'user-nav',component:UsernavComponent, canActivate: [UserAuthGuard]},
   {path:'user-view-product',component:UserviewproductComponent},
-  {path:'change-password',component:ChangePasswordComponent, canActivate: [UserAuthGuard]},
+  {path:'change-password',component:ChangePasswordComponent},
   {path:'**',component:HomePageComponent}
 ];
 
