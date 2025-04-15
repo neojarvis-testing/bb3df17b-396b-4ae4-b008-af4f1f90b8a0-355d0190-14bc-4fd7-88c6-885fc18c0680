@@ -1,19 +1,30 @@
 <nav class="navbar">
-    <div class="navbar-left"> <!-- ProKart on the far left -->
-      <span>ProKart</span>
-    </div>
-    <div class="navbar-right"> <!-- Links ordered from left to right -->
-      <b><span class="admin-box">{{username}} /Admin</span></b>
-      <a routerLink="/home-page">Home</a>
-      <div class="dropdown">
-        <a>Product</a>
-        <div class="dropdown-content">
-          <a routerLink="/product-create">Add Product</a>
-          <a routerLink="/admin-view-product">View Products</a>
-        </div>
+  <div class="navbar-left">
+    <span>ProKart</span>
+  </div>
+  <div class="navbar-right">
+    <b><span class="admin-box">{{username}} /Admin</span></b>
+    <a routerLink="/home-page">Home</a>
+    <div class="dropdown">
+      <a>Product</a>
+      <div class="dropdown-content">
+        <a routerLink="/product-create">Add Product</a>
+        <a routerLink="/admin-view-product">View Products</a>
       </div>
-      <a routerLink="/order-placed">Order Placed</a>
-      <a routerLink="/admin-view-reviews">Reviews</a>
-      <a (click)="logout()">Log Out</a>
     </div>
-  </nav>
+    <a routerLink="/order-placed">Order Placed</a>
+    <a routerLink="/admin-view-reviews">Reviews</a>
+    <a (click)="confirmLogout()">Log Out</a>
+  </div>
+</nav>
+
+<!-- Logout Confirmation Pop-Up -->
+<div class="popup" *ngIf="popupVisible">
+  <div class="popup-content">
+    <h3>Are you sure you want to log out?</h3>
+    <div class="popup-buttons">
+      <button (click)="logoutConfirmed()">Yes</button>
+      <button (click)="cancelLogout()">No</button>
+    </div>
+  </div>
+</div>

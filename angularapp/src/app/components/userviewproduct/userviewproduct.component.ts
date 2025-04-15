@@ -22,7 +22,8 @@ export class UserviewproductComponent implements OnInit {
   selectedCategory = '';
 
   selectedQuantity: number;
-  popupVisible: boolean = false; // Track pop-up visibility
+  cartPopupVisible: boolean = false; // Separate property for Add to Cart pop-up
+  reviewPopupVisible: boolean = false;
   popupMessage: string = ""; // Message for the pop-up
   loading: boolean = false; // Track loading state
 
@@ -66,7 +67,7 @@ export class UserviewproductComponent implements OnInit {
         this.loading = false; // Stop loading in case of error
       },
     });
-    this.popupVisible = true; // Show the popup
+    this.reviewPopupVisible = true; // Show the View Reviews pop-up
   }
   
   
@@ -89,31 +90,38 @@ export class UserviewproductComponent implements OnInit {
   }
 
   closePopup() {
-    this.popupVisible = false; // Hide the pop-up
+    this.reviewPopupVisible = false; // Hide the pop-up
   }
 
   public addToCart(product: Product) {
     const productId = product.productId;
     const qty = product.selectedQuantity;
-
+  
     if (qty > product.stockQuantity) {
       alert(`You can only add up to ${product.stockQuantity} of ${product.productName}.`);
       return;
     }
-
+  
     this.cartService.addToCart(this.userId, productId, qty, null).subscribe({
       next: () => {
         console.log('Product added to cart successfully');
         this.popupMessage = `${qty} x ${product.productName} has been added to your cart successfully!`; // Set success message
-        this.popupVisible = true; // Show the pop-up
-        this.getAllProducts(); // Refresh product list to update stock
+        this.cartPopupVisible = true; // Show Add to Cart pop-up
       },
       error: (err) => {
         console.error('Error adding product to cart:', err);
         this.popupMessage = `Failed to add ${product.productName} to the cart. Please try again.`; // Error message
-        this.popupVisible = true; // Show the error pop-up
-      }
+        this.cartPopupVisible = true; // Show the error pop-up
+      },
     });
+  }
+  
+  closeCartPopup() {
+    this.cartPopupVisible = false; // Close Add to Cart pop-up
+  }
+  
+  closeReviewPopup() {
+    this.reviewPopupVisible = false; // Close View Reviews pop-up
   }
 
   clearCart(): void {
