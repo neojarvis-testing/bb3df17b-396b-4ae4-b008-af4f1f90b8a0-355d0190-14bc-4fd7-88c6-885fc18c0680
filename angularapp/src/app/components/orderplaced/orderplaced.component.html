@@ -30,12 +30,14 @@
         </li>
     </ul>
 </div>
-<div *ngIf="selectedUser" class="popup">
+<div *ngIf="selectedUser" class="modal">
+    <div class="modal-content">
     <h3>User Details:</h3>
     <p><strong>Email:</strong> {{selectedUser.email}}</p>
     <p><strong>Username:</strong> {{selectedUser.username}}</p>
     <p><strong>Mobile Number:</strong> {{selectedUser.mobileNumber}}</p>
-    <button (click)="closeProfile()">Close</button>
+    <button class="close-modal-button" (click)="closeProfile()">Close</button>
+</div>
 </div>
 <!-- <div class="popup-orderItem">
     <ul>
