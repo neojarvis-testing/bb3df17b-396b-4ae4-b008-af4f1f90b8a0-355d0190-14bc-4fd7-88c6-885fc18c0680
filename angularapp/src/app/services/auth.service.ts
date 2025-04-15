@@ -35,26 +35,25 @@ export class AuthService {
         response => {
             const { token, email, role, userId, username } = response;
 
-            // Store token and role in localStorage
             localStorage.setItem('token', token);
             localStorage.setItem('email', email);
             localStorage.setItem('userRole', role);
             localStorage.setItem('username', username);
             localStorage.setItem('userId', userId.toString());
  
-            // Navigate based on user role
             if (role == 'ADMIN') {
                 console.log("admin")
-                this.router.navigate(['/home-page']); // Navigate to adminnavbar
+                this.router.navigate(['/home-page']);
                 // window.location.href = '/admin-nav';
             } else if (role == 'USER') {
               console.log("user")
               // window.location.href = '/user-nav';
-                this.router.navigate(['/home-page']); // Navigate to usernavbar
+                this.router.navigate(['/home-page']); 
             }
         },
         error => {
             console.error('Login failed', error);
+            alert("Wrong Password, Try Again!");
         }
     );
 }
