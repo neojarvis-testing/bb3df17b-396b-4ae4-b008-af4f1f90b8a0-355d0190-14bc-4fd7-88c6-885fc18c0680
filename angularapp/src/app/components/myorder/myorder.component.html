@@ -14,6 +14,7 @@
                 <div *ngFor="let item of order.orderItems" class="product-box">
                     <span class="product-name">Product: {{ item.product.productName }} </span>
                     <span class="product-quantity">Quantity: {{ item.quantity }}</span>
+                    <button class="review" [disabled]="order.orderStatus.toLowerCase() !== 'delivered'" [routerLink]="['/review',item.product.productId]">Write a review</button>
                 </div>
             </div>
 

@@ -35,7 +35,7 @@ const routes: Routes = [
   {path:'order-placed',component:OrderplacedComponent, canActivate: [AdminAuthGuard]},
   {path:'product-create',component:ProductCreateComponent, canActivate: [AdminAuthGuard]},
   {path:'edit-product/:id',component:ProductCreateComponent, canActivate: [AdminAuthGuard]},
-  {path:'review/:id',component:ReviewComponent, canActivate: [AdminAuthGuard]},
+  {path:'review/:id',component:ReviewComponent, canActivate: [UserAuthGuard]},
   {path:'sign-up',component:SignupComponent},
   {path:'user-nav',component:UsernavComponent, canActivate: [UserAuthGuard]},
   {path:'user-view-product',component:UserviewproductComponent},
