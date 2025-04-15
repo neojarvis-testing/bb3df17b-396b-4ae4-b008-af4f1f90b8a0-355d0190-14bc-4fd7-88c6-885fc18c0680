@@ -23,13 +23,16 @@ export class UserviewproductComponent implements OnInit {
   selectedCategory = '';
 
   selectedQuantity: number;
-  popupVisible: boolean = false; // Track pop-up visibility
-  popupMessage: string = ""; // Message for the pop-up
+  popupVisible1: boolean = false; // Popup 1 visibility
+  popupMessage1: string = ''; // Popup 1 message
+  popupVisible2: boolean = false; // Popup 2 visibility
+  popupMessage2: string = ''; // Popup 2 message  
   loading: boolean = false; // Track loading state
-
+  categories:string[]=[]
 
   userId: number = parseInt(localStorage.getItem('userId')); // Retrieve user ID
   cartItems: CartItem;
+
 
   constructor(
     private productService: ProductService,
@@ -43,14 +46,51 @@ export class UserviewproductComponent implements OnInit {
     this.getAllProducts();
   }
 
+  // getAllProducts() {
+  //   this.productService.getAllProducts().subscribe(data => {
+  //     this.products = data.map(product => ({ ...product, selectedQuantity: 1 })); // Initialize selectedQuantity
+  //     this.filteredProducts = this.products; // Ensure filtered list matches initialized products
+  //   });
+  // }
+
+
   isLoggedIn() : boolean{
     return !!localStorage.getItem('token');
   }
 
   getAllProducts() {
     this.productService.getAllProducts().subscribe(data => {
-      this.products = data.map(product => ({ ...product, selectedQuantity: 1 })); // Initialize selectedQuantity
-      this.filteredProducts = this.products; // Ensure filtered list matches initialized products
+      this.products = data.map(product => {
+        console.log("Raw Base64 Image Data:", product.coverImage); // Log raw data from backend
+        
+        let imageData = product.coverImage;
+  
+        // Check if the image data needs a prefix
+        if (imageData && !imageData.startsWith('data:image')) {
+          imageData = `data:image/jpeg;base64,${imageData}`;
+          console.log("Prefixed Base64 Image Data:", imageData); // Log the prefixed Base64 string
+        } else {
+          console.log("Base64 data already contains prefix or is invalid.");
+        }
+  
+        // Log the final state of the image data
+        console.log("Final Decoded Image Data for Product:", {
+          productName: product.productName,
+          decodedImage: imageData
+        });
+  
+        return {
+          ...product,
+          decodedImage: imageData // Store the final image source
+        };
+      });
+  
+      console.log("All Products with Decoded Images:", this.products); // Log the complete products array
+  
+      this.filteredProducts = this.products; // Initialize filtered products
+      this.categories = [...new Set(this.products.map(p => p.category))]; // Extract unique categories
+    }, error => {
+      console.error("Error fetching products:", error); // Log any errors in the API call
     });
   }
 
@@ -60,19 +100,19 @@ export class UserviewproductComponent implements OnInit {
       next: (data) => {
         this.reviews = data; // Assign fetched reviews
         if (this.reviews.length === 0) {
-          this.popupMessage = 'No reviews found for this product.';
+          this.popupMessage2 = 'No reviews found for this product.';
         } else {
-          this.popupMessage = 'Reviews loaded successfully!';
+          this.popupMessage2 = 'Reviews loaded successfully!';
         }
         this.loading = false; // Stop loading
       },
       error: (err) => {
         console.error('Error fetching reviews:', err); // Log error
-        this.popupMessage = 'Failed to load reviews. Please try again.';
+        this.popupMessage2 = 'Failed to load reviews. Please try again.';
         this.loading = false; // Stop loading in case of error
       },
     });
-    this.popupVisible = true; // Show the popup
+    this.popupVisible2 = true; // Show the popup
   }
   
   
@@ -94,8 +134,12 @@ export class UserviewproductComponent implements OnInit {
     });
   }
 
-  closePopup() {
-    this.popupVisible = false; // Hide the pop-up
+  closePopup1() {
+    this.popupVisible1 = false; // Hide the pop-up
+  }
+
+  closePopup2() {
+    this.popupVisible2 = false; // Hide the pop-up
   }
 
   handleAction(product : Product) {
@@ -121,14 +165,14 @@ export class UserviewproductComponent implements OnInit {
     this.cartService.addToCart(this.userId, productId, qty, null).subscribe({
       next: () => {
         console.log('Product added to cart successfully');
-        this.popupMessage = `${qty} x ${product.productName} has been added to your cart successfully!`; // Set success message
-        this.popupVisible = true; // Show the pop-up
+        this.popupMessage1 = `${qty} x ${product.productName} has been added to your cart successfully!`; // Set success message
+        this.popupVisible1 = true; // Show the pop-up
         this.getAllProducts(); // Refresh product list to update stock
       },
       error: (err) => {
         console.error('Error adding product to cart:', err);
-        this.popupMessage = `Failed to add ${product.productName} to the cart. Please try again.`; // Error message
-        this.popupVisible = true; // Show the error pop-up
+        this.popupMessage1 = `Failed to add ${product.productName} to the cart. Please try again.`; // Error message
+        this.popupVisible1 = true; // Show the error pop-up
       }
     });
   }

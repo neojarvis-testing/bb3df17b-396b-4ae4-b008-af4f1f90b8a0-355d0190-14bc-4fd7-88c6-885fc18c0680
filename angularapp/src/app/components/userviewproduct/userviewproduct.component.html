@@ -27,6 +27,7 @@
     <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let product of filteredProducts">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
+          <img *ngIf="product.decodedImage" [src]="product.decodedImage" alt="Product Image" style="max-width: 200px;" />
           <h5 class="card-title">{{ product.productName }}</h5>
           <p class="card-text">
             <strong>Price:</strong> ₹{{ product.price }} <br />
@@ -72,19 +73,19 @@
 
   <!-- Pop-up Modal -->
 
-  <div class="popup" *ngIf="popupVisible">
+  <!-- <div class="popup" *ngIf="popupVisible1">
     <div class="popup-content">
-      <h3>{{ popupMessage }}</h3>
+      <h3>{{ popupMessage }}</h3> -->
 
-  <!-- <div class="popup" *ngIf="popupVisible">
+  <div class="popup" *ngIf="popupVisible1">
       <div class="popup-content">
-        <h3>{{ popupMessage }}</h3>
-        <button (click)="closePopup()">OK</button>
+        <h3>{{ popupMessage1 }}</h3>
+        <button (click)="closePopup1()">OK</button>
       </div>
-    </div> -->
+    </div>
 
 
-  <div class="popup" *ngIf="popupVisible">
+  <div class="popup" *ngIf="popupVisible2">
     <div class="popup-content">
       <!-- Loading Message -->
       <div *ngIf="loading" class="loading-message">
@@ -93,7 +94,7 @@
 
       <!-- Reviews Content -->
       <div *ngIf="!loading">
-        <h3>{{ popupMessage }}</h3>
+        <h3>{{ popupMessage2 }}</h3>
         <ul *ngIf="reviews.length > 0">
           <li *ngFor="let review of reviews">
             <p><strong>Rating:</strong> {{ review.rating }}/5</p>
@@ -105,7 +106,7 @@
       </div>
 
 
-      <button (click)="closePopup()">OK</button>
+      <button (click)="closePopup2()">OK</button>
     </div>
   </div>
 </div>
