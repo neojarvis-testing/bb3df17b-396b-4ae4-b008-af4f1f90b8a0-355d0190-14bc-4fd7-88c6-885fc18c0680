@@ -22,6 +22,7 @@
     "@popperjs/core": "^2.11.8",
     "@stomp/stompjs": "^7.1.1",
     "angularapp": "file:",
+    "angularx-qrcode": "^19.0.0",
     "bootstrap": "^5.3.5",
     "karma-coverage": "2.2.0",
     "puppeteer": "^19.7.5",

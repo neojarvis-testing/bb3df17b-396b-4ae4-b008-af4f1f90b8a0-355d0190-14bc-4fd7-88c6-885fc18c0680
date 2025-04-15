@@ -3,7 +3,6 @@ package com.examly.springapp.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.model.Order;
@@ -16,11 +15,13 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class OrderItemServiceImpl implements OrderItemService{
 
-    @Autowired
     private OrderItemRepo orderItemRepo;
-
-    @Autowired
     private OrderRepo orderRepo;
+
+    public OrderItemServiceImpl(OrderItemRepo orderItemRepo, OrderRepo orderRepo){
+        this.orderItemRepo = orderItemRepo;
+        this.orderRepo = orderRepo;
+    }
 
     @Override
     public List<OrderItem> getOrderItemsByOrderId(Long orderId) {

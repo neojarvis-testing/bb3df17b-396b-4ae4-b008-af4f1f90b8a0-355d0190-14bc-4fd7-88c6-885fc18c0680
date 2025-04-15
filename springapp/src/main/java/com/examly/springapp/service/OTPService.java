@@ -4,9 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class OTPService {
@@ -15,11 +13,11 @@ public class OTPService {
 
     public String generateOTP(String email) {
         String otp = String.format("%06d", new Random().nextInt(999999));
-        System.out.println("++++++++++++++++++++++++++");
-        System.out.println(otp);
+        // System.out.println("++++++++++++++++++++++++++");
+        // System.out.println(otp);
         otpStorage.put(email, otp);
-        System.out.println("from generate");
-        System.out.println(otpStorage);
+        // System.out.println("from generate");
+        // System.out.println(otpStorage);
         return otp;
     }
 

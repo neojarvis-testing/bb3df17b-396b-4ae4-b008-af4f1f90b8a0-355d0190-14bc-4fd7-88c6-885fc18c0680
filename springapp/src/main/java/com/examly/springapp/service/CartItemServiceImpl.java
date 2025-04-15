@@ -1,6 +1,5 @@
 package com.examly.springapp.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,17 +12,19 @@ import com.examly.springapp.repository.ProductRepo;
 
 @Service
 public class CartItemServiceImpl implements CartItemService {
-    @Autowired
+    
     private CartItemRepo cartItemRepository;
-
-    @Autowired
     private ProductRepo productRepository;
-
-    @Autowired
     private CartService cartService;
-
-    @Autowired
     private CartRepo cartRepo;
+
+    public CartItemServiceImpl(CartItemRepo cartItemRepository, ProductRepo productRepository, CartService cartService, CartRepo cartRepo){
+        this.cartItemRepository = cartItemRepository;
+        this.productRepository = productRepository;
+        this.cartService = cartService;
+        this.cartRepo = cartRepo;
+    }
+
 
     @Transactional
     public Cart addToCart(Long userId, Long productId, int quantity) {
