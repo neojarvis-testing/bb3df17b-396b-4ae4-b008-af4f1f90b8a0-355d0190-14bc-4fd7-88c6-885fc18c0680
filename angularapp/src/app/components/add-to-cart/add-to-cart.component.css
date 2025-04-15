@@ -66,7 +66,7 @@ body {
 /* Container Styling */
 .container {
   max-width: 1400px;
-  margin: auto;
+  margin: 60px;
   padding: 30px;
   background: #ffffff;
   border-radius: 15px;
@@ -76,7 +76,8 @@ body {
 
 /* Ensuring proper height */
 .container {
-  min-height: 80vh;
+  margin: auto;
+  min-height: 80vh; /* Ensures the cart component occupies at least 80% of the viewport height */
   margin-bottom: 50px;
 }
 
