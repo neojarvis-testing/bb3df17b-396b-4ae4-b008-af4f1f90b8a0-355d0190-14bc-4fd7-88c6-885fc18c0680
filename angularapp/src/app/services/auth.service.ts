@@ -55,8 +55,6 @@ export class AuthService {
       error => {
         console.error('Login failed', error);
         alert("Wrong Password, Try Again!");
-
-
       }
     );
   }
