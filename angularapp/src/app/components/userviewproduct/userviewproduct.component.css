@@ -129,10 +129,12 @@ input[type="number"] {
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
-.popup-content h3 {
-  font-size: 20px;
-  color: #3498db;
-  font-weight: bold;
+.popup-content {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Horizontally center */
+  justify-content: center; /* Vertically center */
   text-align: center;
 }
 
@@ -145,4 +147,6 @@ input[type="number"] {
   font-weight: bold;
   border-radius: 7px;
   cursor: pointer;
+  margin-top: 20px; /* Add some spacing from the content above */
 }
+

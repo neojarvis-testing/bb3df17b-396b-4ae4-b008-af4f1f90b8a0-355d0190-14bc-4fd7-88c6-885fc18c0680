@@ -56,4 +56,23 @@ export class ProductCreateComponent implements OnInit {
     });
   }
 
+  handleFileChange(event: any) {
+    const file = event.target.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+  
+      reader.onload = () => {
+        console.log("Base64 Image Data:", reader.result); // Debugging
+        // Assign Base64 result directly to the model property
+        this.product.coverImage = reader.result as string; 
+      };
+  
+      reader.onerror = (error) => {
+        console.error("Error converting file to Base64:", error);
+      };
+    }
+  }
+  
 }
