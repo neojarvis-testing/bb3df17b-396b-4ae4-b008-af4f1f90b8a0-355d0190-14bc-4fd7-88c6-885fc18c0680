@@ -51,7 +51,7 @@
             <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0"
             (click)="handleAction(product)">
                   Add to Cart
-            </button>
+            </button>&nbsp;&nbsp;
 
             <!-- Out of Stock Message -->
             <p class="text-muted" *ngIf="product.stockQuantity === 0">Out of Stock</p>

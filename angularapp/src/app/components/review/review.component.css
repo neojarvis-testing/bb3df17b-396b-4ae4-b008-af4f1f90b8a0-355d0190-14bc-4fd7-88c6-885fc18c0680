@@ -1,72 +1,97 @@
-   .container{
-      
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height:100vh;
-         
-      }
-   .review-container {
-      width: 40%;
-      height: 500px;
-      padding: 20px;
-      border: 1px solid #ddd;
-      background-color: #f9f9f9;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      
-   }
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&display=swap');
 
-   .review-container h2{
-      font-size: 30px;
-      text-align: center;
-      margin:20px;
-      margin-bottom: 50px;
+* {
+  scroll-behavior: smooth;
+  font-family: 'Merriweather', serif;
+}
 
-   }
-   textarea{
-      width: 90%;
-      display:block;
-      margin: 10px auto;
-      height: 120px;
-      font-size: 20px;
-   }
-   .star-rating {
-      display: flex;
-      cursor: pointer;
-      display: block;
-      margin:15px auto;
-   }
+/* Main Container */
+.container {
+  font-family: 'Merriweather', serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f9ff; /* Soft pastel blue */
+}
 
-   .star-rating span {
-      /* border: 2px solid red; */
-      font-size: 3em;
-      color: lightgray;
-   }
+/* Review Container */
+.review-container {
+  width: 45%;
+  height: 500px;
+  padding: 25px;
+  border: 1px solid #ddd;
+  background-color: #ffffff; /* Light background */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
 
-   .star-rating span.filled {
-      color: gold;
-   }
-   button{
-      
-      width: 90%;
-      padding: 8px;
-      display: block;
-      margin:0 auto;
-      margin-top: 30px;
-      color:white;
-      border-radius: 5px;
-      background-color: #008080;
-      
-   }
+/* Heading */
+.review-container h2 {
+  font-size: 28px;
+  text-align: center;
+  color: #2c79c2; /* Calm blue */
+  margin: 20px 0 40px;
+}
 
+/* Textarea */
+textarea {
+  width: 90%;
+  display: block;
+  margin: 10px auto;
+  height: 120px;
+  font-size: 18px;
+  border: 1px solid #2c79c2;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f5faff;
+}
 
-   .ireview-container{
-      display: flex;
-      flex-direction: column;
-   }
+/* Star Rating */
+.star-rating {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  margin: 15px auto;
+}
 
+.star-rating span {
+  font-size: 2.5em;
+  color: lightgray;
+}
 
-   
+.star-rating span.filled {
+  color: gold;
+}
 
-    
+/* Submit Button */
+button {
+  width: 90%;
+  padding: 10px;
+  display: block;
+  margin: 30px auto;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  background-color: #3498db; /* Calm blue */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Button Hover Effect */
+button:hover {
+  background-color: #2c79c2;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(1);
+}
+
+/* Review Inner Container */
+.ireview-container {
+  display: flex;
+  flex-direction: column;
+}
