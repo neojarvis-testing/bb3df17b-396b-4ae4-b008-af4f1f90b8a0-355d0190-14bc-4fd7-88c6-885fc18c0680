@@ -21,12 +21,10 @@ export class UserviewproductComponent implements OnInit {
   filteredProducts: Product[] = []
   searchData = '';
   selectedCategory = '';
-
   selectedQuantity: number;
-  popupVisible1: boolean = false; // Popup 1 visibility
-  popupMessage1: string = ''; // Popup 1 message
-  popupVisible2: boolean = false; // Popup 2 visibility
-  popupMessage2: string = ''; // Popup 2 message  
+  cartPopupVisible: boolean = false; // Separate property for Add to Cart pop-up
+  reviewPopupVisible: boolean = false;
+  popupMessage: string = ""; // Message for the pop-up
   loading: boolean = false; // Track loading state
   categories:string[]=[]
 
@@ -100,19 +98,20 @@ export class UserviewproductComponent implements OnInit {
       next: (data) => {
         this.reviews = data; // Assign fetched reviews
         if (this.reviews.length === 0) {
-          this.popupMessage2 = 'No reviews found for this product.';
+          this.popupMessage = 'No reviews found for this product.';
         } else {
-          this.popupMessage2 = 'Reviews loaded successfully!';
+          this.popupMessage = 'Reviews loaded successfully!';
         }
         this.loading = false; // Stop loading
       },
       error: (err) => {
         console.error('Error fetching reviews:', err); // Log error
-        this.popupMessage2 = 'Failed to load reviews. Please try again.';
+        this.popupMessage = 'Failed to load reviews. Please try again.';
         this.loading = false; // Stop loading in case of error
       },
     });
-    this.popupVisible2 = true; // Show the popup
+
+    this.reviewPopupVisible = true; // Show the View Reviews pop-up
   }
   
   
@@ -134,12 +133,8 @@ export class UserviewproductComponent implements OnInit {
     });
   }
 
-  closePopup1() {
-    this.popupVisible1 = false; // Hide the pop-up
-  }
-
-  closePopup2() {
-    this.popupVisible2 = false; // Hide the pop-up
+  closePopup() {
+    this.reviewPopupVisible = false; // Hide the pop-up
   }
 
   handleAction(product : Product) {
@@ -156,25 +151,33 @@ export class UserviewproductComponent implements OnInit {
   public addToCart(product: Product) {
     const productId = product.productId;
     const qty = product.selectedQuantity;
-
+  
     if (qty > product.stockQuantity) {
       alert(`You can only add up to ${product.stockQuantity} of ${product.productName}.`);
       return;
     }
-
+  
     this.cartService.addToCart(this.userId, productId, qty, null).subscribe({
       next: () => {
         console.log('Product added to cart successfully');
-        this.popupMessage1 = `${qty} x ${product.productName} has been added to your cart successfully!`; // Set success message
-        this.popupVisible1 = true; // Show the pop-up
-        this.getAllProducts(); // Refresh product list to update stock
+        this.popupMessage = `${qty} x ${product.productName} has been added to your cart successfully!`; // Set success message
+        this.cartPopupVisible = true; // Show Add to Cart pop-up
+        this.getAllProducts(); 
       },
       error: (err) => {
         console.error('Error adding product to cart:', err);
-        this.popupMessage1 = `Failed to add ${product.productName} to the cart. Please try again.`; // Error message
-        this.popupVisible1 = true; // Show the error pop-up
-      }
+        this.popupMessage = `Failed to add ${product.productName} to the cart. Please try again.`; // Error message
+        this.cartPopupVisible = true; // Show the error pop-up
+      },
     });
+  }
+  
+  closeCartPopup() {
+    this.cartPopupVisible = false; // Close Add to Cart pop-up
+  }
+  
+  closeReviewPopup() {
+    this.reviewPopupVisible = false; // Close View Reviews pop-up
   }
 
   

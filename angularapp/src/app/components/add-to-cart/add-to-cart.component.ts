@@ -14,7 +14,7 @@ export class AddToCartComponent implements OnInit {
 
   userId: number = parseInt(localStorage.getItem('userId') || '0');
   cartItems: CartItem[] = [];
-  emptyMgs: string = "";
+  emptyMgs: string = "Oops, your cart is looking lonely. Add items now to brighten its day! :)";
   products: any[] = []; // Store all products for stock restoration
 
   constructor(private cartService: CartService, private productService: ProductService, private router: Router) {}

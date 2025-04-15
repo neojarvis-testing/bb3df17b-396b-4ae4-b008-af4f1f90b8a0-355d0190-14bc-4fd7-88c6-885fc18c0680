@@ -10,6 +10,7 @@ export class UsernavComponent implements OnInit {
 
   userId : number = parseInt(localStorage.getItem('userId'));
   username : string = localStorage.getItem('username');
+  popupVisible: boolean = false;
   
   constructor(private authService : AuthService) { }
 
@@ -17,8 +18,21 @@ export class UsernavComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public logout() : void{
-    this.authService.logout();
+  public confirmLogout(): void {
+    this.popupVisible = true; // Show the confirmation pop-up
   }
+  
+  public cancelLogout(): void {
+    this.popupVisible = false; // Hide the confirmation pop-up
+  }
+  
+  public logoutConfirmed(): void {
+    this.authService.logout(); // Perform the logout action
+    this.popupVisible = false; // Hide the confirmation pop-up
+  }
+
+  // public logout() : void{
+  //   this.authService.logout();
+  // }
 
 }

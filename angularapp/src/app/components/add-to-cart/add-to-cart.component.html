@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Your Cart</h2>
-  {{emptyMgs}}
+  <p *ngIf="cartItems.length === 0" class="empty-message">{{ emptyMgs }}</p>
   <ul class="cart-list" style="list-style: none; padding: 0;">
     <li *ngFor="let cartItem of cartItems"
       style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 8px;">

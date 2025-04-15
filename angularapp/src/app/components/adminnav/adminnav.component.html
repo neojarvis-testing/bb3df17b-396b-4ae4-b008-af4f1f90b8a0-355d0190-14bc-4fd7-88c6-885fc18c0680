@@ -11,6 +11,7 @@
         </button>
       </div>
     </div>
+
     <a routerLink="/home-page">Home</a>
     <div class="dropdown">
       <a>Product</a>
@@ -21,6 +22,17 @@
     </div>
     <a routerLink="/order-placed">Order Placed</a>
     <a routerLink="/admin-view-reviews">Reviews</a>
-    <a (click)="logout()">Log Out</a>
+    <a (click)="confirmLogout()">Log Out</a>
   </div>
 </nav>
+
+<!-- Logout Confirmation Pop-Up -->
+<div class="popup" *ngIf="popupVisible">
+  <div class="popup-content">
+    <h3>Are you sure you want to log out?</h3>
+    <div class="popup-buttons">
+      <button (click)="logoutConfirmed()">Yes</button>
+      <button (click)="cancelLogout()">No</button>
+    </div>
+  </div>
+</div>

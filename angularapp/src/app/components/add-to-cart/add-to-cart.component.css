@@ -37,3 +37,27 @@
 .popup-content button:hover {
   background-color: #0056b3;
 }
+
+.container {
+  max-width: 1400px;
+  margin: auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 50px; /* Add space below the cart component */
+}
+
+.container {
+  min-height: 80vh; /* Ensures the cart component occupies at least 80% of the viewport height */
+  margin-bottom: 50px;
+}
+
+.empty-message {
+  color: #e74c3c; /* Soft red for attention */
+  font-size: 18px; /* Comfortable size */
+  font-weight: bold;
+  text-align: left;
+  margin-top: 20px;
+}
+
