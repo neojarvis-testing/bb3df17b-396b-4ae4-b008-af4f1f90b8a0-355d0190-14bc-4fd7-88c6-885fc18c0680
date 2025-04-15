@@ -1,70 +1,94 @@
+/* Navbar should span full width */
 .navbar {
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-  }
-  
-  .navbar-left span {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .navbar-right {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-right a {
-    margin-left: 15px;
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .navbar-right .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .navbar-right .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
-  
-  .navbar-right .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  
-  .navbar-right .dropdown-content a {
-    color: #333;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .navbar-right .dropdown-content a:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .user-box {
-    display: inline-block;
-    padding: 5px 10px;
-    border: 2px solid #333;
-    border-radius: 5px;
-    background-color: #f8f8f8;
-    color: #333;
-    font-weight: bold;
-    font-size: 14px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Pop-Up Styling */
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-left span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-right a {
+  margin-left: 15px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.navbar-right a:hover {
+  color: #ff4d4d;
+  transform: translateY(-2px);
+  cursor:pointer;
+}
+
+.navbar-right .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.navbar-right .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.navbar-right .dropdown:hover .dropdown-content,
+.navbar-right .dropdown-content:hover {
+  display: block;
+}
+
+.navbar-right .dropdown-content a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s ease-in-out;
+}
+
+.navbar-right .dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.admin-box {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 2px solid #333;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.admin-box:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Pop-Up Styling */
 .popup {
   position: fixed;
   top: 50%;
@@ -104,7 +128,7 @@
 }
 
 .popup-buttons button:nth-child(2) {
-  background-color: #e74c3c; /* Red color for No button */
+  background-color: #e74c3c; /* Red for No button */
 }
 
 .popup-buttons button:nth-child(2):hover {

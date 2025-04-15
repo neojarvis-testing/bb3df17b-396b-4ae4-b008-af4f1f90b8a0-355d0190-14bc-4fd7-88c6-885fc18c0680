@@ -25,7 +25,7 @@ body {
 /* Heading */
 h1 {
   text-align: center;
-  color: #3498db; /* Calm Blue */
+  color: skyblue; /* Calm Blue */
   font-size: 36px; /* Bigger font */
   font-weight: bold;
   margin-bottom: 30px;
@@ -36,7 +36,7 @@ h1 {
 .form-select {
   font-size: 18px; /* Bigger input fields */
   padding: 12px;
-  border: 2px solid #3498db;
+  border: 2px solid skyblue;
   background-color: #f5f9ff; /* Light background */
   color: #333;
   border-radius: 7px;
