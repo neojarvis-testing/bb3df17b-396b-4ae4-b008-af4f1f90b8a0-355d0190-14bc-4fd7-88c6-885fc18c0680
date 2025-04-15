@@ -16,6 +16,13 @@
   margin-bottom: 20px;
   color: #333;
 }
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Push buttons to opposite sides */
+  align-items: center;
+  width: 100%; /* Ensure full-width spacing */
+  padding: 10px; /* Add some spacing */
+}
 
 .popup-content button {
   background-color: #007bff;
