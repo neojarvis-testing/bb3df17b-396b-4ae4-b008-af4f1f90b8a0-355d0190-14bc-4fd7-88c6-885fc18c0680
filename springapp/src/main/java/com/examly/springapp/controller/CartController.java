@@ -4,7 +4,6 @@ import com.examly.springapp.model.Cart;
 import com.examly.springapp.service.CartItemService;
 import com.examly.springapp.service.CartService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +12,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/cart")
 public class CartController {
 
-    @Autowired
     private CartService cartService;
-    
-    @Autowired
     private CartItemService cartItemService;
+
+    public CartController(CartService cartService, CartItemService cartItemService){
+        this.cartService = cartService;
+        this.cartItemService = cartItemService;
+    }
 
     @GetMapping("{userId}")
     public ResponseEntity<Cart> getCart(@PathVariable Long userId) {

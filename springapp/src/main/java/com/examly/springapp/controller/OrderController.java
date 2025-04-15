@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.examly.springapp.exceptions.OrderNotFoundException;
@@ -18,16 +19,18 @@ import com.examly.springapp.model.Order;
 import com.examly.springapp.service.EmailService;
 import com.examly.springapp.service.OrderService;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @RestController
+@RequestMapping("/api/orders")
 public class OrderController {
 
-    @Autowired
     private OrderService orderService;
-
-    @Autowired
     private EmailService emailService;
+
+    public OrderController(OrderService orderService, EmailService emailService){
+        this.orderService = orderService;
+        this.emailService = emailService;
+    }
 
 //     @PostMapping("/api/orders")
 // public ResponseEntity<?> addOrder(@RequestBody Order order) {
@@ -38,7 +41,7 @@ public class OrderController {
 //         return ResponseEntity.status(500).body("Order placement failed: " + e.getMessage());
 //     }
 // }
-@PostMapping("/api/orders")
+@PostMapping("")
 public ResponseEntity<?> addOrder(@RequestBody Order order) {
     try {
         Order savedOrder = orderService.addOrder(order);
@@ -53,14 +56,14 @@ public ResponseEntity<?> addOrder(@RequestBody Order order) {
 }
 
 
-    @GetMapping("/api/orders/{orderId}")
+    @GetMapping("/{orderId}")
     public ResponseEntity<?> getOrderById(@PathVariable Long orderId){
             Optional<Order> order = orderService.getOrderById(orderId);
             return ResponseEntity.status(200).body(order);
     }
      
 
-    @GetMapping("/api/orders/user/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<?> getOrdersByUserId(@PathVariable Long userId) {
     try {
         List<Order> orderList = orderService.getOrdersByUserId(userId);
@@ -72,14 +75,14 @@ public ResponseEntity<?> addOrder(@RequestBody Order order) {
 
 
 
-    @GetMapping("/api/orders")
+    @GetMapping("")
     public ResponseEntity<?> getAllOrders(){
             List<Order> orderList = orderService.getAllOrders();
             return ResponseEntity.status(200).body(orderList);
     }
 
 
-    @PutMapping("/api/orders/{orderId}")
+    @PutMapping("/{orderId}")
     public ResponseEntity<?> updateOrder(@PathVariable Long orderId , @RequestBody Order updatedOrder){
         try{
             Order order = orderService.updateOrder(orderId , updatedOrder);
@@ -89,7 +92,7 @@ public ResponseEntity<?> addOrder(@RequestBody Order order) {
         }
     }
 
-    @DeleteMapping("/api/orders/{orderId}")
+    @DeleteMapping("/{orderId}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long orderId){
             orderService.deleteOrder(orderId);
             return ResponseEntity.status(200).body(true);

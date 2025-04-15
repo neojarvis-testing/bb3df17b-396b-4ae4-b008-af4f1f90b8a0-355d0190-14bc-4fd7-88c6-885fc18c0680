@@ -1,6 +1,5 @@
 package com.examly.springapp.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.model.Cart;
@@ -10,11 +9,13 @@ import com.examly.springapp.repository.CartRepo;
 @Service
 public class CartServiceImpl implements CartService {
     
-    @Autowired
     private CartRepo cartRepository;
-
-    @Autowired
     private UserServiceImpl userService;
+
+    public CartServiceImpl(CartRepo cartRepository, UserServiceImpl userService){
+        this.cartRepository = cartRepository;
+        this.userService = userService;
+    }
 
     public Cart getCartByUser(Long userId) {
         User user = userService.getUserById(userId);

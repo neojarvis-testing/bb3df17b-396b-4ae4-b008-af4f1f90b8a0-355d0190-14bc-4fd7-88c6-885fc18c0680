@@ -15,11 +15,12 @@ import java.util.*;
 
 @Service
 public class ReviewServiceImpl implements ReviewService{
-    @Autowired
+
     private ReviewRepo reviewRepo;
 
-    @Autowired
-    private UserRepo userRepo;
+    public ReviewServiceImpl(ReviewRepo reviewRepo){
+        this.reviewRepo = reviewRepo;
+    }
     
     public Review addReview(Review review){        
         review.setDate(LocalDate.now());
