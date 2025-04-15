@@ -1,5 +1,5 @@
 <nav class="navbar">
-  <div class="navbar-left"> 
+  <div class="navbar-left">
     <span>ProKart</span>
   </div>
   <div class="navbar-right">
@@ -27,12 +27,14 @@
 </nav>
 
 <!-- Logout Confirmation Pop-Up -->
-<div class="popup" *ngIf="popupVisible">
-  <div class="popup-content">
-    <h3>Are you sure you want to log out?</h3>
-    <div class="popup-buttons">
-      <button (click)="logoutConfirmed()">Yes</button>
-      <button (click)="cancelLogout()">No</button>
+<div class="popup-overlay" *ngIf="popupVisible" >
+  <div class="popup" *ngIf="popupVisible">
+    <div class="popup-content">
+      <h3>Are you sure you want to log out?</h3>
+      <div class="popup-buttons">
+        <button (click)="logoutConfirmed()">Yes</button>
+        <button (click)="cancelLogout()">No</button>
+      </div>
     </div>
   </div>
 </div>

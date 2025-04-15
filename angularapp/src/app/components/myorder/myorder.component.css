@@ -1,5 +1,6 @@
 /* Container for orders */
 .container {
+    margin: 60px;
     display: flex;
     flex-direction: column; /* Stack orders vertically */
     gap: 20px; /* Space between order slips */

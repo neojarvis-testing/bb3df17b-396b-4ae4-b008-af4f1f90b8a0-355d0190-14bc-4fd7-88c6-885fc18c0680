@@ -18,13 +18,14 @@ import { SignupComponent } from './components/signup/signup.component';
 import { UsernavComponent } from './components/usernav/usernav.component';
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
 import { AdminnavComponent } from './components/adminnav/adminnav.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './pipes/search.pipe';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { GuestnavComponent } from './components/guestnav/guestnav.component';
+import { HttpErrorInterceptor } from './http-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { GuestnavComponent } from './components/guestnav/guestnav.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
