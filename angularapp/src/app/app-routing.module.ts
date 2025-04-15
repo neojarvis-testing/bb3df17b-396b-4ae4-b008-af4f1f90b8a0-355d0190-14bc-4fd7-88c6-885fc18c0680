@@ -26,7 +26,6 @@ const routes: Routes = [
   {path:'admin-nav',component:AdminnavComponent, canActivate: [AdminAuthGuard]},
   {path:'admin-view-product',component:AdminviewproductComponent, canActivate: [AdminAuthGuard]},
   {path:'admin-view-reviews',component:AdminviewreviewsComponent, canActivate: [AdminAuthGuard]},
-  {path:'check-out/:cartdata',component:CheckoutComponent, canActivate: [UserAuthGuard]},
   // {path:'check-out/${cartData}',component:CheckoutComponent},
   {path:'error',component:ErrorComponent},
   {path:'login',component:LoginComponent},
@@ -40,6 +39,7 @@ const routes: Routes = [
   {path:'user-nav',component:UsernavComponent, canActivate: [UserAuthGuard]},
   {path:'user-view-product',component:UserviewproductComponent},
   {path:'change-password',component:ChangePasswordComponent},
+  { path: 'check-out', component: CheckoutComponent },
   {path:'**',component:HomePageComponent}
 ];
 
