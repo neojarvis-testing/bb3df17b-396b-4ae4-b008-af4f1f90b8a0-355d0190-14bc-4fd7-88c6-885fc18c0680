@@ -1,103 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&display=swap');
+
+* {
+  scroll-behavior: smooth;
+  font-family: 'Merriweather', serif;
+}
+
+/* Container Styling */
 .container {
-    font-family: Arial, sans-serif;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    margin: 20px auto;
+  font-family: 'Merriweather', serif;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #f0f9ff; /* Soft pastel blue */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 30px auto;
 }
 
+/* Heading */
 .container h2 {
-    text-align: center;
-    padding: 15px 0;
+  text-align: center;
+  color: #2c79c2; /* Calm blue */
+  font-size: 28px;
+  font-weight: bold;
+  padding: 15px 0;
 }
 
+/* List Styling */
 ul {
-    padding: 0;
+  padding: 0;
 }
 
 ul li {
-    list-style: none;
-    border: 1px solid rgba(0, 0, 0, 0.213);
-    margin: 5px 0;
+  list-style: none;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 8px 0;
+  background-color: #f5faff; /* Light pastel background */
+  padding: 10px;
+  border-radius: 8px;
 }
 
+/* Inner Div */
 .container .inner-div {
-    background-color: white;
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
 }
 
+/* Item Styling */
 .container .item {
-    padding: 10px;
+  padding: 10px;
 }
 
 .item .bold {
-    font-weight: 700;
-    font-size: 23px;
-
+  font-weight: 700;
+  font-size: 24px;
+  color: #2c79c2; /* Calm blue */
 }
 
+/* Button Container */
 .item .btn {
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 0px;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0px;
 }
 
+/* Buttons */
 .btn button {
-    padding: 5px;
-    border-radius: 7px;
+  padding: 8px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
+/* Star Rating */
 .fa-star,
 .fa-star-o {
-    color: gold;
-    font-size: 20px;
+  color: gold;
+  font-size: 20px;
 }
 
 .star-rating {
-    display: flex;
-    cursor: pointer;
-
+  display: flex;
+  cursor: pointer;
 }
 
 .star-rating span {
-    font-size: 2em;
-    color: lightgray;
+  font-size: 2em;
+  color: lightgray;
 }
 
 .star-rating span.filled {
-    color: gold;
+  color: gold;
 }
 
-.btn .left, .btn .right {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Main Buttons */
+.btn .left,
+.btn .right {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .btn .left {
-    background-color: rgb(9, 180, 243);
+  background-color: #3498db; /* Light blue */
 }
 
 .btn .right {
-    background-color: rgb(255, 6, 6);
+  background-color: #e74c3c; /* Soft red */
 }
 
-.btn .left:hover, .btn .right:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+/* Button Hover Effects */
+.btn .left:hover,
+.btn .right:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
-.btn .left:active, .btn .right:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.btn .left:active,
+.btn .right:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 
 .popup-overlay {

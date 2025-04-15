@@ -7,15 +7,18 @@ import com.examly.springapp.service.EmailService;
 import com.examly.springapp.service.OTPService;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+
 @RestController
 @RequestMapping("/api/otp")
 public class OTPController {
 
-    @Autowired
     private OTPService otpService;
-
-    @Autowired
     private EmailService emailService;
+
+    public OTPController(OTPService otpService, EmailService emailService){
+        this.otpService = otpService;
+        this.emailService = emailService;
+    }
 
     @PostMapping("/send")
     public String sendOtp(@RequestParam String email) {

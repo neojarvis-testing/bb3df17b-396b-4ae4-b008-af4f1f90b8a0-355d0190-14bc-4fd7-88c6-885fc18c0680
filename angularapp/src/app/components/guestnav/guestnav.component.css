@@ -1,70 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&display=swap');
+
+* {
+  scroll-behavior: smooth;
+  font-family: 'Merriweather', serif;
+}
+
+/* Navbar Styling */
 .navbar {
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #333; /* Dark background for the navbar */
-    color: #fff; /* White text for contrast */
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  background-color: #2c79c2; /* Calm Blue */
+  color: #fff;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Navbar Left */
 .navbar-left span {
-    font-size: 20px;
-    font-weight: bold; /* Emphasize the brand name */
+  font-size: 22px;
+  font-weight: bold;
 }
 
+/* Navbar Right */
 .navbar-right {
-    display: flex;
-    align-items: center; /* Align items vertically */
+  display: flex;
+  align-items: center;
 }
 
 .navbar-right a {
-    margin-left: 15px; /* Space between navigation links */
-    color: #fff; /* White text for links */
-    text-decoration: none; /* Remove underlines */
+  margin-left: 15px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
+/* Navbar Hover Effects */
 .navbar-right a:hover {
-    text-decoration: underline; /* Add underline on hover */
-    color: #ddd; /* Slightly lighter color on hover */
+  text-decoration: underline;
+  color: #e3f2fd; /* Light pastel hover */
+  transform: translateY(-2px);
+  cursor: pointer;
 }
 
+/* Dropdown Styling */
 .navbar-right .dropdown {
-    position: relative;
-    display: inline-block; /* Dropdown container */
+  position: relative;
+  display: inline-block;
 }
 
 .navbar-right .dropdown-content {
-    display: none; /* Initially hidden */
-    position: absolute;
-    background-color: #f9f9f9; /* Light background for dropdown */
-    min-width: 160px; /* Width of the dropdown */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow effect */
-    z-index: 1; /* Ensure it appears above other elements */
+  display: none;
+  position: absolute;
+  background-color: #f5faff; /* Light pastel background */
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 .navbar-right .dropdown:hover .dropdown-content {
-    display: block; /* Show dropdown content on hover */
+  display: block;
 }
 
 .navbar-right .dropdown-content a {
-    color: #333; /* Dark text for dropdown items */
-    padding: 12px 16px; /* Spacing for dropdown items */
-    text-decoration: none; /* Remove underlines */
-    display: block; /* Block-level elements for better layout */
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background 0.3s ease-in-out;
 }
 
 .navbar-right .dropdown-content a:hover {
-    background-color: #f1f1f1; /* Highlight item on hover */
+  background-color: #e3f2fd; /* Light pastel hover */
 }
 
+/* User Box */
 .user-box {
-    display: inline-block;
-    padding: 5px 10px;
-    border: 2px solid #333; /* Border matches navbar color */
-    border-radius: 5px; /* Rounded edges */
-    background-color: #f8f8f8; /* Light background for user box */
-    color: #333; /* Dark text for contrast */
-    font-weight: bold; /* Emphasize text */
-    font-size: 14px; /* Adjust font size */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+  display: inline-block;
+  padding: 6px 12px;
+  border: 2px solid #2c79c2;
+  border-radius: 6px;
+  background-color: #f5faff;
+  color: #2c79c2;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.user-box:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

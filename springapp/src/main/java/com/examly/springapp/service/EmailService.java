@@ -16,8 +16,11 @@ import jakarta.mail.internet.MimeMessage;
 @Service
 public class EmailService {
 
-    @Autowired
     private JavaMailSender mailSender;
+
+    public EmailService(JavaMailSender mailSender){
+        this.mailSender = mailSender;
+    }
 
     public void sendOTPEmail(String toEmail, String otp) {
         SimpleMailMessage message = new SimpleMailMessage();

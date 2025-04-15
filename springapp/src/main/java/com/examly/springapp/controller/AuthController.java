@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.examly.springapp.config.JwtUtils;
@@ -18,17 +19,20 @@ import com.examly.springapp.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 
 @RestController
-@CrossOrigin(allowedHeaders = "*",origins = "*")
+// @CrossOrigin(allowedHeaders = "*",origins = "*")
+@RequestMapping("/api")
 public class AuthController {
- 
-    @Autowired
+
     private UserService userService;
- 
-    @Autowired
     private JwtUtils jwtUtils;
+            
+    public AuthController(UserService userService, JwtUtils jwtUtils){
+        this.userService = userService;
+        this.jwtUtils = jwtUtils;
+    }
  
    
-    @PostMapping("/api/register")
+    @PostMapping("/register")
         public ResponseEntity<User> registerUser(@RequestBody User user) {
             try {
                 User newUser = userService.createUser(user);
@@ -39,7 +43,7 @@ public class AuthController {
        
         }
 
-    @GetMapping("/api/user/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<?> getUserById(@PathVariable Long userId) {
         try {
         return ResponseEntity.status(200).body(userService.getUserById(userId));
@@ -51,12 +55,12 @@ public class AuthController {
  
 
    
-    @PostMapping("/api/login")
+    @PostMapping("/login")
     public ResponseEntity<LoginDTO> loginUser(@RequestBody User user) {
     try {
     User loggedInUser = userService.loginUser(user);
     if (loggedInUser == null) {
-    return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
     String token = jwtUtils.generateToken(loggedInUser.getEmail()); // Generate the JWT token
 

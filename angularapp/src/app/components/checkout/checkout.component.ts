@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Cart } from 'src/app/models/cart.model';
-import { OrderItem } from 'src/app/models/order-item.model';
-import { Order } from 'src/app/models/order.model';
-import { CartService } from 'src/app/services/cart.service';
-import { OrderService } from 'src/app/services/order.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CartItem } from 'src/app/models/cart-item.model';
+import { Order } from 'src/app/models/order.model';
+import { OrderService } from 'src/app/services/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -13,55 +10,39 @@ import { CartItem } from 'src/app/models/cart-item.model';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
-
-  cart: Cart = {
-    cartItems: [], userId: 0,
-    quantity: 0,
-    product: undefined
-  }; // Initialize cart with default values
+  cartItems: CartItem[] = []; // Initialize as an empty array to prevent undefined errors
   shippingAddress: string = '';
   billingAddress: string = '';
-  orderItems: OrderItem;
-  order: Order;
   isPopupVisible = false;
 
-  constructor(private cartService: CartService, private router: Router, private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private router: Router) {}
 
   ngOnInit(): void {
-    this.getCartDetails();
-  }
-
-  getCartDetails() {
-    const userId = parseInt(localStorage.getItem('userId') || '0', 10);
-    if (!userId) {
-      alert('Invalid user. Please log in again.');
-      this.router.navigate(['/login']); // Redirect to login if user is not valid
-      return;
-    }
-
-    this.cartService.getCart(userId).subscribe({
-      next: (cart) => {
-        this.cart = cart;
-      },
-      error: (error) => {
-        console.error('Failed to load cart details:', error);
+    const storedCartData = localStorage.getItem('cartData');
+    if (storedCartData) {
+      try {
+        this.cartItems = JSON.parse(storedCartData) || []; // Ensure it's always an array
+      } catch (error) {
+        console.error("Error parsing cart data:", error);
+        this.cartItems = []; // Prevent breaking the UI
       }
-    });
-
+    } else {
+      console.error("No cart data found!");
+      this.cartItems = []; // Prevent undefined errors
+      this.router.navigate(['/cart']); // Redirect if no data found
+    }
   }
 
   calculateTotalAmount(): number {
-    if (!this.cart || !this.cart.cartItems) {
-      return 0;
-    }
-    return this.cart.cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0);
+    return this.cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0);
   }
 
   placeOrder() {
     const userId = parseInt(localStorage.getItem('userId') || '0', 10);
-    const userEmail = localStorage.getItem('email');
-    const userName = localStorage.getItem('username');
-    const userMobileNumber = localStorage.getItem('mobileNumber');
+    const userEmail = localStorage.getItem('email') || '';
+    const userName = localStorage.getItem('username') || '';
+    const userMobileNumber = localStorage.getItem('mobileNumber') || '';
+    const userRole = 'USER';
 
     if (!userId) {
       alert('Invalid user. Please log in again.');
@@ -71,17 +52,17 @@ export class CheckoutComponent implements OnInit {
 
     const order: Order = {
       user: {
-        userId: userId,
+        userId,
         email: userEmail,
         username: userName,
         mobileNumber: userMobileNumber,
-        password: '', // Populate if needed
-        userRole: 'USER' // Default role
+        password: '',
+        userRole
       },
       shippingAddress: this.shippingAddress,
       billingAddress: this.billingAddress,
       orderDate: new Date().toISOString(),
-      orderItems: this.cart.cartItems.map(item => ({
+      orderItems: this.cartItems.map(item => ({
         product: item.product,
         quantity: item.quantity,
         price: item.product.price
@@ -90,29 +71,11 @@ export class CheckoutComponent implements OnInit {
       orderStatus: 'Pending'
     };
 
-    // Log to confirm the payload
-    console.log('Order payload:', order);
-
-    // Send order data to backend
     this.orderService.placeOrder(order).subscribe({
       next: () => {
         console.log('Order placed successfully');
-        const userId = parseInt(localStorage.getItem('userId') || '0', 10);
-        this.cartService.clearCart(userId).subscribe({
-          next: () => {
-            console.log('Cart cleared successfully');
-          },
-          error: (error) => {
-            console.error('Failed to clear cart:', error);
-            alert('Failed to clear the cart. Please try again later.');
-          }
-        });
-
-
+        localStorage.removeItem('cartData'); // Clear cart data after order placement
         this.isPopupVisible = true;
-        // setTimeout(() => {
-        //   this.router.navigate(['/home-page']);
-        // }, 2000);
       },
       error: (error) => {
         console.error('Order placement failed:', error);
@@ -123,6 +86,6 @@ export class CheckoutComponent implements OnInit {
 
   closePopup(): void {
     this.isPopupVisible = false;
-    this.router.navigate(['/home-page']); // Redirect after popup is dismissed
+    this.router.navigate(['/home-page']);
   }
 }

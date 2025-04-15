@@ -1,24 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&display=swap');
+
+* {
+  scroll-behavior: smooth;
+  font-family: 'Merriweather', serif;
+}
+
+/* Footer Styling */
 .footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f9fa;
-    padding: 2x;
-    text-align: center;
-    border-top: 1px solid #eaeaea;
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .footer-content div {
-    margin-bottom: 1px;
-  }
-  
-  .view-products-link {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .view-products-link:hover {
-    text-decoration: underline;
-  }
-  
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #f0f9ff; /* Soft pastel blue */
+  padding: 20px;
+  text-align: center;
+  border-top: 2px solid #d2e3fc; /* Lighter border */
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer Content */
+.footer-content div {
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #2c79c2; /* Calm Blue */
+}
+
+/* View Products Link */
+.view-products-link {
+  color: #3498db; /* Soft blue */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.view-products-link:hover {
+  text-decoration: underline;
+  color: #2c79c2; /* Slightly darker blue on hover */
+}

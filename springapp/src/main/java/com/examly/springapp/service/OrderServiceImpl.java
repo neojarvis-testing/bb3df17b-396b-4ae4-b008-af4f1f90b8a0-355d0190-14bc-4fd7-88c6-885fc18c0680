@@ -1,9 +1,7 @@
 package com.examly.springapp.service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.examly.springapp.exceptions.OrderNotFoundException;
@@ -19,15 +17,15 @@ import jakarta.persistence.EntityNotFoundException;
 @Service
 public class OrderServiceImpl implements OrderService{
 
-
-    @Autowired
     private OrderRepo orderRepository;
-    
-    @Autowired
     private UserRepo userRepo;
-
-    @Autowired
     private OrderItemRepo orderItemRepo;
+
+    public OrderServiceImpl(OrderRepo orderRepository, UserRepo userRepo, OrderItemRepo orderItemRepo){
+        this.orderItemRepo = orderItemRepo;
+        this.orderRepository = orderRepository;
+        this.userRepo = userRepo;
+    }
 
     @Override
     public Order addOrder(Order order) {
