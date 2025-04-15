@@ -17,28 +17,30 @@ import { UsernavComponent } from './components/usernav/usernav.component';
 import { UserviewproductComponent } from './components/userviewproduct/userviewproduct.component';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { UserAuthGuard } from './user-auth.guard';
+import { AdminAuthGuard } from './admin-auth.guard';
 
 const routes: Routes = [
   {path:'home-page',component:HomePageComponent},
-  {path:'cart',component:AddToCartComponent},
-  {path:'admin-nav',component:AdminnavComponent},
-  {path:'admin-view-product',component:AdminviewproductComponent},
-  {path:'admin-view-reviews',component:AdminviewreviewsComponent},
-  {path:'check-out/:cartdata',component:CheckoutComponent},
+  {path:'cart',component:AddToCartComponent, canActivate: [UserAuthGuard]},
+  {path:'admin-nav',component:AdminnavComponent, canActivate: [AdminAuthGuard]},
+  {path:'admin-view-product',component:AdminviewproductComponent, canActivate: [AdminAuthGuard]},
+  {path:'admin-view-reviews',component:AdminviewreviewsComponent, canActivate: [AdminAuthGuard]},
+  {path:'check-out/:cartdata',component:CheckoutComponent, canActivate: [UserAuthGuard]},
   // {path:'check-out/${cartData}',component:CheckoutComponent},
   {path:'error',component:ErrorComponent},
   {path:'login',component:LoginComponent},
-  {path:'my-order/:id',component:MyorderComponent},
-  {path:'my-review',component:MyreviewComponent},
-  {path:'order-placed',component:OrderplacedComponent},
-  {path:'product-create',component:ProductCreateComponent},
-  {path:'edit-product/:id',component:ProductCreateComponent},
-  {path:'review/:id',component:ReviewComponent},
+  {path:'my-order/:id',component:MyorderComponent, canActivate: [UserAuthGuard]},
+  {path:'my-review',component:MyreviewComponent, canActivate: [UserAuthGuard]},
+  {path:'order-placed',component:OrderplacedComponent, canActivate: [AdminAuthGuard]},
+  {path:'product-create',component:ProductCreateComponent, canActivate: [AdminAuthGuard]},
+  {path:'edit-product/:id',component:ProductCreateComponent, canActivate: [AdminAuthGuard]},
+  {path:'review/:id',component:ReviewComponent, canActivate: [AdminAuthGuard]},
   {path:'sign-up',component:SignupComponent},
-  {path:'user-nav',component:UsernavComponent},
+  {path:'user-nav',component:UsernavComponent, canActivate: [UserAuthGuard]},
   {path:'user-view-product',component:UserviewproductComponent},
-  {path:'change-password',component:ChangePasswordComponent},
-  {path:'**',component:LoginComponent}
+  {path:'change-password',component:ChangePasswordComponent, canActivate: [UserAuthGuard]},
+  {path:'**',component:HomePageComponent}
 ];
 
 @NgModule({

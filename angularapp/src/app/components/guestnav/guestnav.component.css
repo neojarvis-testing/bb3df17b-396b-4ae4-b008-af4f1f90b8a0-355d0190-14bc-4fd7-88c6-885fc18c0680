@@ -1,0 +1,70 @@
+.navbar {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #333; /* Dark background for the navbar */
+    color: #fff; /* White text for contrast */
+}
+
+.navbar-left span {
+    font-size: 20px;
+    font-weight: bold; /* Emphasize the brand name */
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+.navbar-right a {
+    margin-left: 15px; /* Space between navigation links */
+    color: #fff; /* White text for links */
+    text-decoration: none; /* Remove underlines */
+}
+
+.navbar-right a:hover {
+    text-decoration: underline; /* Add underline on hover */
+    color: #ddd; /* Slightly lighter color on hover */
+}
+
+.navbar-right .dropdown {
+    position: relative;
+    display: inline-block; /* Dropdown container */
+}
+
+.navbar-right .dropdown-content {
+    display: none; /* Initially hidden */
+    position: absolute;
+    background-color: #f9f9f9; /* Light background for dropdown */
+    min-width: 160px; /* Width of the dropdown */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+    z-index: 1; /* Ensure it appears above other elements */
+}
+
+.navbar-right .dropdown:hover .dropdown-content {
+    display: block; /* Show dropdown content on hover */
+}
+
+.navbar-right .dropdown-content a {
+    color: #333; /* Dark text for dropdown items */
+    padding: 12px 16px; /* Spacing for dropdown items */
+    text-decoration: none; /* Remove underlines */
+    display: block; /* Block-level elements for better layout */
+}
+
+.navbar-right .dropdown-content a:hover {
+    background-color: #f1f1f1; /* Highlight item on hover */
+}
+
+.user-box {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid #333; /* Border matches navbar color */
+    border-radius: 5px; /* Rounded edges */
+    background-color: #f8f8f8; /* Light background for user box */
+    color: #333; /* Dark text for contrast */
+    font-weight: bold; /* Emphasize text */
+    font-size: 14px; /* Adjust font size */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+}
