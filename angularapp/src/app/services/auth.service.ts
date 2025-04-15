@@ -57,10 +57,7 @@ export class AuthService {
             alert("Wrong Password, Try Again!");
 
         }
-      },
-      error => {
-        console.error('Login failed', error);
-      }
+      
     );
   }
 

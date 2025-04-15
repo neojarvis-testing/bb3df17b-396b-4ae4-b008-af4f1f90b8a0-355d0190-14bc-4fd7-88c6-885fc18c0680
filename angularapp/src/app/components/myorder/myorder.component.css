@@ -265,4 +265,9 @@ button.cancel-button:disabled {
     cursor: not-allowed;   /* Change cursor to indicate disabled state */
     opacity: 0.7;          /* Reduce opacity */
 }
+button.review:disabled{
+    background-color: #ccc;
+    cursor: not-allowed;   
+    opacity: 0.7; 
+}
   
