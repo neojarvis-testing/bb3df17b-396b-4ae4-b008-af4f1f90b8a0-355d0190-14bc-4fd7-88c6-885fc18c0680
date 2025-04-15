@@ -18,9 +18,9 @@
           </p>
           <p>
             <strong>Quantity: </strong>
-            <button (click)="updateQuantity(cartItem, cartItem.quantity + 1)">+</button>
-            {{ cartItem.quantity }}
             <button (click)="updateQuantity(cartItem, cartItem.quantity - 1)">-</button>
+            {{ cartItem.quantity }}
+            <button (click)="updateQuantity(cartItem, cartItem.quantity + 1)">+</button>
 
           </p>
         </div>

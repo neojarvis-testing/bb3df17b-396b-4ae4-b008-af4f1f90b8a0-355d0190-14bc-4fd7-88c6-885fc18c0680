@@ -1,17 +1,16 @@
 <nav class="navbar">
-    <div class="navbar-left">
-      <span>ProKart</span>
-    </div>
-    <div class="navbar-right">
-      <b><span class="user-box">{{username}} /User</span></b>
-      <a routerLink="/home-page">Home</a>
-      <div class="dropdown">
-        <a>Products</a>
-        <div class="dropdown-content">
-          <a routerLink="/user-view-product">View Products</a>
-          <a [routerLink]="['/my-order',userId]">My Orders</a>
-        </div>
-      
+  <div class="navbar-left">
+    <span>ProKart</span>
+  </div>
+  <div class="navbar-right">
+    <b><span class="user-box">{{username}} /User</span></b>
+    <a routerLink="/home-page">Home</a>
+    <div class="dropdown">
+      <a>Products</a>
+      <div class="dropdown-content">
+        <a routerLink="/user-view-product">View Products</a>
+        <a [routerLink]="['/my-order',userId]">My Orders</a>
+      </div>
     </div>
     <a routerLink="/my-review">Reviews</a>
     <a routerLink="/cart">Cart</a>
