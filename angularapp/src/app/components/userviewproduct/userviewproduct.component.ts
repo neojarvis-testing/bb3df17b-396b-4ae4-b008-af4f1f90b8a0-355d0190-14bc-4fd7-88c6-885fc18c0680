@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CartItem } from 'src/app/models/cart-item.model';
 import { Product } from 'src/app/models/product.model';
 import { Review } from 'src/app/models/review.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ReviewService } from 'src/app/services/review.service';
@@ -20,32 +21,74 @@ export class UserviewproductComponent implements OnInit {
   filteredProducts: Product[] = []
   searchData = '';
   selectedCategory = '';
-
   selectedQuantity: number;
   cartPopupVisible: boolean = false; // Separate property for Add to Cart pop-up
   reviewPopupVisible: boolean = false;
   popupMessage: string = ""; // Message for the pop-up
   loading: boolean = false; // Track loading state
-
+  categories:string[]=[]
 
   userId: number = parseInt(localStorage.getItem('userId')); // Retrieve user ID
   cartItems: CartItem;
+
 
   constructor(
     private productService: ProductService,
     private reviewService: ReviewService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private authService : AuthService
   ) {}
 
   ngOnInit(): void {
     this.getAllProducts();
   }
 
+  // getAllProducts() {
+  //   this.productService.getAllProducts().subscribe(data => {
+  //     this.products = data.map(product => ({ ...product, selectedQuantity: 1 })); // Initialize selectedQuantity
+  //     this.filteredProducts = this.products; // Ensure filtered list matches initialized products
+  //   });
+  // }
+
+
+  isLoggedIn() : boolean{
+    return !!localStorage.getItem('token');
+  }
+
   getAllProducts() {
     this.productService.getAllProducts().subscribe(data => {
-      this.products = data.map(product => ({ ...product, selectedQuantity: 1 })); // Initialize selectedQuantity
-      this.filteredProducts = this.products; // Ensure filtered list matches initialized products
+      this.products = data.map(product => {
+        console.log("Raw Base64 Image Data:", product.coverImage); // Log raw data from backend
+        
+        let imageData = product.coverImage;
+  
+        // Check if the image data needs a prefix
+        if (imageData && !imageData.startsWith('data:image')) {
+          imageData = `data:image/jpeg;base64,${imageData}`;
+          console.log("Prefixed Base64 Image Data:", imageData); // Log the prefixed Base64 string
+        } else {
+          console.log("Base64 data already contains prefix or is invalid.");
+        }
+  
+        // Log the final state of the image data
+        console.log("Final Decoded Image Data for Product:", {
+          productName: product.productName,
+          decodedImage: imageData
+        });
+  
+        return {
+          ...product,
+          decodedImage: imageData // Store the final image source
+        };
+      });
+  
+      console.log("All Products with Decoded Images:", this.products); // Log the complete products array
+  
+      this.filteredProducts = this.products; // Initialize filtered products
+      this.categories = [...new Set(this.products.map(p => p.category))]; // Extract unique categories
+    }, error => {
+      console.error("Error fetching products:", error); // Log any errors in the API call
     });
   }
 
@@ -67,6 +110,7 @@ export class UserviewproductComponent implements OnInit {
         this.loading = false; // Stop loading in case of error
       },
     });
+
     this.reviewPopupVisible = true; // Show the View Reviews pop-up
   }
   
@@ -93,6 +137,17 @@ export class UserviewproductComponent implements OnInit {
     this.reviewPopupVisible = false; // Hide the pop-up
   }
 
+  handleAction(product : Product) {
+    if (this.isLoggedIn()) {
+      this.addToCart(product); 
+    } else {
+      const confirmRedirect = confirm('You need to log in to add items to your cart. Do you want to go to the login page?');
+      if (confirmRedirect) {
+        this.router.navigate(['/login']); // Redirect to the login page
+      }
+    }
+  }
+
   public addToCart(product: Product) {
     const productId = product.productId;
     const qty = product.selectedQuantity;
@@ -107,6 +162,7 @@ export class UserviewproductComponent implements OnInit {
         console.log('Product added to cart successfully');
         this.popupMessage = `${qty} x ${product.productName} has been added to your cart successfully!`; // Set success message
         this.cartPopupVisible = true; // Show Add to Cart pop-up
+        this.getAllProducts(); 
       },
       error: (err) => {
         console.error('Error adding product to cart:', err);
@@ -123,6 +179,8 @@ export class UserviewproductComponent implements OnInit {
   closeReviewPopup() {
     this.reviewPopupVisible = false; // Close View Reviews pop-up
   }
+
+  
 
   clearCart(): void {
     this.cartService.clearCart(this.userId).subscribe({

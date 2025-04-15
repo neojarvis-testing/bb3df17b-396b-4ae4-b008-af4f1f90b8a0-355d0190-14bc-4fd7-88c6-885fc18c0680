@@ -26,6 +26,7 @@
     <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let product of filteredProducts">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
+          <img *ngIf="product.decodedImage" [src]="product.decodedImage" alt="Product Image" style="max-width: 200px;" />
           <h5 class="card-title">{{ product.productName }}</h5>
           <p class="card-text">
             <strong>Price:</strong> ₹{{ product.price }} <br />
@@ -42,9 +43,14 @@
           <!-- Action Buttons -->
           <div class="d-flex justify-content-between mt-3">
             <!-- Add to Cart -->
-            <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0"
+            <!-- <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0" *ngIf="isLoggedIn() : "
               (click)="addToCart(product)">
               Add to Cart
+            </button>&nbsp;&nbsp; -->
+
+            <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0"
+            (click)="handleAction(product)">
+                  Add to Cart
             </button>
 
             <!-- Out of Stock Message -->
@@ -64,14 +70,6 @@
   </div>
 
   <!-- Pop-up Modal -->
-  <!-- <div class="popup" *ngIf="popupVisible">
-      <div class="popup-content">
-        <h3>{{ popupMessage }}</h3>
-        <button (click)="closePopup()">OK</button>
-      </div>
-    </div> -->
-
-
   <!-- Add to Cart Pop-Up -->
 <div class="popup" *ngIf="cartPopupVisible">
   <div class="popup-content">

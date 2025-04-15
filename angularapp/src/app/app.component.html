@@ -1,4 +1,4 @@
-<div class="container-flex">
+<!-- <div class="container-flex">
     <div class="log" *ngIf="isLoggedIn()">
         <div class="nav" *ngIf="isAdmin(); else usernav">
             <app-adminnav></app-adminnav>
@@ -9,4 +9,25 @@
     </div>
     <router-outlet></router-outlet>
 </div>
-<app-footer></app-footer>
+<app-footer></app-footer> -->
+
+<div class="container-flex">
+    <div class="log">
+      <div class="nav" *ngIf="isLoggedIn(); else guestNav">
+        <div *ngIf="isAdmin(); else usernav">
+          <app-adminnav></app-adminnav>
+        </div>
+        <ng-template #usernav>
+          <app-usernav></app-usernav>
+        </ng-template>
+      </div>
+  
+      <!-- Guest navigation -->
+      <ng-template #guestNav>
+        <app-guestnav></app-guestnav>
+      </ng-template>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
+  

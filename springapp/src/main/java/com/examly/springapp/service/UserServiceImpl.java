@@ -61,49 +61,6 @@ public class UserServiceImpl implements UserService{
         return opt.get();
     }
 
-    // @Override
-    // public User loginUser(User user) {
-    // //     Authentication authentication = authenticationManager.authenticate(
-    // //         new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
-    // //         );
-    // //     if(authentication.isAuthenticated()){
-    // //     List<String> roleList=authentication.getAuthorities().stream().map(r->r.getAuthority()).collect(Collectors.toList());
-    // //     if(roleList.isEmpty()){
-    // //         throw new IllegalStateException("User has no role");
-    // //     }
-    // //     String role=roleList.get(0);
-    // //     AuthUser authUser=new AuthUser();
-    // //     authUser.setUserName(user.getEmail());
-    // //     authUser.setToken(jwtUtils.generateToken(user.getEmail()));
-    // //     authUser.setRole(role);
-    // //     authUser.setUserId(userRepo.findByEmail(user.getEmail()).orElse(null).getUserId());
-    // //     authUser.setName(userRepo.findByEmail(user.getEmail()).orElse(null).getUsername());
-    // //     return authUser;
-    // //    }
-    // //    else{
-    // //     throw new InvalidCredentialsException("Invalid User Name or Password");
-    // //    }
-
-    // Optional<User> userOpt = userRepo.findByEmail(user.getEmail());
-    // User existingUser = userOpt.orElseThrow(() -> new RuntimeException("Invalid Email or Password"));
-    // if(existingUser.getPassword().equals(user.getPassword())){
-    //     return existingUser;
-    // }
-    // throw new RuntimeException("invalid Email or Password");
-    // }
-
-    
-// @Override
-// public User loginUsera(User user) {
-
-//     Authentication authentication = authenticationManager.authenticate(
-//     new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
-//     if (authentication.isAuthenticated()) {
-//         return userRepo.findByEmail(user.getEmail()).orElseThrow(() -> new InvalidCredentialsException("Invalid Email or Password"));
-//     } else {
-//         return null;
-//         } 
-//     }
 
 @Override
 public User loginUser(User user) {

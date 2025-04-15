@@ -19,7 +19,6 @@ public class PdfGeneratorUtil {
             try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
 
-                // Header for the Invoice
                 contentStream.beginText();
                 contentStream.newLineAtOffset(50, 700);
                 contentStream.setLeading(14.5f);
@@ -31,7 +30,6 @@ public class PdfGeneratorUtil {
                 contentStream.newLine();
                 contentStream.endText();
 
-                // Table Header
                 float yPosition = 650; // Starting Y position
                 contentStream.beginText();
                 contentStream.newLineAtOffset(50, yPosition);
