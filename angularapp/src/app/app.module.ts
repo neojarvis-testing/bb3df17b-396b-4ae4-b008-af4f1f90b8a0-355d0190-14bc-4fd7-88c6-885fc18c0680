@@ -24,6 +24,7 @@ import { SearchPipe } from './pipes/search.pipe';
 import { AddToCartComponent } from './components/add-to-cart/add-to-cart.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { GuestnavComponent } from './components/guestnav/guestnav.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { FooterComponent } from './components/footer/footer.component';
     SearchPipe,
     AddToCartComponent,
     ChangePasswordComponent,
-    FooterComponent
+    FooterComponent,
+    GuestnavComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CartItem } from 'src/app/models/cart-item.model';
 import { Product } from 'src/app/models/product.model';
 import { Review } from 'src/app/models/review.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ReviewService } from 'src/app/services/review.service';
@@ -37,7 +38,8 @@ export class UserviewproductComponent implements OnInit {
     private productService: ProductService,
     private reviewService: ReviewService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private authService : AuthService
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +53,12 @@ export class UserviewproductComponent implements OnInit {
   //   });
   // }
 
-  getAllProducts(): void {
+
+  isLoggedIn() : boolean{
+    return !!localStorage.getItem('token');
+  }
+
+  getAllProducts() {
     this.productService.getAllProducts().subscribe(data => {
       this.products = data.map(product => {
         console.log("Raw Base64 Image Data:", product.coverImage); // Log raw data from backend
@@ -135,6 +142,17 @@ export class UserviewproductComponent implements OnInit {
     this.popupVisible2 = false; // Hide the pop-up
   }
 
+  handleAction(product : Product) {
+    if (this.isLoggedIn()) {
+      this.addToCart(product); 
+    } else {
+      const confirmRedirect = confirm('You need to log in to add items to your cart. Do you want to go to the login page?');
+      if (confirmRedirect) {
+        this.router.navigate(['/login']); // Redirect to the login page
+      }
+    }
+  }
+
   public addToCart(product: Product) {
     const productId = product.productId;
     const qty = product.selectedQuantity;
@@ -158,6 +176,8 @@ export class UserviewproductComponent implements OnInit {
       }
     });
   }
+
+  
 
   clearCart(): void {
     this.cartService.clearCart(this.userId).subscribe({

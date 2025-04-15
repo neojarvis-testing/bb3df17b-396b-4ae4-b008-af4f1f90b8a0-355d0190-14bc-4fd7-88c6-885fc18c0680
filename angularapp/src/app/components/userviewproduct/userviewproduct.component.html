@@ -44,11 +44,15 @@
           <!-- Action Buttons -->
           <div class="d-flex justify-content-between mt-3">
             <!-- Add to Cart -->
-            <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0"
+            <!-- <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0" *ngIf="isLoggedIn() : "
               (click)="addToCart(product)">
               Add to Cart
-            </button>&nbsp;&nbsp;
+            </button>&nbsp;&nbsp; -->
 
+            <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0"
+            (click)="handleAction(product)">
+                  Add to Cart
+            </button>
 
             <!-- Out of Stock Message -->
             <p class="text-muted" *ngIf="product.stockQuantity === 0">Out of Stock</p>

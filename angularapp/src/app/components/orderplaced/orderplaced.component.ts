@@ -94,4 +94,12 @@ export class OrderplacedComponent implements OnInit {
     const statusIndex = statusOrder.indexOf(status);
      return statusIndex < currentIndex;
     }
+
+    
+  public closeModal(): void {
+    this.showModal = false;
+    this.selectedOrderItems = [];
+  }
+
+
 }

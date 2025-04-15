@@ -3,7 +3,7 @@
   max-width: 800px;
   margin: 10 auto;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: rgb(207, 238, 250);
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
@@ -37,7 +37,7 @@ li {
 }
 
 li:hover {
-  background-color: #ffe6e6;
+  background-color: whitesmoke;
   box-shadow: 0 0 15px rgb(16, 163, 221);
 }
 
@@ -214,7 +214,7 @@ button:active {
 }
 
 .close-modal-button:hover {
-  background-color: #0056b3;
+  background-color: skyblue;
 }
 
 .popup-orderItem {
