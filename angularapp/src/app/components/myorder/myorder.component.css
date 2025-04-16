@@ -21,6 +21,7 @@
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
+}
 ul{
   list-style: none;
 }
@@ -94,7 +95,7 @@ h1 {
 /* Buttons within the order slips */
 button {
     padding: 10px 15px;
-    background-color: #007bff;
+    background-color: skyblue;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -213,7 +214,7 @@ button:hover {
 
 .progress-bar.dispatched::before {
     width: 60%; /* 60% for "Dispatched" */
-    background-color: #007bff; /* Blue for Dispatched */
+    background-color: skyblue; /* Blue for Dispatched */
 }
 
 .progress-bar.outfordelivery::before {
