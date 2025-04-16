@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CartItem } from 'src/app/models/cart-item.model';
-import { Order } from 'src/app/models/order.model';
 import { OrderService } from 'src/app/services/order.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import QRCode from 'qrcode';
+import * as QRCode from 'qrcode';
 
 @Component({
   selector: 'app-checkout',
@@ -12,15 +10,13 @@ import QRCode from 'qrcode';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
-
-  cartItems: CartItem[] = []; // Initialize as an empty array to prevent undefined errors
+  cartItems: CartItem[] = [];
   shippingAddress: string = '';
   billingAddress: string = '';
   isPopupVisible = false;
-  private subscription:Subscription;
-  isQrPopupVisible = false; // Flag for QR Code popup visibility
-  qrCodeUrl: string = ''; // URL for the generated QR Code
-  isPaymentCompleted = false; // Flag for payment completion
+  isQrPopupVisible = false;
+  qrCodeUrl: string = '';
+  isPaymentCompleted = false;
 
   constructor(private orderService: OrderService, private router: Router) {}
 
@@ -40,22 +36,18 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  ngOnDestroy():void{
-    this.subscription.unsubscribe();
-  }
-
   calculateTotalAmount(): number {
     return this.cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0);
   }
 
   async generateQrCode(): Promise<void> {
     const totalAmount = this.calculateTotalAmount();
-    const upiId = 'Arunganesh1956@okaxis'; // Replace with your actual UPI ID
+    const upiId = 'Arunganesh1956@okaxis';
     const qrData = `upi://pay?pa=${upiId}&pn=Vishal Sujatha Achimuthu&am=${totalAmount}&cu=INR`;
-    
+
     try {
-      this.qrCodeUrl = await QRCode.toDataURL(qrData); // Generate QR Code URL
-      this.isQrPopupVisible = true; // Show the QR Code popup
+      this.qrCodeUrl = await QRCode.toDataURL(qrData);
+      this.isQrPopupVisible = true;
     } catch (error) {
       console.error('Failed to generate QR Code:', error);
       alert('Failed to generate QR Code.');
@@ -64,14 +56,19 @@ export class CheckoutComponent implements OnInit {
 
   confirmPayment(): void {
     this.isPaymentCompleted = true;
-    this.isQrPopupVisible = false; // Hide the QR Code popup
-    this.placeOrder(); // Continue placing the order
+    this.isQrPopupVisible = false;
+    this.placeOrder();
+  }
+
+  cancelPayment(): void {
+    this.isQrPopupVisible = false;
+    this.router.navigate(['/cart']);
   }
 
   placeOrder(): void {
     if (!this.isPaymentCompleted) {
       alert('Please complete the payment first.');
-      this.generateQrCode(); // Generate QR Code if payment is not completed
+      this.generateQrCode();
       return;
     }
 
@@ -87,7 +84,7 @@ export class CheckoutComponent implements OnInit {
       return;
     }
 
-    const order: Order = {
+    const order = {
       user: {
         userId,
         email: userEmail,
@@ -108,7 +105,7 @@ export class CheckoutComponent implements OnInit {
       orderStatus: 'Pending'
     };
 
-    this.subscription=this.orderService.placeOrder(order).subscribe({
+    this.orderService.placeOrder(order).subscribe({
       next: () => {
         console.log('Order placed successfully');
         localStorage.removeItem('cartData');
@@ -119,10 +116,5 @@ export class CheckoutComponent implements OnInit {
         alert(`Order placement failed: ${error.message || 'Unknown error'}`);
       }
     });
-  }
-
-  closePopup(): void {
-    this.isPopupVisible = false;
-    this.router.navigate(['/home-page']);
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { apiUrl } from 'src/url';
 
 @Component({
   selector: 'app-usernav',
@@ -9,26 +10,42 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UsernavComponent implements OnInit {
 
-  userId : number = parseInt(localStorage.getItem('userId'));
-  username : string = localStorage.getItem('username');
+  userId: number = parseInt(localStorage.getItem('userId')!);
+  username: string = localStorage.getItem('username')!;
   popupVisible: boolean = false;
-  
-  constructor(private authService : AuthService) { }
+  userDetailsPopupVisible: boolean = false;
+  user: any = {};
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.getUserById(this.userId).subscribe(data => {
+      this.user = data;
+    })
   }
 
   public confirmLogout(): void {
-    this.popupVisible = true; // Show the confirmation pop-up
-  }
-  
-  public cancelLogout(): void {
-    this.popupVisible = false; // Hide the confirmation pop-up
-  }
-  
-  public logoutConfirmed(): void {
-    this.authService.logout(); // Perform the logout action
-    this.popupVisible = false; // Hide the confirmation pop-up
+    this.popupVisible = true;
   }
 
+  public cancelLogout(): void {
+    this.popupVisible = false;
+  }
+
+  public logoutConfirmed(): void {
+    this.authService.logout();
+    this.popupVisible = false;
+  }
+
+  public showUserDetails(): void {
+    this.userDetailsPopupVisible = true;
+  }
+
+  public closeUserDetails(): void {
+    this.userDetailsPopupVisible = false;
+  }
+
+  public resetPassword(): void {
+    console.log('Redirecting to reset password...');
+  }
 }
