@@ -76,7 +76,7 @@ export class AuthService {
     return localStorage.getItem('role') === 'USER';
   }
   changePassword(userId: number, oldPassword: string, newPassword: string): Observable<any> {
-    return this.httpClient.post<User>(`${this.baseUrl}/change-password/${userId}/${oldPassword}/${newPassword}`, {});
+    return this.httpClient.post<User>(`${this.baseUrl}/api/change-password/${userId}/${oldPassword}/${newPassword}`, {});
   }
   
   
