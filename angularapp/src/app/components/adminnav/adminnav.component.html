@@ -4,11 +4,7 @@
   </div>
   <div class="navbar-right">
     <div class="dropdown">
-      <b><span class="admin-box">{{username}} /Admin</span></b>
-      <div class="dropdown-content">
-        <button type="button" class="btn btn-link" routerLink="/change-password">
-          Change Password
-        </button>
+      <b><span class="admin-box" (click)="showUserDetails()">{{username}} /Admin</span></b>
       </div>
     </div>
 
@@ -26,7 +22,6 @@
   </div>
 </nav>
 
-<!-- Logout Confirmation Pop-Up -->
 <div class="popup-overlay" *ngIf="popupVisible" >
   <div class="popup" *ngIf="popupVisible">
     <div class="popup-content">
@@ -36,5 +31,17 @@
         <button (click)="cancelLogout()">No</button>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="popup" *ngIf="userDetailsPopupVisible">
+  <div class="popup-content">
+    <h3>User Details</h3>
+    <p><b>Username:</b> {{user.username}}</p>
+    <p><b>Email:</b> {{user.email}}</p>
+    <p><b>Phone Number:</b> {{user.mobileNumber}}</p>
+    <p><b>Password:</b> ******</p>
+    <button routerLink="/change-password">Reset Password</button>
+    <button (click)="closeUserDetails()">Close</button>
   </div>
 </div>

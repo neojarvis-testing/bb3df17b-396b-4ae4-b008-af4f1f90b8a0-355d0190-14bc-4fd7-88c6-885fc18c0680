@@ -1,36 +1,88 @@
 <div class="order-confirmation">
-    <h1>Order Confirmation</h1>
-    <div class="invoice-section">
-      <h3>Invoice</h3>
-      <table class="invoice-table" *ngIf="cartItems.length > 0">
-        <tr *ngFor="let item of cartItems">
-          <td>{{ item.product.productName }}</td>
-          <td>Quantity: {{ item.quantity }}</td>
-          <td>Price: ₹{{ item.product.price }}</td>
+  <h1>Order Confirmation</h1>
+  
+  <div class="invoice-section">
+    <h3>Invoice</h3>
+    <!-- Simplified Product Details Table -->
+    <table class="invoice-table" style="width: 100%; border-collapse: collapse;" *ngIf="cartItems.length > 0">
+      <thead>
+        <tr style="background-color: #f2f2f2; text-align: left;">
+          <th style="border: 1px solid #ddd; padding: 8px;">Product Name</th>
+          <th style="border: 1px solid #ddd; padding: 8px;">Quantity</th>
+          <th style="border: 1px solid #ddd; padding: 8px;">Price</th>
+          <th style="border: 1px solid #ddd; padding: 8px;">Total</th>
         </tr>
-      </table>
-      <div class="total-amount"><strong>Total Amount:</strong> ₹{{ calculateTotalAmount() }}</div>
-    </div>
-  
-    <button *ngIf="cartItems.length > 0" (click)="generateQrCode()">Generate Payment QR</button>
-  </div>
-  
-  <!-- QR Code Popup -->
-  <div class="qr-code-popup" *ngIf="isQrPopupVisible">
-    <div class="popup-content">
-      <h1>Scan to Pay</h1>
-      <img [src]="qrCodeUrl" alt="QR Code for Payment">
-      <p>Amount: ₹{{ calculateTotalAmount() }}</p>
-      <button (click)="confirmPayment()">Completed Payment</button>
-    </div>
-  </div>
-  
-  <!-- Success Popup -->
-  <div class="order-success-popup" *ngIf="isPopupVisible">
-    <div class="popup-content">
-      <h1>Order Placed Successfully!</h1>
-      <p>Thank you for your purchase. Your order has been placed and is being processed.</p>
-      <button (click)="closePopup()">OK</button>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td style="border: 1px solid #ddd; padding: 8px;">{{ item.product.productName }}</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">{{ item.quantity }}</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">₹{{ item.product.price }}</td>
+          <td style="border: 1px solid #ddd; padding: 8px;">₹{{ item.product.price * item.quantity }}</td>
+        </tr>
+      </tbody>
+    </table>
+ 
+    <!-- Total Amount -->
+    <div class="total-amount" style="margin-top: 20px; font-size: 18px;">
+      <strong>Total Amount:</strong> ₹{{ calculateTotalAmount() }}
     </div>
   </div>
-  
+ 
+  <!-- Show message if cart is empty -->
+  <p *ngIf="cartItems.length === 0" class="empty-cart-message" style="margin-top: 20px; color: red;">Your cart is empty. Please add items before placing an order.</p>
+ 
+  <h1>Enter Shipping and Billing Details</h1>
+  <form (ngSubmit)="generateQrCode()" #addressForm="ngForm">
+    <!-- Shipping Address -->
+    <label for="shippingAddress">Shipping Address:</label><br>
+    <textarea id="shippingAddress" name="shippingAddress" [(ngModel)]="shippingAddress" required #shippingAddressModel="ngModel"
+              style="width: 100%; height: 100px; margin-bottom: 10px;"></textarea><br>
+    <div *ngIf="shippingAddressModel.touched && shippingAddressModel.invalid">
+      <span style="color: red;">Shipping Address is required</span>
+    </div>
+    
+    <!-- Billing Address -->
+    <label for="billingAddress">Billing Address:</label><br>
+    <textarea id="billingAddress" name="billingAddress" [(ngModel)]="billingAddress" required #billingAddressModel="ngModel"
+              style="width: 100%; height: 100px; margin-bottom: 10px;"></textarea><br>
+    <div *ngIf="billingAddressModel.touched && billingAddressModel.invalid">
+      <span style="color: red;">Billing Address is required</span>
+    </div>
+ 
+    <!-- Generate Payment QR Button -->
+    <button type="submit" id="generateQrCodeButton" [disabled]="addressForm.invalid || cartItems.length === 0" 
+            style="background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer;">
+      Generate Payment QR
+    </button>
+  </form>
+</div>
+ 
+<!-- QR Code Popup -->
+<div class="qr-code-popup" *ngIf="isQrPopupVisible">
+  <div class="popup-content" style="text-align: center;">
+    <h1>Scan to Pay</h1>
+    <img [src]="qrCodeUrl" alt="QR Code for Payment" style="margin-bottom: 20px;">
+    <p>Amount: ₹{{ calculateTotalAmount() }}</p>
+    <div>
+      <!-- Completed Payment Button -->
+      <button (click)="confirmPayment()" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; cursor: pointer; margin-right: 10px;">
+        Completed Payment
+      </button>
+      <!-- Cancel Payment Button -->
+      <button (click)="cancelPayment()" style="background-color: #dc3545; color: white; padding: 10px 20px; border: none; cursor: pointer;">
+        Cancel Payment
+      </button>
+    </div>
+  </div>
+</div>
+
+ 
+<!-- Success Popup -->
+<div class="order-success-popup" *ngIf="isPopupVisible">
+  <div class="popup-content" style="text-align: center;">
+    <h1>Order Placed Successfully!</h1>
+    <p>Thank you for your purchase. Your order has been placed and is being processed.</p>
+    <button (click)="closePopup()" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer;">OK</button>
+  </div>
+</div>
