@@ -75,4 +75,9 @@ export class AuthService {
   public isUser(): boolean {
     return localStorage.getItem('role') === 'USER';
   }
+  changePassword(userId: number, oldPassword: string, newPassword: string): Observable<any> {
+    return this.httpClient.post<User>(`${this.baseUrl}/change-password/${userId}/${oldPassword}/${newPassword}`, {});
+  }
+  
+  
 }
