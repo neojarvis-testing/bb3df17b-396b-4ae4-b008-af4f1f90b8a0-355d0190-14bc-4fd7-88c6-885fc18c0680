@@ -73,6 +73,9 @@ ul li {
   font-weight: bold;
   cursor: pointer;
 }
+.par{
+  margin-bottom: 20px;
+}
 
 /* Star Rating */
 .fa-star,
@@ -184,4 +187,8 @@ ul li {
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+.btn{
+  border: transparent;
+  outline:transparent;
 }

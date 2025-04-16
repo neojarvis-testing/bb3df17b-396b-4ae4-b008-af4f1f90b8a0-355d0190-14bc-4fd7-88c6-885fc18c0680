@@ -1,8 +1,8 @@
 <div class="container">
-    <div style="display: flex; justify-content: flex-end; width: 100%;">
+    <div class="hcontainer" >
+        <input type="text" id="orderIdInput" placeholder="Enter Order ID" [(ngModel)]="searchId" (keyup)="searchOrder()">
         <button (click)="sortOrders()">Sort Orders by Date (Ascending)</button>
     </div>
-    <input type="text" id="orderIdInput" placeholder="Enter Order ID" [(ngModel)]="searchId" (keyup)="searchOrder()">
     <ul *ngIf="orders">
         <li *ngFor="let order of orders">
             <p>Order ID: {{order.orderId}}</p>

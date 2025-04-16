@@ -166,7 +166,7 @@ export class UserviewproductComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error adding product to cart:', err);
-        this.popupMessage = `Failed to add ${product.productName} to the cart. Please try again.`; // Error message
+        this.popupMessage = `Failed to add ${product.productName} to the cart. Please add quantity.`; // Error message
         this.cartPopupVisible = true; // Show the error pop-up
       },
     });

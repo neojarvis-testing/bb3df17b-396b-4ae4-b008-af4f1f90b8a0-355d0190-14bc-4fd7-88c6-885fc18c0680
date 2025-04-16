@@ -3,7 +3,7 @@
         <div *ngIf="isFormInvalid" style="color: red; text-align: center;">
             <span>All fields are required. Please fill out the missing details.</span>
         </div>
-    <div>
+    <div class="icontainer">
         <h1 style="text-align: center;">Create New Product</h1>
         <label for="productName">Product Name</label>
         <input type="text" [(ngModel)]="product.productName" required name="productName" #productName="ngModel">
