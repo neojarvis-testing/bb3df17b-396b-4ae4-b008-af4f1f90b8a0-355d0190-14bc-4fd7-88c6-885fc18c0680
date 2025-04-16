@@ -80,25 +80,29 @@
 </div>
 
 <!-- View Reviews Pop-Up -->
-<div class="popup" *ngIf="reviewPopupVisible">
-  <div class="popup-content">
-    <!-- Loading Message -->
-    <div *ngIf="loading" class="loading-message">
-      <p>Loading reviews...</p>
-    </div>
+<div *ngIf="reviewPopupVisible">
+  <div class="popup-overlay"></div>
+  <div class="popup">
+    <div class="popup-content">
+      <!-- Loading Message -->
+      <div *ngIf="loading" class="loading-message">
+        <p>Loading reviews...</p>
+      </div>
 
-    <!-- Reviews Content -->
-    <div *ngIf="!loading">
-      <h3>{{ popupMessage }}</h3>
-      <ul *ngIf="reviews.length > 0">
-        <li *ngFor="let review of reviews">
-          <p><strong>Rating:</strong> {{ review.rating }}/5</p>
-          <p>{{ review.reviewText }}</p>
-          <p><strong>Date:</strong> {{ review.date | date: 'mediumDate' }}</p>
-        </li>
-      </ul>
-      <p *ngIf="reviews.length === 0">No reviews available for this product.</p>
+      <div *ngIf="!loading">
+        <h3>{{ popupMessage }}</h3>
+        <ul *ngIf="reviews.length > 0">
+          <li *ngFor="let review of reviews">
+            <p><strong>Rating:</strong> {{ review.rating }}/5</p>
+            <p><strong>Date:</strong> {{ review.date | date: 'mediumDate' }}</p>
+            <p><strong>Review: </strong>{{ review.reviewText }}</p>
+          </li>
+        </ul>
+        <p *ngIf="reviews.length === 0">No reviews available for this product.</p>
+      </div>
+      <button (click)="closeReviewPopup()">OK</button>
     </div>
-    <button (click)="closeReviewPopup()">OK</button>
   </div>
 </div>
+
+

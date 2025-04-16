@@ -12,7 +12,6 @@
                 </div>
                 <span class="part"><b>Date</b>: {{review.date | date:'mediumDate' }}</span><br>
                 <span >{{review.reviewText}}</span><br>
-                
                 <div class="btn">
                     <button class="left" (click)="viewProduct(review.product.productId)">View Product</button>
                     <button class="right" (click)="deleteReview(review.reviewId)">Delete Review</button>
@@ -35,3 +34,14 @@
         <button (click)="closePopup()">Close</button>
     </div>
 </div>
+
+<div *ngIf="showDeleteConfirmation" class="popup-overlay">
+    <div class="popup">
+      <h2 class="heading">Are you sure you want to delete?</h2>
+      <div class="dbtn">
+        <button class="left" (click)="confirmDelete()">Yes</button>
+        <button class="right" (click)="cancelDelete()">No</button>
+      </div>
+    </div>
+  </div>
+  
