@@ -56,8 +56,12 @@
             <!-- Out of Stock Message -->
             <p class="text-muted" *ngIf="product.stockQuantity === 0">Out of Stock</p>
 
-            <!-- View Reviews -->
-            <button class="btn btn-primary btn-sm" (click)="viewReview(product.productId)">View Reviews</button>
+            
+            
+<div class="review-button-container">
+   <button class="btn btn-primary btn-sm viewReview" (click)="viewReview(product.productId)">View Reviews</button>
+  </div>
+  
 
     
           </div>

@@ -3,14 +3,17 @@
 * {
   scroll-behavior: smooth;
   font-family: 'Merriweather', serif;
+
 }
 
-h2{
-  margin-top: 70px; 
+h2 {
+  margin-top: 70px;
 }
+
 /* Background & General Styling */
 body {
-  background-color: #f0f9ff; /* Soft pastel blue */
+  background-color: #f0f9ff;
+  /* Soft pastel blue */
   color: #333;
   padding: 30px;
 }
@@ -33,7 +36,8 @@ body {
 /* Popup Header */
 .popup-content h3 {
   margin-bottom: 20px;
-  color: #2c79c2; /* Calm blue */
+  color: #2c79c2;
+  /* Calm blue */
 }
 
 /* Button Container */
@@ -47,7 +51,8 @@ body {
 
 /* Popup Buttons */
 .popup-content button {
-  background-color: #3498db; /* Calm blue */
+  background-color: #3498db;
+  /* Calm blue */
   color: white;
   border: none;
   padding: 10px 15px;
@@ -77,15 +82,20 @@ body {
 /* Ensuring proper height */
 .container {
   margin: auto;
-  min-height: 80vh; /* Ensures the cart component occupies at least 80% of the viewport height */
+  min-height: 80vh;
+  /* Ensures the cart component occupies at least 80% of the viewport height */
   margin-bottom: 50px;
 }
 
 /* Empty Cart Message */
 .empty-message {
-  color: #e74c3c; /* Soft red */
+  color: #e74c3c;
+  /* Soft red */
   font-size: 18px;
   font-weight: bold;
   text-align: left;
   margin-top: 20px;
+}
+.blue{
+  background-color: #e3f2fd;
 }

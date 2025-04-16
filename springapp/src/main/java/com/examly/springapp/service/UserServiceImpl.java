@@ -35,10 +35,6 @@ public class UserServiceImpl implements UserService{
         if(opt.isPresent()) {
             throw new UserAlreadyExistsException("User with Email Already Exists");
         }
-        // Optional<User> opt2 = userRepo.findByUsername(user.getUsername());
-        // if(opt2.isPresent()) {
-        //     throw new UserAlreadyExistsException("User with Username Already Exists");
-        // }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(user);
 
@@ -74,6 +70,22 @@ public class UserServiceImpl implements UserService{
             return opt.get();
         
     }
+  
+    @Override
+    public boolean changeUserPassword(Long userId, String oldPassword, String newPassword) {
+        Optional<User> optionalUser = userRepo.findById(userId);
 
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
 
+            if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+                throw new InvalidCredentialsException("Incorrect old password");
+            }
+
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepo.save(user);
+            return true;
+        }
+        throw new EntityNotFoundException("User not found");
+    }
 }

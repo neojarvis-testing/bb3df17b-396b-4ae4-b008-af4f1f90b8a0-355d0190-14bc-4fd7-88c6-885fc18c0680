@@ -9,5 +9,6 @@ public interface UserService {
     public User loginUser(User user);
     public User getUserById(Long id);
     public User getUserByEmail(String email);
+    public boolean changeUserPassword(Long userId, String oldPassword, String newPassword);
 
 }
