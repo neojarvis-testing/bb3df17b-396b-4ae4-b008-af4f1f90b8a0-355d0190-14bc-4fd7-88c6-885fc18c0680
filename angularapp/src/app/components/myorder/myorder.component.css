@@ -25,6 +25,7 @@
 ul{
   list-style: none;
 }
+
 /* Heading */
 h1 {
   text-align: center;
@@ -277,9 +278,18 @@ button.cancel-button:disabled {
     cursor: not-allowed;   /* Change cursor to indicate disabled state */
     opacity: 0.7;          /* Reduce opacity */
 }
+button.review {
+    padding: 10px 15px;
+    background-color: #17a589;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease; /* Button hover effect */
+}
 button.review:disabled{
     background-color: #ccc;
     cursor: not-allowed;   
     opacity: 0.7; 
 }
-  

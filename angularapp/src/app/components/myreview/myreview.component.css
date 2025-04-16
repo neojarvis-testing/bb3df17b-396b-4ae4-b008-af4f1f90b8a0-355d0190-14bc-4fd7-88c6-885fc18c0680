@@ -118,6 +118,20 @@ ul li {
 .btn .right {
   background-color: #e74c3c; /* Soft red */
 }
+.dbtn{
+  display: flex;
+  justify-content:space-between ;
+}
+.heading{
+  margin-bottom: 25px;
+}
+.dbtn .left {
+  background-color: #3498db; /* Light blue */
+}
+
+.dbtn .right {
+  background-color: #e74c3c; /* Soft red */
+}
 
 /* Button Hover Effects */
 .btn .left:hover,

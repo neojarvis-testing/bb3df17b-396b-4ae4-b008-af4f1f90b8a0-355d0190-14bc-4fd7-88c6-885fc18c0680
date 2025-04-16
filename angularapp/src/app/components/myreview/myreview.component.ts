@@ -26,6 +26,8 @@ export class MyreviewComponent implements OnInit {
   stars: boolean[] = [false, false, false, false, false];
   showProductDetails = false; 
   currentUser:any;
+  showDeleteConfirmation: boolean = false;
+  reviewIdToDelete: number | null = null;
   private subscription:Subscription;
 
   constructor(private reviewService:ReviewService,private productService:ProductService,private userStore:UserStoreService) { }
@@ -53,13 +55,34 @@ export class MyreviewComponent implements OnInit {
   }
 
   deleteReview(reviewId:number){
-    this.subscription=this.reviewService.deleteReview(reviewId).subscribe(data=>{
-    this.getAllReviewsByUserId();
-    })
+    this.showDeleteConfirmation = true;
+    this.reviewIdToDelete = reviewId;
+    // this.subscription=this.reviewService.deleteReview(reviewId).subscribe(data=>{
+    // this.getAllReviewsByUserId();
+    // })
   }
 
   closePopup() {
     this.showProductDetails = false; // Hide the popup
   }
+
+
+
+
+confirmDelete() {
+  if (this.reviewIdToDelete !== null) {
+    this.subscription = this.reviewService.deleteReview(this.reviewIdToDelete).subscribe(data => {
+      this.getAllReviewsByUserId();
+      this.showDeleteConfirmation = false;
+      this.reviewIdToDelete = null;
+    });
+  }
+}
+
+cancelDelete() {
+  this.showDeleteConfirmation = false;
+  this.reviewIdToDelete = null;
+}
+
 
 }
