@@ -54,4 +54,20 @@ export class AddToCartComponent implements OnInit {
       error: (err) => console.error("Error clearing cart:", err)
     });
   }
+
+  updateQuantity(cartItem: CartItem, newQuantity: number) {
+    if (newQuantity < 1) {
+      return; // Prevent quantity from going below 1
+    }
+ 
+    cartItem.quantity = newQuantity;
+ 
+    this.cartService.updateCartItem(this.userId, cartItem)?.subscribe({
+      next: () => {
+        console.log(`Updated quantity for ${cartItem.product.productName} to ${newQuantity}`);
+      },
+      error: (err) => console.error('Error updating quantity:', err)
+   
+    });
+  }
 }
