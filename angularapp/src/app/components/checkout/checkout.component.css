@@ -224,3 +224,36 @@ button:hover {
     background-color: #45a049; /* Darker green on hover */
   }
    
+  .qr-code-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  
+  .popup-content {
+    text-align: center;
+  }
+  
+  .popup-content h1 {
+    margin-bottom: 20px;
+  }
+  
+  .popup-content button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .popup-content button:hover {
+    background-color: #45a049;
+  }
+  
