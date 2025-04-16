@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CartItem } from 'src/app/models/cart-item.model';
 import { Product } from 'src/app/models/product.model';
 import { Review } from 'src/app/models/review.model';
@@ -27,6 +28,7 @@ export class UserviewproductComponent implements OnInit {
   popupMessage: string = ""; // Message for the pop-up
   loading: boolean = false; // Track loading state
   categories:string[]=[]
+  private subscription:Subscription;
 
   userId: number = parseInt(localStorage.getItem('userId')); // Retrieve user ID
   cartItems: CartItem;
@@ -44,6 +46,10 @@ export class UserviewproductComponent implements OnInit {
     this.getAllProducts();
   }
 
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
+
   // getAllProducts() {
   //   this.productService.getAllProducts().subscribe(data => {
   //     this.products = data.map(product => ({ ...product, selectedQuantity: 1 })); // Initialize selectedQuantity
@@ -51,13 +57,12 @@ export class UserviewproductComponent implements OnInit {
   //   });
   // }
 
-
   isLoggedIn() : boolean{
     return !!localStorage.getItem('token');
   }
 
   getAllProducts() {
-    this.productService.getAllProducts().subscribe(data => {
+    this.subscription=this.productService.getAllProducts().subscribe(data => {
       this.products = data.map(product => {
         console.log("Raw Base64 Image Data:", product.coverImage); // Log raw data from backend
         
@@ -94,7 +99,7 @@ export class UserviewproductComponent implements OnInit {
 
   viewReview(productId: number) {
     this.loading = true; // Start loading
-    this.reviewService.getReviewsByProductId(productId).subscribe({
+    this.subscription=this.reviewService.getReviewsByProductId(productId).subscribe({
       next: (data) => {
         this.reviews = data; // Assign fetched reviews
         if (this.reviews.length === 0) {
@@ -113,8 +118,6 @@ export class UserviewproductComponent implements OnInit {
 
     this.reviewPopupVisible = true; // Show the View Reviews pop-up
   }
-  
-  
 
   validateQuantity(product: Product) {
     if (product.selectedQuantity > product.stockQuantity) {
@@ -157,7 +160,7 @@ export class UserviewproductComponent implements OnInit {
       return;
     }
   
-    this.cartService.addToCart(this.userId, productId, qty, null).subscribe({
+    this.subscription=this.cartService.addToCart(this.userId, productId, qty, null).subscribe({
       next: () => {
         console.log('Product added to cart successfully');
         this.popupMessage = `${qty} x ${product.productName} has been added to your cart successfully!`; // Set success message
@@ -180,10 +183,8 @@ export class UserviewproductComponent implements OnInit {
     this.reviewPopupVisible = false; // Close View Reviews pop-up
   }
 
-  
-
   clearCart(): void {
-    this.cartService.clearCart(this.userId).subscribe({
+    this.subscription=this.cartService.clearCart(this.userId).subscribe({
       next: () => {
         console.log('Cart cleared successfully');
         this.getAllProducts(); // Refresh product list to reflect restored stock

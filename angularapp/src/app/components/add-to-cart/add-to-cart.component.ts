@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CartItem } from 'src/app/models/cart-item.model';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -9,9 +10,11 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./add-to-cart.component.css']
 })
 export class AddToCartComponent implements OnInit {
+
   userId: number = parseInt(localStorage.getItem('userId') || '0');
   cartItems: CartItem[] = [];
   emptyMgs: string = "Oops, your cart is looking lonely. Add items now to brighten its day! :)";
+  private subscription:Subscription;
 
   constructor(private cartService: CartService, private router: Router) {}
 
@@ -19,8 +22,12 @@ export class AddToCartComponent implements OnInit {
     this.getAllCartItems();
   }
 
+  ngOnDestroy():void{
+    this.subscription.unsubscribe();
+  }
+
   getAllCartItems() {
-    this.cartService.getCart(this.userId).subscribe({
+    this.subscription=this.cartService.getCart(this.userId).subscribe({
       next: (cart) => {
         this.cartItems = cart.cartItems;
       },

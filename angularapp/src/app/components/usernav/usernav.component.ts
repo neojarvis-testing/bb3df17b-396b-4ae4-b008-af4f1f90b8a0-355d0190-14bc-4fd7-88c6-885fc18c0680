@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,7 +14,6 @@ export class UsernavComponent implements OnInit {
   popupVisible: boolean = false;
   
   constructor(private authService : AuthService) { }
-
 
   ngOnInit(): void {
   }
@@ -30,9 +30,5 @@ export class UsernavComponent implements OnInit {
     this.authService.logout(); // Perform the logout action
     this.popupVisible = false; // Hide the confirmation pop-up
   }
-
-  // public logout() : void{
-  //   this.authService.logout();
-  // }
 
 }

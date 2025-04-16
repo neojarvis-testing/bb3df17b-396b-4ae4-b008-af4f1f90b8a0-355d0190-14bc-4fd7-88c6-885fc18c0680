@@ -9,11 +9,11 @@ import java.util.*;
 
 public interface ReviewRepo extends JpaRepository<Review,Long> {
     @Query("SELECT r FROM Review r WHERE r.user.id =:userId")
-    List<Review> findByUserId(Long userId); 
+    public List<Review> findByUserId(Long userId); 
 
 
     @Query("SELECT r FROM Review r JOIN FETCH r.product p WHERE r.product.id = :productId")
-    List<Review> findByProductId(Long productId);
+    public List<Review> findByProductId(Long productId);
 
 
     //we have to update jpql query after adding user and product repo

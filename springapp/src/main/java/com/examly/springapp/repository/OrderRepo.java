@@ -12,7 +12,7 @@ import com.examly.springapp.model.User;
 @Repository
 public interface OrderRepo extends JpaRepository<Order , Long> {
 
-  List<Order> findByUser(User user);
+  public List<Order> findByUser(User user);
 
 }
 

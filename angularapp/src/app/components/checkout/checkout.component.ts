@@ -3,6 +3,7 @@ import { CartItem } from 'src/app/models/cart-item.model';
 import { Order } from 'src/app/models/order.model';
 import { OrderService } from 'src/app/services/order.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import QRCode from 'qrcode';
 
 @Component({
@@ -11,10 +12,12 @@ import QRCode from 'qrcode';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
-  cartItems: CartItem[] = [];
+
+  cartItems: CartItem[] = []; // Initialize as an empty array to prevent undefined errors
   shippingAddress: string = '';
   billingAddress: string = '';
   isPopupVisible = false;
+  private subscription:Subscription;
   isQrPopupVisible = false; // Flag for QR Code popup visibility
   qrCodeUrl: string = ''; // URL for the generated QR Code
   isPaymentCompleted = false; // Flag for payment completion
@@ -35,6 +38,10 @@ export class CheckoutComponent implements OnInit {
       this.cartItems = [];
       this.router.navigate(['/cart']);
     }
+  }
+
+  ngOnDestroy():void{
+    this.subscription.unsubscribe();
   }
 
   calculateTotalAmount(): number {
@@ -101,7 +108,7 @@ export class CheckoutComponent implements OnInit {
       orderStatus: 'Pending'
     };
 
-    this.orderService.placeOrder(order).subscribe({
+    this.subscription=this.orderService.placeOrder(order).subscribe({
       next: () => {
         console.log('Order placed successfully');
         localStorage.removeItem('cartData');

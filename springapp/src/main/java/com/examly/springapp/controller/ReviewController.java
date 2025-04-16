@@ -20,8 +20,8 @@ public class ReviewController {
 
     @PostMapping()
     public ResponseEntity<?> addReview(@RequestBody Review review){
-    Review savedReview = reviewService.addReview(review);
-    return ResponseEntity.status(200).body(savedReview);
+        Review savedReview = reviewService.addReview(review);
+        return ResponseEntity.status(200).body(savedReview);
     }
 
     @GetMapping("/{reviewId}")
@@ -49,9 +49,9 @@ public class ReviewController {
 
     @GetMapping("/product/{productId}")
     public ResponseEntity<?> getReviewsByProductid(@PathVariable Long productId) {
-    List<Review> reviews = reviewService.getReviewsByProductid(productId);
-    reviews.forEach(r -> System.out.println(r)); // Log reviews for debugging
-    return ResponseEntity.status(200).body(reviews);
+        List<Review> reviews = reviewService.getReviewsByProductid(productId);
+        reviews.forEach(r -> System.out.println(r)); // Log reviews for debugging
+        return ResponseEntity.status(200).body(reviews);
     }
 
     @DeleteMapping("/{reviewId}")
@@ -61,7 +61,3 @@ public class ReviewController {
     }
 
 }
-
-
-
-
