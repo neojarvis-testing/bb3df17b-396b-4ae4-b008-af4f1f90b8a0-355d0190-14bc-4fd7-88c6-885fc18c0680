@@ -21,6 +21,9 @@ body {
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
+ul{
+  list-style:none;
+}
 
 /* Heading */
 h1 {
@@ -116,10 +119,9 @@ input[type="number"] {
   color: #e74c3c;
 }
 
-/* Pop-up Modal */
 .popup {
   position: fixed;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #ffffff;
@@ -127,6 +129,7 @@ input[type="number"] {
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it appears above other content */
 }
 
 .popup-content {
@@ -136,6 +139,22 @@ input[type="number"] {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.popup-content ul {
+  max-height: 300px; /* Adjust as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
+  width: 100%; /* Ensure it takes full width */
+  padding: 0;
+  margin: 0;
+}
+
+.popup-content li {
+
+  background-color: #e3f2fd;
+  padding: 10px;
+  margin: 4px;  
+  border: 1px solid #ddd; /* Optional: Add a separator between reviews */
 }
 
 .popup-content button {
@@ -149,3 +168,4 @@ input[type="number"] {
   cursor: pointer;
   margin-top: 20px;
 }
+

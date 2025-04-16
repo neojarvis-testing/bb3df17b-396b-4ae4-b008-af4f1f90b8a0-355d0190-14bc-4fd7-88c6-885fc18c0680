@@ -6,9 +6,9 @@ import com.examly.springapp.model.Product;
 
 public interface ProductService {
 
-    Product addProduct(Product product);
-    Product getProductById(Long productId);
-    List<Product> getAllProducts();
-    Product updateProduct(Long productId,Product product);
-    boolean deleteProductById(Long productId);
+    public Product addProduct(Product product);
+    public Product getProductById(Long productId);
+    public List<Product> getAllProducts();
+    public Product updateProduct(Long productId,Product product);
+    public boolean deleteProductById(Long productId);
 }

@@ -21,6 +21,16 @@
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
+ul{
+  list-style: none;
+}
+/* Heading */
+h1 {
+  text-align: center;
+  color: #2c79c2; /* Calm blue */
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
 }
 
 /* Hover effect for order slips */

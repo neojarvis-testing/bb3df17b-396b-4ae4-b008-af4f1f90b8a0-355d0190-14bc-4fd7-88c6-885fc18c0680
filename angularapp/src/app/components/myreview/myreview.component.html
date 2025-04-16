@@ -10,8 +10,9 @@
                         [ngClass]="{'filled': i < review.rating}">&#9733;
                     </span>
                 </div>
-                <span>Date: {{review.date | date:'mediumDate' }}</span><br>
-                <span>{{review.reviewText}}</span><br>
+                <span class="part"><b>Date</b>: {{review.date | date:'mediumDate' }}</span><br>
+                <span >{{review.reviewText}}</span><br>
+                
                 <div class="btn">
                     <button class="left" (click)="viewProduct(review.product.productId)">View Product</button>
                     <button class="right" (click)="deleteReview(review.reviewId)">Delete Review</button>

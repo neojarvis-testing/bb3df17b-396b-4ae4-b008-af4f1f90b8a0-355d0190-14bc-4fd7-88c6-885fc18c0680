@@ -3,6 +3,8 @@ import { CartItem } from 'src/app/models/cart-item.model';
 import { Order } from 'src/app/models/order.model';
 import { OrderService } from 'src/app/services/order.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import QRCode from 'qrcode';
 
 @Component({
   selector: 'app-checkout',
@@ -10,10 +12,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+
   cartItems: CartItem[] = []; // Initialize as an empty array to prevent undefined errors
   shippingAddress: string = '';
   billingAddress: string = '';
   isPopupVisible = false;
+  private subscription:Subscription;
+  isQrPopupVisible = false; // Flag for QR Code popup visibility
+  qrCodeUrl: string = ''; // URL for the generated QR Code
+  isPaymentCompleted = false; // Flag for payment completion
 
   constructor(private orderService: OrderService, private router: Router) {}
 
@@ -21,23 +28,53 @@ export class CheckoutComponent implements OnInit {
     const storedCartData = localStorage.getItem('cartData');
     if (storedCartData) {
       try {
-        this.cartItems = JSON.parse(storedCartData) || []; // Ensure it's always an array
+        this.cartItems = JSON.parse(storedCartData) || [];
       } catch (error) {
         console.error("Error parsing cart data:", error);
-        this.cartItems = []; // Prevent breaking the UI
+        this.cartItems = [];
       }
     } else {
       console.error("No cart data found!");
-      this.cartItems = []; // Prevent undefined errors
-      this.router.navigate(['/cart']); // Redirect if no data found
+      this.cartItems = [];
+      this.router.navigate(['/cart']);
     }
+  }
+
+  ngOnDestroy():void{
+    this.subscription.unsubscribe();
   }
 
   calculateTotalAmount(): number {
     return this.cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0);
   }
 
-  placeOrder() {
+  async generateQrCode(): Promise<void> {
+    const totalAmount = this.calculateTotalAmount();
+    const upiId = 'Arunganesh1956@okaxis'; // Replace with your actual UPI ID
+    const qrData = `upi://pay?pa=${upiId}&pn=Vishal Sujatha Achimuthu&am=${totalAmount}&cu=INR`;
+    
+    try {
+      this.qrCodeUrl = await QRCode.toDataURL(qrData); // Generate QR Code URL
+      this.isQrPopupVisible = true; // Show the QR Code popup
+    } catch (error) {
+      console.error('Failed to generate QR Code:', error);
+      alert('Failed to generate QR Code.');
+    }
+  }
+
+  confirmPayment(): void {
+    this.isPaymentCompleted = true;
+    this.isQrPopupVisible = false; // Hide the QR Code popup
+    this.placeOrder(); // Continue placing the order
+  }
+
+  placeOrder(): void {
+    if (!this.isPaymentCompleted) {
+      alert('Please complete the payment first.');
+      this.generateQrCode(); // Generate QR Code if payment is not completed
+      return;
+    }
+
     const userId = parseInt(localStorage.getItem('userId') || '0', 10);
     const userEmail = localStorage.getItem('email') || '';
     const userName = localStorage.getItem('username') || '';
@@ -71,10 +108,10 @@ export class CheckoutComponent implements OnInit {
       orderStatus: 'Pending'
     };
 
-    this.orderService.placeOrder(order).subscribe({
+    this.subscription=this.orderService.placeOrder(order).subscribe({
       next: () => {
         console.log('Order placed successfully');
-        localStorage.removeItem('cartData'); // Clear cart data after order placement
+        localStorage.removeItem('cartData');
         this.isPopupVisible = true;
       },
       error: (error) => {

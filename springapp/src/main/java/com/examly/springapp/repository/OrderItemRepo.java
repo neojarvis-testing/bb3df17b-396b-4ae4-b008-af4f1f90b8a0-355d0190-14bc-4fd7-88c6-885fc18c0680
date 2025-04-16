@@ -9,5 +9,5 @@ import com.examly.springapp.model.OrderItem;
 
 @Repository
 public interface OrderItemRepo extends JpaRepository<OrderItem,Long>{
-    List<OrderItem> findByOrderOrderId(Long orderId);
+    public List<OrderItem> findByOrderOrderId(Long orderId);
 }

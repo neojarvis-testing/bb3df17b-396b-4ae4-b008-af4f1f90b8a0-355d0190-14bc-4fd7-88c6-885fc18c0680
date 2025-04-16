@@ -3,7 +3,7 @@
   <p *ngIf="cartItems.length === 0" class="empty-message">{{ emptyMgs }}</p>
   <ul class="cart-list" style="list-style: none; padding: 0;">
     <li *ngFor="let cartItem of cartItems"
-      style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 8px;">
+      style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 8px;" class="blue">
       <div class="cart-item" style="display: flex; align-items: center;">
         <div class="product-image" style="margin-right: 20px;">
           <img [src]="cartItem.product.coverImage" alt="{{ cartItem.product.productName }}"

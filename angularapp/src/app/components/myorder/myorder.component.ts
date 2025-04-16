@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Order } from 'src/app/models/order.model';
 import { OrderItemService } from 'src/app/services/order-item.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -19,6 +20,7 @@ export class MyorderComponent implements OnInit {
   showTrackOrderModal: boolean = false;
   cancelOrderId: number = null; // Store the ID of the order to be canceled
   showCancelPopup: boolean = false;
+  private subscription:Subscription;
 
   constructor(
     private orderService: OrderService,
@@ -38,15 +40,19 @@ export class MyorderComponent implements OnInit {
     }
   }
 
+  ngOnDestroy():void{
+    this.subscription.unsubscribe();
+  }
+
   public getAllOrdersByUserId(): void {
-    this.orderService.getOrdersByUserId(this.userId).subscribe(data => {
+    this.subscription=this.orderService.getOrdersByUserId(this.userId).subscribe(data => {
         this.orders = data;
     });
 }
 
 
   public viewItems(orderId: number): void {
-    this.orderItemService.getOrderItems(orderId).subscribe({
+    this.subscription=this.orderItemService.getOrderItems(orderId).subscribe({
         next: items => {
             this.selectedOrderItems = items;
             this.showModal = true;
@@ -62,12 +68,6 @@ export class MyorderComponent implements OnInit {
     this.showModal = false;
     this.selectedOrderItems = [];
   }
-
-  // public deleteOrder(orderId: number): void {
-  //   this.orderService.deleteOrder(orderId).subscribe(() => {
-  //     this.orders = this.orders.filter(order => order.orderId !== orderId); // Update the orders list
-  //   });
-  // }
 
   public openTrackOrderModal(orderStatus: string): void {
     this.currentOrderStatus = orderStatus; // Set the current order status dynamically
@@ -97,7 +97,7 @@ export class MyorderComponent implements OnInit {
   }
 
   public deleteOrder(orderId: number): void {
-    this.orderService.deleteOrder(orderId).subscribe(() => {
+    this.subscription=this.orderService.deleteOrder(orderId).subscribe(() => {
       this.orders = this.orders.filter(order => order.orderId !== orderId);
     });
   }
@@ -105,17 +105,17 @@ export class MyorderComponent implements OnInit {
   openCancelPopup(orderId: number): void {
     this.cancelOrderId = orderId; // Set the order ID to be canceled
     this.showCancelPopup = true; // Show the popup
-}
+  }
 
-closeCancelPopup(): void {
+  closeCancelPopup(): void {
     this.showCancelPopup = false; // Hide the popup
     this.cancelOrderId = null; // Clear the order ID
-}
+  }
 
-confirmCancelOrder(): void {
+  confirmCancelOrder(): void {
     if (this.cancelOrderId) {
-        this.deleteOrder(this.cancelOrderId); // Call deleteOrder method
-        this.closeCancelPopup(); // Close the popup
+      this.deleteOrder(this.cancelOrderId); // Call deleteOrder method
+      this.closeCancelPopup(); // Close the popup
     }
-}
+  }
 }

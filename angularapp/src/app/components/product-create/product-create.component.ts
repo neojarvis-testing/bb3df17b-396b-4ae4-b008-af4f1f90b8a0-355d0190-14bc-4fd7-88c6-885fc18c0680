@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -14,6 +15,7 @@ export class ProductCreateComponent implements OnInit {
   productId:number;
   isEditMode:boolean=false;
   isFormInvalid = false;
+  private subscription:Subscription;
 
   constructor(private productService : ProductService,private router :Router,private activatedRoute:ActivatedRoute) { }
 
@@ -29,6 +31,10 @@ export class ProductCreateComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(){
+    this.subscription.unsubscribe()
+  }
+
   public addProduct(){
     if (!this.product.productName || 
       !this.product.description || 
@@ -42,16 +48,15 @@ export class ProductCreateComponent implements OnInit {
   }
   else{
     this.isFormInvalid = false;
-    this.productService.addProduct(this.product).subscribe(data=>{
+    this.subscription=this.productService.addProduct(this.product).subscribe(data=>{
       this.router.navigate(['/admin-view-product'])
     })
   }
   }
 
-
   public updateProduct(): void {
     // Update product using service
-    this.productService.updateProduct(this.productId, this.product).subscribe(() => {
+    this.subscription=this.productService.updateProduct(this.productId, this.product).subscribe(() => {
       this.router.navigate(['/admin-view-product']); // Redirect after successful update
     });
   }

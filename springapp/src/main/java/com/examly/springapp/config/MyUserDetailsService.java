@@ -36,7 +36,5 @@ public class MyUserDetailsService implements UserDetailsService {
         }else{
             throw new IllegalStateException("User role is null");
         }
-    }
-
-    
+    } 
 }

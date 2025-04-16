@@ -31,12 +31,13 @@ public class JwtUtils {
     
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
-      }
+    }
   
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder().setSigningKey(getSignKey())
                   .build()
@@ -54,6 +55,7 @@ public class JwtUtils {
         Map<String,Object> claims = new HashMap<>();
         return createToken(claims,email);
     }
+    
     public String createToken(Map<String,Object> claims,String email){
 
         return Jwts.builder()

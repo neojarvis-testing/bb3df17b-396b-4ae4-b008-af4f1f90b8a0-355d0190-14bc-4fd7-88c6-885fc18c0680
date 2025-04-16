@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { Review } from 'src/app/models/review.model';
 import { User } from 'src/app/models/user.model';
 import { ProductService } from 'src/app/services/product.service';
 import { ReviewService } from 'src/app/services/review.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
-
 
 @Component({
   selector: 'app-review',
@@ -30,8 +30,8 @@ export class ReviewComponent implements OnInit {
     this.stars = this.stars.map((_, index) => index < rating);
 
   }
-
-
+  private subscription:Subscription;
+  
   constructor(private reviewService: ReviewService, private router: Router, private activatedRoute: ActivatedRoute, private productService: ProductService,private userStore:UserStoreService) { }
 
   ngOnInit(): void {
@@ -43,8 +43,13 @@ export class ReviewComponent implements OnInit {
       this.review.product = product;
     });
   }
+
+  ngOnDestroy():void{
+    this.subscription.unsubscribe();
+  }
+
   submitReview() {
-    this.reviewService.addReview(this.review).subscribe(data => {
+    this.subscription=this.reviewService.addReview(this.review).subscribe(data => {
       console.log("Componenet" + this.review);
       this.router.navigate(['/user-view-product'])
     })

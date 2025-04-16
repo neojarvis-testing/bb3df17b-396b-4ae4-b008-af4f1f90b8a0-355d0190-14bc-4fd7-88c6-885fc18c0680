@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { Review } from 'src/app/models/review.model';
 import { User } from 'src/app/models/user.model';
@@ -13,6 +14,7 @@ import { ReviewService } from 'src/app/services/review.service';
   styleUrls: ['./adminviewreviews.component.css']
 })
 export class AdminviewreviewsComponent implements OnInit {
+  
   reviews: Review[] = [];
   searchData: string = "";
   product: Product = {
@@ -37,18 +39,25 @@ export class AdminviewreviewsComponent implements OnInit {
   }
   showProductDetails: boolean = false;
   showUserDetails: boolean = false;
-  constructor(private reviewService: ReviewService, private router: Router, private activateRoute: ActivatedRoute, private productService: ProductService, private authService: AuthService) { }
+  private subscription:Subscription
+
+  constructor(private reviewService: ReviewService, private productService: ProductService) { }
 
   ngOnInit() {
     this.getAllReviews();
   }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
+
   getAllReviews() {
-    this.reviewService.getAllReviews().subscribe(data => {
+    this.subscription=this.reviewService.getAllReviews().subscribe(data => {
       this.reviews = data;
     })
   }
   viewProduct(productId: number) {
-    this.productService.getProductById(productId).subscribe(data => {
+    this.subscription=this.productService.getProductById(productId).subscribe(data => {
       this.product = data;
       this.showProductDetails = !(this.showProductDetails);
 
@@ -58,7 +67,7 @@ export class AdminviewreviewsComponent implements OnInit {
 
   }
   viewProfile(reviewId: number) {
-    this.reviewService.getReviewById(reviewId).subscribe(data => {
+    this.subscription=this.reviewService.getReviewById(reviewId).subscribe(data => {
       this.review = data;
       this.showUserDetails = !(this.showUserDetails);
     })
@@ -76,7 +85,5 @@ export class AdminviewreviewsComponent implements OnInit {
     document.getElementById(popupId).classList.remove('active');
     document.getElementById(popupId + 'Overlay').classList.remove('active');
   }
-
-
 }
 
