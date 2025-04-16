@@ -3,7 +3,7 @@
     <span>ProKart</span>
   </div>
   <div class="navbar-right">
-    <b><span class="user-box">{{username}} /User</span></b>
+    <b><span class="user-box">{{username}}/User</span></b>
     <a routerLink="/home-page">Home</a>
     <div class="dropdown">
       <a>Products</a>
@@ -19,14 +19,12 @@
 </nav>
 
 <!-- Logout Confirmation Pop-Up -->
-<div class="popup-overlay" *ngIf="popupVisible">
-  <div class="popup" *ngIf="popupVisible">
-    <div class="popup-content">
-      <h3>Are you sure you want to log out?</h3>
-      <div class="popup-buttons">
-        <button (click)="logoutConfirmed()">Yes</button>
-        <button (click)="cancelLogout()">No</button>
-      </div>
+<div class="popup" *ngIf="popupVisible">
+  <div class="popup-content">
+    <h3>Are you sure you want to log out?</h3>
+    <div class="popup-buttons">
+      <button (click)="logoutConfirmed()">Yes</button>
+      <button (click)="cancelLogout()">No</button>
     </div>
   </div>
 </div>
