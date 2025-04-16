@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   loginForm: FormGroup;
  
   constructor(private fb: FormBuilder, private authService: AuthService) {}
@@ -19,8 +20,6 @@ export class LoginComponent implements OnInit {
     });
   }
  
- 
- 
   public onSubmit(): void {
        if (this.loginForm.valid) {
        console.log('Login form is valid. Submitting....');
@@ -29,6 +28,4 @@ export class LoginComponent implements OnInit {
        console.error('Login form is invalid:', this.loginForm.errors);
        }
      }
-   
-
 }

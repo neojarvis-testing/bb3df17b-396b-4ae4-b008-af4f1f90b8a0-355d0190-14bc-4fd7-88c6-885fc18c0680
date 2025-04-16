@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -15,11 +16,16 @@ export class AdminviewproductComponent implements OnInit {
   searchData = '';
   selectedCategory = '';
   categories:string[]=[]
+  private subscription:Subscription;
 
   constructor(private productService:ProductService,private router:Router) { }
 
   ngOnInit(): void {
     this.getAllProducts();
+  }
+
+  ngOnDestroy():void{
+    this.subscription.unsubscribe();
   }
 
   // getAllProducts(){
@@ -30,7 +36,7 @@ export class AdminviewproductComponent implements OnInit {
   // }
 
   getAllProducts(): void {
-    this.productService.getAllProducts().subscribe(data => {
+    this.subscription=this.productService.getAllProducts().subscribe(data => {
       this.products = data.map(product => {
         console.log("Raw Base64 Image Data:", product.coverImage); // Log raw data from backend
         
@@ -79,7 +85,7 @@ export class AdminviewproductComponent implements OnInit {
   }
    
   deleteProduct(productId){
-    this.productService.deleteProduct(productId).subscribe(data=>{
+    this.subscription=this.productService.deleteProduct(productId).subscribe(data=>{
       this.getAllProducts()
     })
   }

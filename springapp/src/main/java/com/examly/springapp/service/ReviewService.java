@@ -11,12 +11,12 @@ import com.examly.springapp.model.Review;
 public interface ReviewService {
    
 
-    Review addReview(Review review);
-    Optional<Review> getReviewById(Long reviewId);
-    List<Review> getAllReviews();
-    List<Review> getReviewsByUserId(Long userId);
-    List<Review> getReviewsByProductid(Long productId);
-    boolean deleteReview(Long reviewId);
+    public Review addReview(Review review);
+    public Optional<Review> getReviewById(Long reviewId);
+    public List<Review> getAllReviews();
+    public List<Review> getReviewsByUserId(Long userId);
+    public List<Review> getReviewsByProductid(Long productId);
+    public boolean deleteReview(Long reviewId);
 
 
 }

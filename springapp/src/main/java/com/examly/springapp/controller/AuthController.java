@@ -33,15 +33,14 @@ public class AuthController {
  
    
     @PostMapping("/register")
-        public ResponseEntity<User> registerUser(@RequestBody User user) {
-            try {
-                User newUser = userService.createUser(user);
-               return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-            } catch (RuntimeException e) {
-               return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-           }
-       
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
+        try {
+            User newUser = userService.createUser(user);
+            return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
+    }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<?> getUserById(@PathVariable Long userId) {
@@ -52,63 +51,29 @@ public class AuthController {
         }
     }
  
- 
-
-   
     @PostMapping("/login")
     public ResponseEntity<LoginDTO> loginUser(@RequestBody User user) {
-    try {
-    User loggedInUser = userService.loginUser(user);
-    if (loggedInUser == null) {
+        try {
+        User loggedInUser = userService.loginUser(user);
+        if (loggedInUser == null) {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        }
+        String token = jwtUtils.generateToken(loggedInUser.getEmail()); // Generate the JWT token
+
+        // Create and populate LoginDTO
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setToken(token);
+        loginDTO.setEmail(loggedInUser.getEmail());
+        loginDTO.setRole(loggedInUser.getUserRole());
+        loginDTO.setUserId(loggedInUser.getUserId().intValue());
+        loginDTO.setUsername(loggedInUser.getUsername());
+
+        return new ResponseEntity<>(loginDTO, HttpStatus.OK);
+        } catch (RuntimeException e) {
         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        } catch (Exception e) {
+        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    String token = jwtUtils.generateToken(loggedInUser.getEmail()); // Generate the JWT token
-
-    // Create and populate LoginDTO
-    LoginDTO loginDTO = new LoginDTO();
-    loginDTO.setToken(token);
-    loginDTO.setEmail(loggedInUser.getEmail());
-    loginDTO.setRole(loggedInUser.getUserRole());
-    loginDTO.setUserId(loggedInUser.getUserId().intValue());
-    loginDTO.setUsername(loggedInUser.getUsername());
-
-    return new ResponseEntity<>(loginDTO, HttpStatus.OK);
-    } catch (RuntimeException e) {
-    return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-    } catch (Exception e) {
-    return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    }
-
-// @PostMapping("/api/login")
-// public ResponseEntity<LoginDTO> loginUser(@RequestBody User user) {
-//     try {
-//         User loggedInUser = userService.loginUser(user);
-
-//         // String meow = "Invalid String or Email";
-//         if (loggedInUser == null || !loggedInUser.getPassword().equals(user.getPassword())) {
-//             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-//         }
-
-//         // Generate the JWT token
-//         String token = jwtUtils.generateToken(loggedInUser.getEmail());
-
-//         // Create and populate LoginDTO
-//         LoginDTO loginDTO = new LoginDTO();
-//         loginDTO.setToken(token);
-//         loginDTO.setEmail(loggedInUser.getEmail());
-//         loginDTO.setRole(loggedInUser.getUserRole());
-//         loginDTO.setUserId(loggedInUser.getUserId().intValue());
-//         loginDTO.setUsername(loggedInUser.getUsername());
-
-//         return new ResponseEntity<>(loginDTO, HttpStatus.OK);
-//     } catch (RuntimeException e) {
-//         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-//     } catch (Exception e) {
-//         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//     }
-// }
-
-
 }
 

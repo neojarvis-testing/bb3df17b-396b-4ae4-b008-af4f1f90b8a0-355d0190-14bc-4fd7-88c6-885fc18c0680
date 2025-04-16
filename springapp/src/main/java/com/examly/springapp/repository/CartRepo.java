@@ -10,6 +10,6 @@ import com.examly.springapp.model.User;
 
 @Repository
 public interface CartRepo extends JpaRepository<Cart, Long> {
-    Optional<Cart> findByUserUserId(Long userId);
-    Optional<Cart> findByUser(User user);
+    public Optional<Cart> findByUserUserId(Long userId);
+    public Optional<Cart> findByUser(User user);
 }

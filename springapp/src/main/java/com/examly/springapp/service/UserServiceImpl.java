@@ -54,26 +54,26 @@ public class UserServiceImpl implements UserService{
     }
 
 
-@Override
-public User loginUser(User user) {
-    Optional<User> userOpt = userRepo.findByEmail(user.getEmail());
-    User existingUser = userOpt.orElseThrow(() -> new InvalidCredentialsException("Invalid Email or Password"));
-    System.out.println("Stored Encoded Password: " + existingUser.getPassword()); // Log the stored encoded password
-    if (passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
-        return existingUser;
-    }
-    throw new InvalidCredentialsException("Invalid Email or Password");
-}
-
-@Override
-public User getUserByEmail(String email) {
-    Optional<User> opt = userRepo.findByEmail(email);
-        if(opt.isEmpty()) {
-            throw new EntityNotFoundException();
+    @Override
+    public User loginUser(User user) {
+        Optional<User> userOpt = userRepo.findByEmail(user.getEmail());
+        User existingUser = userOpt.orElseThrow(() -> new InvalidCredentialsException("Invalid Email or Password"));
+        System.out.println("Stored Encoded Password: " + existingUser.getPassword()); // Log the stored encoded password
+        if (passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
+            return existingUser;
         }
-        return opt.get();
-    
-}
+        throw new InvalidCredentialsException("Invalid Email or Password");
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        Optional<User> opt = userRepo.findByEmail(email);
+            if(opt.isEmpty()) {
+                throw new EntityNotFoundException();
+            }
+            return opt.get();
+        
+    }
 
 
 }

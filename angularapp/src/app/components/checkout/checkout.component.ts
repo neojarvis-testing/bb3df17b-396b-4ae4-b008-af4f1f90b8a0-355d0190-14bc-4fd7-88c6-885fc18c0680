@@ -3,6 +3,7 @@ import { CartItem } from 'src/app/models/cart-item.model';
 import { Order } from 'src/app/models/order.model';
 import { OrderService } from 'src/app/services/order.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -10,10 +11,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+
   cartItems: CartItem[] = []; // Initialize as an empty array to prevent undefined errors
   shippingAddress: string = '';
   billingAddress: string = '';
   isPopupVisible = false;
+  private subscription:Subscription;
 
   constructor(private orderService: OrderService, private router: Router) {}
 
@@ -31,6 +34,10 @@ export class CheckoutComponent implements OnInit {
       this.cartItems = []; // Prevent undefined errors
       this.router.navigate(['/cart']); // Redirect if no data found
     }
+  }
+
+  ngOnDestroy():void{
+    this.subscription.unsubscribe();
   }
 
   calculateTotalAmount(): number {
@@ -71,7 +78,7 @@ export class CheckoutComponent implements OnInit {
       orderStatus: 'Pending'
     };
 
-    this.orderService.placeOrder(order).subscribe({
+    this.subscription=this.orderService.placeOrder(order).subscribe({
       next: () => {
         console.log('Order placed successfully');
         localStorage.removeItem('cartData'); // Clear cart data after order placement

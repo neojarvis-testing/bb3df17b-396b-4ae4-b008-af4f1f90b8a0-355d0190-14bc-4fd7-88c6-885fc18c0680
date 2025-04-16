@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { OrderItem } from 'src/app/models/order-item.model';
 import { Order } from 'src/app/models/order.model';
 import { User } from 'src/app/models/user.model';
@@ -18,6 +19,7 @@ export class OrderplacedComponent implements OnInit {
   selectedUser : User ;
   selectedOrderItems: OrderItem[] = [];
   showModal: boolean = false;
+  private subscription:Subscription;
 
   constructor(private orderService : OrderService , private orderItemService : OrderItemService) { }
 
@@ -25,15 +27,19 @@ export class OrderplacedComponent implements OnInit {
     this.getAllOrders();
   }
 
+  ngOnDestroy(){
+    this.subscription.unsubscribe()
+  }
+
   public getAllOrders(){
-    this.orderService.getAllOrders().subscribe(data=>{
+    this.subscription=this.orderService.getAllOrders().subscribe(data=>{
       console.log(data)
       this.orders = data;
     })
   }
  
   public searchOrder() {
-    this.orderService.getAllOrders().subscribe(data=>{
+    this.subscription=this.orderService.getAllOrders().subscribe(data=>{
       this.orders = data;
       if (!this.searchId) {
         this.getAllOrders(); // Reloads all orders when search field is empty
@@ -42,41 +48,41 @@ export class OrderplacedComponent implements OnInit {
     }
     })
   }
-    public sortOrders() {
-      this.orders.sort((a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime());
-    }
 
+  public sortOrders() {
+    this.orders.sort((a, b) => new Date(a.orderDate).getTime() - new Date(b.orderDate).getTime());
+  }
 
-    public viewProfile(user: User): void {
-      // console.log(this.user1)
-      this.selectedUser = user;
-    }
+  public viewProfile(user: User): void {
+    // console.log(this.user1)
+    this.selectedUser = user;
+  }
    
-    public closeProfile(): void {
-      this.selectedUser = null;
-    }
+  public closeProfile(): void {
+    this.selectedUser = null;
+  }
 
-    public viewItems(orderId: number): void {
-      this.orderItemService.getOrderItems(orderId).subscribe({
-          next: items => {
-              this.selectedOrderItems = items;
-              this.showModal = true;
-          },
-          error: err => {
-              console.error("Failed to fetch order items:", err);
-              alert("Unable to fetch order items. Please try again later.");
-          }
-      });
+  public viewItems(orderId: number): void {
+    this.subscription=this.orderItemService.getOrderItems(orderId).subscribe({
+      next: items => {
+        this.selectedOrderItems = items;
+        this.showModal = true;
+      },
+      error: err => {
+        console.error("Failed to fetch order items:", err);
+        alert("Unable to fetch order items. Please try again later.");
+        }
+    });
   }
       
   public getOrderItemByOrderId(orderId:number){
-    this.orderItemService.getOrderItems(orderId).subscribe(data=>{
+    this.subscription=this.orderItemService.getOrderItems(orderId).subscribe(data=>{
     this.selectedOrderItems = data;
     })
   }
 
   public updateOrderStatus(order: Order): void {
-    this.orderService.updateOrder(order.orderId, order).subscribe({
+    this.subscription=this.orderService.updateOrder(order.orderId, order).subscribe({
       next: () => {
         console.log(`Order status updated successfully for Order ID: ${order.orderId}`);
         alert('Order status updated successfully.');
@@ -93,13 +99,10 @@ export class OrderplacedComponent implements OnInit {
     const currentIndex = statusOrder.indexOf(currentStatus);
     const statusIndex = statusOrder.indexOf(status);
      return statusIndex < currentIndex;
-    }
+  }
 
-    
   public closeModal(): void {
     this.showModal = false;
     this.selectedOrderItems = [];
   }
-
-
 }
