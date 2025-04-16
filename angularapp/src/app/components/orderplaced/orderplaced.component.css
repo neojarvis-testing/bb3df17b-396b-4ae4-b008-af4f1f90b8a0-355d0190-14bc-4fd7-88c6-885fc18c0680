@@ -1,14 +1,23 @@
-.container {
-  margin: 60px;
-  max-width: 800px;
-  margin: 10 auto;
-  padding: 20px;
-  background-color: rgb(207, 238, 250);
-  border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+body {
+  padding-top: 60px;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  min-height: 100vh; /* Ensure full viewport height */
+  margin: 60px; /* Remove default body margins */
+  background-color: #f0f8ff; /* Optional background for the page */
 }
 
+/* Container Styling */
+.container {
+  margin-top: 60px;
+  max-width: 800px;
+  padding: 20px;
+  background-color: rgb(207, 238, 250); /* Existing light blue background */
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Soft shadow effect */
+  transition: transform 0.3s ease; /* Smooth hover effect */
+}
 .left-button {
   align-self: flex-start;
 }
@@ -168,25 +177,32 @@ button:active {
 }
 
 .modal {
-  display: none;
+  padding-top: 60px; 
   position: fixed;
-  z-index: 1000;
+  top: 0; /* Start from the top */
   left: 0;
-  top: 0;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%; /* Full height of viewport */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  overflow-y: auto; /* Enable scrolling for long content */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: flex-start; /* Align content at the top */
+  z-index: 1000;
+  padding-top: 20px; /* Add padding to avoid overlapping with browser's search bar */
 }
 
 .modal-content {
   background-color: #fff;
-  margin: 10% auto;
   padding: 20px;
-  border-radius: 8px;
-  width: 50%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  border-radius: 10px;
+  width: 90%; /* Make it responsive */
+  max-width: 600px; /* Limit the width for larger screens */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  margin: auto; /* Center horizontally */
+  position: relative; /* Ensure it stays within the modal */
 }
+
 
 .close {
   float: right;
