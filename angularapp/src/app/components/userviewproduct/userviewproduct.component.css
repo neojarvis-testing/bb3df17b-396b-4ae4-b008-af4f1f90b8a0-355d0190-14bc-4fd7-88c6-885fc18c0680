@@ -178,3 +178,7 @@ input[type="number"] {
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
   z-index: 999; /* Ensure it appears below the popup but above other content */
 }
+
+.container mt-5{
+  background-color: plum;
+}
