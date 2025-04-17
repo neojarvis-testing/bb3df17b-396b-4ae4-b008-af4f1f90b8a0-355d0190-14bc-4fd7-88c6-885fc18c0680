@@ -117,4 +117,9 @@ export class CheckoutComponent implements OnInit {
       }
     });
   }
+
+  closePopup() {
+    this.isPopupVisible = false; // Hide the popup
+    this.router.navigate(['/user-view-product']); // Redirect to View Products page
+}
 }

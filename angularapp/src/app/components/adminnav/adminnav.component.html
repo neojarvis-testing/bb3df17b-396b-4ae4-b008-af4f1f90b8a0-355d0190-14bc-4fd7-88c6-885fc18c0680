@@ -6,7 +6,7 @@
     <div class="dropdown">
       <b><span class="admin-box" (click)="showUserDetails()">{{username}} /Admin</span></b>
     </div>
-
+ 
     <a routerLink="/home-page">Home</a>
     <div class="dropdown">
       <a>Product</a>
@@ -14,12 +14,13 @@
         <a routerLink="/product-create">Add Product</a>
         <a routerLink="/admin-view-product">View Products</a>
       </div>
-    
+    </div>
     <a routerLink="/order-placed">Order Placed</a>
     <a routerLink="/admin-view-reviews">Reviews</a>
     <a (click)="confirmLogout()">Log Out</a>
+  </div>
 </nav>
-
+ 
 <div class="popup-overlay" *ngIf="popupVisible" >
   <div class="popup" *ngIf="popupVisible">
     <div class="popup-content">
@@ -31,7 +32,7 @@
     </div>
   </div>
 </div>
-
+ 
 <div class="popup" *ngIf="userDetailsPopupVisible">
   <div class="popup-content">
     <h3>User Details</h3>
