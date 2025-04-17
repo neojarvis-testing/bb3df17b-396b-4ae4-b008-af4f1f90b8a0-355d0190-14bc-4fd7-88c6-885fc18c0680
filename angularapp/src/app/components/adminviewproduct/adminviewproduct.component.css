@@ -5,6 +5,12 @@
   font-family: 'Merriweather', serif;
 }
 
+img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover; /* Ensures images maintain aspect ratio */
+}
+
 /* Background & General Styling */
 body {
   background-color: #f0f9ff; /* Soft pastel blue */
