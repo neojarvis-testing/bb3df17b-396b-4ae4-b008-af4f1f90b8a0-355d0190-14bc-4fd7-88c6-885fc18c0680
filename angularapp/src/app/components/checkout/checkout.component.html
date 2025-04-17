@@ -1,6 +1,5 @@
 <div class="order-confirmation">
   <h1>Order Confirmation</h1>
-  
   <div class="invoice-section">
     <h3>Invoice</h3>
     <!-- Simplified Product Details Table -->
@@ -49,7 +48,7 @@
     <div *ngIf="billingAddressModel.touched && billingAddressModel.invalid">
       <span style="color: red;">Billing Address is required</span>
     </div>
- 
+
     <!-- Generate Payment QR Button -->
     <button type="submit" id="generateQrCodeButton" [disabled]="addressForm.invalid || cartItems.length === 0" 
             style="background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer;">
@@ -60,6 +59,7 @@
  
 <!-- QR Code Popup -->
 <div class="qr-code-popup" *ngIf="isQrPopupVisible">
+
   <div class="popup-content" style="text-align: center;">
     <h1>Scan to Pay</h1>
     <img [src]="qrCodeUrl" alt="QR Code for Payment" style="margin-bottom: 20px;">
