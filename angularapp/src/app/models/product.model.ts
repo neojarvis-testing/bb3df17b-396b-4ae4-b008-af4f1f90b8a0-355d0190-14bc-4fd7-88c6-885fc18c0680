@@ -8,4 +8,5 @@ export interface Product {
     brand : string;
     coverImage : string;
     selectedQuantity ?: number;
+    inWishlist?: boolean;
 }

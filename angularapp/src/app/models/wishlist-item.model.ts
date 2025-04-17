@@ -1,6 +1,6 @@
 import { Product } from "./product.model";
 
-export interface CartItem {
+export interface WishlistItem {
     id?:number;
     product:Product;
     quantity:number;

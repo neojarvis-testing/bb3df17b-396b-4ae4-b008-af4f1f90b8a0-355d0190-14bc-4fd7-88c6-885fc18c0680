@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ReviewService } from 'src/app/services/review.service';
+import { WishlistService } from 'src/app/services/wishlist.service';
 
 @Component({
   selector: 'app-userviewproduct',
@@ -24,6 +25,7 @@ export class UserviewproductComponent implements OnInit {
   selectedCategory = '';
   selectedQuantity: number;
   cartPopupVisible: boolean = false; // Separate property for Add to Cart pop-up
+  wishlistPopupVisible: boolean = false;
   reviewPopupVisible: boolean = false;
   popupMessage: string = ""; // Message for the pop-up
   loading: boolean = false; // Track loading state
@@ -35,6 +37,7 @@ export class UserviewproductComponent implements OnInit {
 
 
   constructor(
+    private wishlistService : WishlistService,
     private productService: ProductService,
     private reviewService: ReviewService,
     private cartService: CartService,
@@ -61,8 +64,44 @@ export class UserviewproductComponent implements OnInit {
     return !!localStorage.getItem('token');
   }
 
+  // getAllProducts() {
+  //   this.subscription=this.productService.getAllProducts().subscribe(data => {
+  //     this.products = data.map(product => {
+  //       console.log("Raw Base64 Image Data:", product.coverImage); // Log raw data from backend
+        
+  //       let imageData = product.coverImage;
+  
+  //       // Check if the image data needs a prefix
+  //       if (imageData && !imageData.startsWith('data:image')) {
+  //         imageData = `data:image/jpeg;base64,${imageData}`;
+  //         console.log("Prefixed Base64 Image Data:", imageData); // Log the prefixed Base64 string
+  //       } else {
+  //         console.log("Base64 data already contains prefix or is invalid.");
+  //       }
+  
+  //       // Log the final state of the image data
+  //       console.log("Final Decoded Image Data for Product:", {
+  //         productName: product.productName,
+  //         decodedImage: imageData
+  //       });
+  
+  //       return {
+  //         ...product,
+  //         decodedImage: imageData // Store the final image source
+  //       };
+  //     });
+  
+  //     console.log("All Products with Decoded Images:", this.products); // Log the complete products array
+  
+  //     this.filteredProducts = this.products; // Initialize filtered products
+  //     this.categories = [...new Set(this.products.map(p => p.category))]; // Extract unique categories
+  //   }, error => {
+  //     console.error("Error fetching products:", error); // Log any errors in the API call
+  //   });
+  // }
+
   getAllProducts() {
-    this.subscription=this.productService.getAllProducts().subscribe(data => {
+    this.subscription = this.productService.getAllProducts().subscribe(data => {
       this.products = data.map(product => {
         console.log("Raw Base64 Image Data:", product.coverImage); // Log raw data from backend
         
@@ -82,13 +121,15 @@ export class UserviewproductComponent implements OnInit {
           decodedImage: imageData
         });
   
+        // Add the inWishlist property while processing the products
         return {
           ...product,
-          decodedImage: imageData // Store the final image source
+          decodedImage: imageData, // Store the final image source
+          inWishlist: false // Set the default state for the wishlist icon
         };
       });
   
-      console.log("All Products with Decoded Images:", this.products); // Log the complete products array
+      console.log("All Products with Decoded Images and Wishlist State:", this.products); // Log the complete products array
   
       this.filteredProducts = this.products; // Initialize filtered products
       this.categories = [...new Set(this.products.map(p => p.category))]; // Extract unique categories
@@ -96,6 +137,7 @@ export class UserviewproductComponent implements OnInit {
       console.error("Error fetching products:", error); // Log any errors in the API call
     });
   }
+  
 
   viewReview(productId: number) {
     this.loading = true; // Start loading
@@ -170,24 +212,110 @@ export class UserviewproductComponent implements OnInit {
       error: (err) => {
         console.error('Error adding product to cart:', err);
         this.popupMessage = `Failed to add ${product.productName} to the cart. Please add quantity.`; // Error message
-        this.cartPopupVisible = true; // Show the error pop-up
+        this.cartPopupVisible = true;
+      },
+    });
+  }
+
+  // handleActionWishlist(product : Product) {
+  //   if (this.isLoggedIn()) {
+  //     this.addToWishlist(product); 
+  //   } else {
+  //     const confirmRedirect = confirm('You need to log in to add items to your cart. Do you want to go to the login page?');
+  //     if (confirmRedirect) {
+  //       this.router.navigate(['/login']); // Redirect to the login page
+  //     }
+  //   }
+  // }
+
+  // public addToWishlist(product: Product) {
+  //   const productId = product.productId;
+  //   const qty = product.selectedQuantity;
+  
+  //   if (qty > product.stockQuantity) {
+  //     alert(`You can only add up to ${product.stockQuantity} of ${product.productName}.`);
+  //     return;
+  //   }
+  
+  //   this.subscription=this.wishlistService.addToWishlist(this.userId, productId, qty, null).subscribe({
+  //     next: () => {
+  //       console.log('Product added to Wishlist successfully');
+  //       this.popupMessage = `${qty} x ${product.productName} has been added to your wishlist successfully!`;
+  //       this.wishlistPopupVisible = true;
+  //       this.getAllProducts(); 
+  //     },
+  //     error: (err) => {
+  //       console.error('Error adding product to wishlist:', err);
+  //       this.popupMessage = `Failed to add ${product.productName} to the wishlist. Please add quantity.`;
+  //       this.wishlistPopupVisible = true;
+  //     },
+  //   });
+  // }
+
+
+  public addToWishlist(product: Product): void {
+    const productId = product.productId;
+    const qty = 1;
+  
+    this.subscription = this.wishlistService.addToWishlist(this.userId, productId, qty, null).subscribe({
+      next: () => {
+        console.log(`${product.productName} added to Wishlist successfully`);
+        this.popupMessage = `${product.productName} has been added to your wishlist successfully!`;
+        this.wishlistPopupVisible = true;
+      },
+      error: (err) => {
+        console.error(`Error adding ${product.productName} to wishlist:`, err);
+        this.popupMessage = `Failed to add ${product.productName} to the wishlist.`;
+        this.wishlistPopupVisible = true;
       },
     });
   }
   
+  public removeFromWishlist(product: Product): void {
+    const productId = product.productId;
+  
+    this.subscription = this.wishlistService.removeFromWishlist(this.userId, productId).subscribe({
+      next: () => {
+        console.log(`${product.productName} removed from Wishlist successfully`);
+        this.popupMessage = `${product.productName} has been removed from your wishlist successfully!`;
+        this.wishlistPopupVisible = true;
+      },
+      error: (err) => {
+        console.error(`Error removing ${product.productName} from wishlist:`, err);
+        this.popupMessage = `Failed to remove ${product.productName} from the wishlist.`;
+        this.wishlistPopupVisible = true;
+      },
+    });
+  }
+  
+  handleActionWishlist(product: Product): void {
+    product.inWishlist = !product.inWishlist;
+  
+    if (product.inWishlist) {
+      this.addToWishlist(product);
+    } else {
+      this.removeFromWishlist(product);
+    }
+  }
+  
+  
   closeCartPopup() {
-    this.cartPopupVisible = false; // Close Add to Cart pop-up
+    this.cartPopupVisible = false;
+  }
+
+  closeWishlistPopup() {
+    this.wishlistPopupVisible = false;
   }
   
   closeReviewPopup() {
-    this.reviewPopupVisible = false; // Close View Reviews pop-up
+    this.reviewPopupVisible = false;
   }
 
   clearCart(): void {
     this.subscription=this.cartService.clearCart(this.userId).subscribe({
       next: () => {
         console.log('Cart cleared successfully');
-        this.getAllProducts(); // Refresh product list to reflect restored stock
+        this.getAllProducts();
       },
       error: (err) => {
         console.error('Error clearing cart:', err);

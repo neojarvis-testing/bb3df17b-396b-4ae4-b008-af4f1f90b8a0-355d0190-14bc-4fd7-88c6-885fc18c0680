@@ -1,1 +1,38 @@
-<p>wishlist works!</p>
+<div class="container">
+    <h2>Your Wishlist</h2>
+    <p *ngIf="wishlistItems.length === 0" class="empty-message">{{ emptyMgs }}</p>
+    <ul class="wishlist-list" style="list-style: none; padding: 0;">
+      <li *ngFor="let wishlistItem of wishlistItems"
+        style="margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 8px;" class="blue">
+        <div class="wishlist-item" style="display: flex; align-items: center;">
+          <div class="product-image" style="margin-right: 20px;">
+            <img [src]="wishlistItem.product.coverImage" alt="{{ wishlistItem.product.productName }}"
+              style="width: 100px; border-radius: 4px;">
+          </div>
+          <div class="product-details">
+            <h3>{{ wishlistItem.product.productName }}</h3>
+            <p>{{ wishlistItem.product.description }}</p>
+            <p>
+              <strong>Price:</strong>
+              {{ wishlistItem.product.price | currency }}
+            </p>
+            <p>
+              <strong>Quantity: </strong>
+              <button (click)="updateQuantity(wishlistItem, wishlistItem.quantity - 1)">-</button>
+              {{ wishlistItem.quantity }}
+              <button (click)="updateQuantity(wishlistItem, wishlistItem.quantity + 1)">+</button>
+            </p>
+              <div class="button-container">
+                <button class="heart-button" (click)="removeItemFromWishlist(wishlistItem.product)">
+                  <i class="fas fa-heart"></i>
+                </button>                                          
+              </div>
+            <!-- <p class="text-muted" *ngIf="product.stockQuantity === 0">Out of Stock</p> -->
+          </div>
+        </div>
+      </li>
+      <button class="btn btn-danger" (click)="clearWishlist()">Clear Wishlist</button>
+    </ul>
+  
+  
+  </div>

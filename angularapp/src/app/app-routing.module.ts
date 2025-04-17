@@ -19,6 +19,7 @@ import { AddToCartComponent } from './components/add-to-cart/add-to-cart.compone
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { UserAuthGuard } from './user-auth.guard';
 import { AdminAuthGuard } from './admin-auth.guard';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
 
 const routes: Routes = [
   {path:'home-page',component:HomePageComponent},
@@ -40,6 +41,7 @@ const routes: Routes = [
   {path:'user-view-product',component:UserviewproductComponent},
   {path:'change-password',component:ChangePasswordComponent},
   { path: 'check-out', component: CheckoutComponent },
+  {path: 'wishlist', component: WishlistComponent},
   {path:'**',component:HomePageComponent}
 ];
 

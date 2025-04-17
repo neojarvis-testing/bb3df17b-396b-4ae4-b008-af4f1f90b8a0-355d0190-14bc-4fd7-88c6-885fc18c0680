@@ -56,14 +56,17 @@
             <!-- Out of Stock Message -->
             <p class="text-muted" *ngIf="product.stockQuantity === 0">Out of Stock</p>
 
-            
-            
-<div class="review-button-container">
-   <button class="btn btn-primary btn-sm viewReview" (click)="viewReview(product.productId)">View Reviews</button>
-  </div>
-  
-
-    
+            <div class="d-flex justify-content-between mt-3">
+              <!-- <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0"
+              (click)="handleActionWishlist(product)">
+                    Add to Wishlist
+              </button>&nbsp;&nbsp; -->
+              <button class="heart-button" (click)="handleActionWishlist(product)">
+                <i [class]="product.inWishlist ? 'fas fa-heart active' : 'far fa-heart'"></i>
+              </button>              
+            <div class="review-button-container">
+              <button class="btn btn-primary btn-sm viewReview" (click)="viewReview(product.productId)">View Reviews</button>
+            </div>
           </div>
         </div>
       </div>
