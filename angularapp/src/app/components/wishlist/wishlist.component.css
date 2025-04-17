@@ -1,0 +1,17 @@
+.heart-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px; /* Adjust size as per your design */
+  color: #ff0000; /* Red color for the heart */
+  transition: transform 0.2s ease, color 0.2s ease; /* For hover effects */
+}
+
+.heart-button:hover {
+  transform: scale(1.2); /* Slight zoom on hover for interactivity */
+  color: #ff6666; /* Lighter red shade on hover */
+}
+
+.heart-button:focus {
+  outline: none; /* Remove default focus outline for cleaner design */
+}

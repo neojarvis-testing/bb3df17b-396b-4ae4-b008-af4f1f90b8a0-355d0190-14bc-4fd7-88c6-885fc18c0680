@@ -179,6 +179,26 @@ input[type="number"] {
   z-index: 999; /* Ensure it appears below the popup but above other content */
 }
 
+.heart-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px; /* Adjust size as needed */
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.heart-button .fa-heart {
+  color: #ffffff; /* White by default */
+}
+
+.heart-button .active {
+  color: #ff0000; /* Red when added to wishlist */
+}
+
+.heart-button:hover {
+  transform: scale(1.2); /* Slight zoom on hover */
+}
+
 .container mt-5{
   background-color: plum;
 }
