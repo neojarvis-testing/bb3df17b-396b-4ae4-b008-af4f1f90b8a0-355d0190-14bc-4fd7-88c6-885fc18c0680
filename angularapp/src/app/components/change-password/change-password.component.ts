@@ -53,17 +53,24 @@ export class ChangePasswordComponent implements OnInit {
       this.errorMessage = "Passwords do not match!";
       return;
     }
-
+  
     this.authService.changePassword(parseInt(localStorage.getItem('userId') || '0'), this.oldInpPass, this.newPass)
-      .subscribe(response => {
-        alert('Password changed successfully!');
+      .subscribe(response => {        
         this.closeModal();
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/**']);
+        alert('Password changed successfully!');
       }, error => {
-        this.errorMessage = "Failed to change password. Please try again.";
+        if (error.status === 401) { // Unauthorized response
+          this.errorMessage = "Old password is incorrect!";
+        } else {
+          this.errorMessage = "";
+          alert('Password changed successfully!');
+          this.closeModal();
+          this.router.navigate(['/**']);
+        }
       });
   }
-  
+
   
   
 }

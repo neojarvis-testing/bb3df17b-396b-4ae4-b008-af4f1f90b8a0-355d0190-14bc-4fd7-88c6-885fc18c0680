@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.examly.springapp.config.JwtUtils;
+import com.examly.springapp.exceptions.InvalidCredentialsException;
 import com.examly.springapp.model.LoginDTO;
 import com.examly.springapp.model.User;
 import com.examly.springapp.service.UserService;
@@ -75,5 +76,20 @@ public class AuthController {
         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PostMapping("/change-password/{userId}/{oldPassword}/{newPassword}")
+    public ResponseEntity<?> changePassword(
+        @PathVariable Long userId,
+        @PathVariable String oldPassword,
+        @PathVariable String newPassword) {
+    try {
+        boolean isChanged = userService.changeUserPassword(userId, oldPassword, newPassword);
+        return ResponseEntity.ok("Password changed successfully");
+    } catch (InvalidCredentialsException e) {
+        return ResponseEntity.status(401).body(e.getMessage());
+    } catch (EntityNotFoundException e) {
+        return ResponseEntity.status(404).body(e.getMessage());
+    }
+}
+
 }
 
