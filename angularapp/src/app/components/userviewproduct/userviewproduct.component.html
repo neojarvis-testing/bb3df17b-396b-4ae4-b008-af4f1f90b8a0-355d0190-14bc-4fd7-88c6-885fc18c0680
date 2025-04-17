@@ -4,19 +4,24 @@
   <!-- Controls for search and category -->
   <div class="row mb-4 justify-content-between align-items-center">
     <div class="col-md-6">
-      <input type="text" class="form-control" placeholder="Search by product name" [(ngModel)]="searchData"
+      <!-- Search Feature -->
+      <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Search by product name" 
+        [(ngModel)]="searchData" 
         (input)="searchProducts()" />
     </div>
     <div class="col-md-4">
-      <select class="form-select" [(ngModel)]="selectedCategory" (change)="searchProducts()">
+      <!-- Sort by Category Dropdown -->
+      <select 
+        class="form-select" 
+        [(ngModel)]="selectedCategory" 
+        (change)="filterProductsByCategory()">
         <option value="">All Categories</option>
-        <option value="electronics">Electronics</option>
-        <option value="homeAppliances">Home Appliances</option>
-        <option value="books">Books</option>
-        <option value="fashion">Fashion</option>
-        <option value="toys">Toys</option>
-        <option value="furniture">Furniture</option>
-        <option value="beauty">Beauty</option>
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
       </select>
     </div>
   </div>
@@ -26,7 +31,15 @@
     <div class="col-lg-3 col-md-4 col-sm-6" *ngFor="let product of filteredProducts">
       <div class="card h-100 shadow-sm">
         <div class="card-body">
-          <img *ngIf="product.decodedImage" [src]="product.decodedImage" alt="Product Image" style="max-width: 200px;" />
+          <!-- Product Image -->
+          <img 
+            *ngIf="product.decodedImage" 
+            [src]="product.decodedImage" 
+            alt="Product Image" 
+            style="max-width: 200px;" 
+            class="card-img-top" />
+          
+          <!-- Product Info -->
           <h5 class="card-title">{{ product.productName }}</h5>
           <p class="card-text">
             <strong>Price:</strong> ₹{{ product.price }} <br />
@@ -36,37 +49,44 @@
 
           <!-- Quantity Input -->
           <label for="quantity" class="form-label">Quantity:</label>
-          <input type="number" id="quantity" [(ngModel)]="product.selectedQuantity" class="form-control"
-            (change)="validateQuantity(product)" [placeholder]="'Enter up to ' + product.stockQuantity" min="1"
+          <input 
+            type="number" 
+            id="quantity" 
+            [(ngModel)]="product.selectedQuantity" 
+            class="form-control"
+            (change)="validateQuantity(product)" 
+            [placeholder]="'Enter up to ' + product.stockQuantity" 
+            min="1" 
             [max]="product.stockQuantity" />
 
           <!-- Action Buttons -->
           <div class="d-flex justify-content-between mt-3">
             <!-- Add to Cart -->
-            <!-- <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0" *ngIf="isLoggedIn() : "
-              (click)="addToCart(product)">
+            <button 
+              class="btn btn-primary btn-sm" 
+              [disabled]="product.stockQuantity === 0"
+              (click)="handleAction(product)">
               Add to Cart
-            </button>&nbsp;&nbsp; -->
-
-            <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0"
-            (click)="handleAction(product)">
-                  Add to Cart
             </button>&nbsp;&nbsp;
 
-            <!-- Out of Stock Message -->
-            <p class="text-muted" *ngIf="product.stockQuantity === 0">Out of Stock</p>
-
-            <div class="d-flex justify-content-between mt-3">
-              <!-- <button class="btn btn-primary btn-sm" [disabled]="product.stockQuantity === 0"
+            <!-- Wishlist Button -->
+            <button 
+              class="heart-button" 
               (click)="handleActionWishlist(product)">
-                    Add to Wishlist
-              </button>&nbsp;&nbsp; -->
-              <button class="heart-button" (click)="handleActionWishlist(product)">
-                <i [class]="product.inWishlist ? 'fas fa-heart active' : 'far fa-heart'"></i>
-              </button>              
-            <div class="review-button-container">
-              <button class="btn btn-primary btn-sm viewReview" (click)="viewReview(product.productId)">View Reviews</button>
-            </div>
+              <i [class]="product.inWishlist ? 'fas fa-heart active' : 'far fa-heart'"></i>
+            </button>
+          </div>
+
+          <!-- Out of Stock Message -->
+          <p class="text-muted" *ngIf="product.stockQuantity === 0">Out of Stock</p>
+
+          <!-- View Reviews Button -->
+          <div class="review-button-container mt-2">
+            <button 
+              class="btn btn-primary btn-sm viewReview" 
+              (click)="viewReview(product.productId)">
+              View Reviews
+            </button>
           </div>
         </div>
       </div>
@@ -75,37 +95,36 @@
 
   <!-- Pop-up Modal -->
   <!-- Add to Cart Pop-Up -->
-<div class="popup" *ngIf="cartPopupVisible">
-  <div class="popup-content">
-    <h3>{{ popupMessage }}</h3>
-    <button (click)="closeCartPopup()">OK</button>
-  </div>
-</div>
-
-<!-- View Reviews Pop-Up -->
-<div *ngIf="reviewPopupVisible">
-  <div class="popup-overlay"></div>
-  <div class="popup">
+  <div class="popup" *ngIf="cartPopupVisible">
     <div class="popup-content">
-      <!-- Loading Message -->
-      <div *ngIf="loading" class="loading-message">
-        <p>Loading reviews...</p>
-      </div>
+      <h3>{{ popupMessage }}</h3>
+      <button (click)="closeCartPopup()">OK</button>
+    </div>
+  </div>
 
-      <div *ngIf="!loading">
-        <h3>{{ popupMessage }}</h3>
-        <ul *ngIf="reviews.length > 0">
-          <li *ngFor="let review of reviews">
-            <p><strong>Rating:</strong> {{ review.rating }}/5</p>
-            <p><strong>Date:</strong> {{ review.date | date: 'mediumDate' }}</p>
-            <p><strong>Review: </strong>{{ review.reviewText }}</p>
-          </li>
-        </ul>
-        <p *ngIf="reviews.length === 0">No reviews available for this product.</p>
+  <!-- View Reviews Pop-Up -->
+  <div *ngIf="reviewPopupVisible">
+    <div class="popup-overlay"></div>
+    <div class="popup">
+      <div class="popup-content">
+        <!-- Loading Message -->
+        <div *ngIf="loading" class="loading-message">
+          <p>Loading reviews...</p>
+        </div>
+
+        <div *ngIf="!loading">
+          <h3>{{ popupMessage }}</h3>
+          <ul *ngIf="reviews.length > 0">
+            <li *ngFor="let review of reviews">
+              <p><strong>Rating:</strong> {{ review.rating }}/5</p>
+              <p><strong>Date:</strong> {{ review.date | date: 'mediumDate' }}</p>
+              <p><strong>Review:</strong> {{ review.reviewText }}</p>
+            </li>
+          </ul>
+          <p *ngIf="reviews.length === 0">No reviews available for this product.</p>
+        </div>
+        <button (click)="closeReviewPopup()">OK</button>
       </div>
-      <button (click)="closeReviewPopup()">OK</button>
     </div>
   </div>
 </div>
-
-
