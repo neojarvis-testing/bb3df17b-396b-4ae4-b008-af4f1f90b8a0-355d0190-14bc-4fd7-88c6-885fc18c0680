@@ -53,6 +53,7 @@ textarea {
   justify-content: center;
   cursor: pointer;
   margin: 15px auto;
+  font-size: 25px;
 }
 
 .star-rating span {
