@@ -12,6 +12,8 @@ body {
   padding: 30px;
 }
 
+
+
 /* Container Styling */
 .container {
   max-width: 1400px;
@@ -29,7 +31,7 @@ ul{
 h1 {
   text-align: center;
   color: #2c79c2; /* Calm Blue */
-  font-size: 36px;
+  font-size: 28px; 
   font-weight: bold;
   margin-bottom: 30px;
 }
@@ -52,12 +54,16 @@ h1 {
 /* Product Card Styling */
 .card {
   background-color: #e3f2fd; /* Light pastel theme */
-  width: 100%;
+  width: 10 0%;
   max-width: 340px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Keeps buttons aligned */
+  height: 100%;
 }
 
 .card:hover {
@@ -66,16 +72,43 @@ h1 {
 }
 
 .card-title {
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
   color: #2c79c2;
 }
 
 .card-text {
-  font-size: 18px;
+  font-size: 16px;
   color: #555;
 }
 
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Keeps buttons aligned */
+    height: 100%; /* Ensures full height */
+    gap: 30px;
+    flex-wrap: wrap; /* Allows wrapping to new rows */
+    justify-content: space-around; /* Distributes cards evenly */
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.card-buttons {
+    display: flex;
+    justify-content: space-between; /* Adjust for better placement */
+    padding: 10px;
+    margin-bottom: 30px;
+}
+.row.g-4 {
+  row-gap: 30px; /* Increases space between rows */
+  /* Improves spacing between columns */
+}
+
+.product-grid {
+  display: grid;
+  gap: 30px; /* Adds space between cards */
+}
 /* Quantity Input */
 .form-label {
   font-size: 16px;
@@ -94,24 +127,25 @@ input[type="number"] {
 
 /* Buttons */
 .btn-primary {
-  font-size: 18px;
-  padding: 10px 15px;
+  font-size: 14px;
+  padding: 8px 12px;
   background-color: #3498db;
   border: none;
   color: white;
   font-weight: bold;
-  border-radius: 7px;
+  border-radius: 5px;
 }
 
 .btn-secondary {
-  font-size: 18px;
-  padding: 10px 15px;
+  font-size: 14px;
+  padding: 8px 12px;
   background-color: #3498db;
   border: none;
   color: white;
   font-weight: bold;
-  border-radius: 7px;
+  border-radius: 5px;
 }
+
 
 /* Out of Stock Message */
 .text-muted {
@@ -178,7 +212,11 @@ input[type="number"] {
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
   z-index: 999; /* Ensure it appears below the popup but above other content */
 }
-
+img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover; /* Ensures images maintain aspect ratio */
+}
 .heart-button {
   background: none;
   border: none;
@@ -201,4 +239,8 @@ input[type="number"] {
 
 .container mt-5{
   background-color: plum;
+}
+.heart::after {
+  content: "\2764"; /* Red Heart */
+  color: red;
 }
