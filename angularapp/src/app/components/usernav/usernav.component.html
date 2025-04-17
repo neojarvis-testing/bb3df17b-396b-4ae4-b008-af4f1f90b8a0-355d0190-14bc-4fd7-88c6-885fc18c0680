@@ -3,13 +3,38 @@
     <span>ProKart</span>
   </div>
   <div class="navbar-right">
-    <b><span class="user-box" (click)="showUserDetails()">{{username}}/User</span></b>
+    <div class="dropdown">
+      <b><span class="user-box">{{ username }}/User</span></b>
+      <div class="dropdown-content">
+        <a (click)="showUserDetails()">User Profile</a>
+        <a [routerLink]="['/my-order/',userId]">My Orders</a>
+      </div>
+    </div>
     <a routerLink="/home-page">Home</a>
     <div class="dropdown">
       <a>Products</a>
       <div class="dropdown-content">
-        <a routerLink="/user-view-product">View Products</a>
-        <a [routerLink]="['/my-order', userId]">My Orders</a>
+        <a (click)="navigateToCategory('books')">
+          Books
+        </a>
+        <a (click)="navigateToCategory('homeAppliances')">
+          Home Appliances
+        </a>
+        <a (click)="navigateToCategory('toys')">
+          Toys
+        </a>
+        <a (click)="navigateToCategory('electronics')">
+          Electronics
+        </a>
+        <a (click)="navigateToCategory('fashion')">
+          Fashion
+        </a>
+        <a (click)="navigateToCategory('furniture')">
+          Furniture
+        </a>
+        <a (click)="navigateToCategory('beauty')">
+          Beauty
+        </a>
       </div>
     </div>
     <a routerLink="/my-review">Reviews</a>
@@ -32,9 +57,9 @@
 <div class="popup" *ngIf="userDetailsPopupVisible">
   <div class="popup-content">
     <h3>User Details</h3>
-    <p><b>Username:</b> {{user.username}}</p>
-    <p><b>Email:</b> {{user.email}}</p>
-    <p><b>Phone Number:</b> {{user.mobileNumber}}</p>
+    <p><b>Username:</b> {{ user.username }}</p>
+    <p><b>Email:</b> {{ user.email }}</p>
+    <p><b>Phone Number:</b> {{ user.mobileNumber }}</p>
     <p><b>Password:</b> ******</p>
     <button routerLink="/change-password">Reset Password</button>
     <button (click)="closeUserDetails()">Close</button>

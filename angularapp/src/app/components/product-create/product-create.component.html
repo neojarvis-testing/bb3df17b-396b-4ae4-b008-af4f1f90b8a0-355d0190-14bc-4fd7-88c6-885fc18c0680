@@ -36,13 +36,13 @@
         <label for="category">Category</label>
         <select name="category" id="category" required [(ngModel)]="product.category" #category="ngModel">
             <option value="" disabled>Select Category</option>
-            <option value="electronics">Electronics</option>
-            <option value="homeAppliances">Home Appliances</option>
-            <option value="books">Books</option>
-            <option value="fashion">Fashion</option>
-            <option value="toys">Toys</option>
-            <option value="furniture">Furniture</option>
-            <option value="beauty">Beauty</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Home Appliances">Home Appliances</option>
+            <option value="Books">Books</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Toys">Toys</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Beauty">Beauty</option>
         </select>
         <div *ngIf="category.touched && category.invalid">
             <span style="color: red;">Category is required</span>

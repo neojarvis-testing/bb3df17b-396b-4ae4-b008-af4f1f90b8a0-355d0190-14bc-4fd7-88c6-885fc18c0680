@@ -27,7 +27,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { GuestnavComponent } from './components/guestnav/guestnav.component';
 import { HttpErrorInterceptor } from './http-error.interceptor';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
-import { WishlistViewComponent } from './components/wishlist-view/wishlist-view.component';
 
 @NgModule({
   declarations: [
@@ -52,8 +51,7 @@ import { WishlistViewComponent } from './components/wishlist-view/wishlist-view.
     ChangePasswordComponent,
     FooterComponent,
     GuestnavComponent,
-    WishlistComponent,
-    WishlistViewComponent
+    WishlistComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CartItem } from 'src/app/models/cart-item.model';
 import { Product } from 'src/app/models/product.model';
@@ -19,136 +19,97 @@ export class UserviewproductComponent implements OnInit {
 
   products: Product[] = [];
   reviews: Review[] = [];
-  productname: string;
-  filteredProducts: Product[] = []
+  filteredProducts: Product[] = [];
   searchData = '';
-  selectedCategory = '';
+  selectedCategory = ''; // Tracks the selected category from the dropdown or URL
   selectedQuantity: number;
   cartPopupVisible: boolean = false; // Separate property for Add to Cart pop-up
   wishlistPopupVisible: boolean = false;
   reviewPopupVisible: boolean = false;
   popupMessage: string = ""; // Message for the pop-up
   loading: boolean = false; // Track loading state
-  categories:string[]=[]
-  private subscription:Subscription;
+  categories: string[] = []; // Unique product categories
+  private subscription: Subscription;
 
-  userId: number = parseInt(localStorage.getItem('userId')); // Retrieve user ID
+  userId: number = parseInt(localStorage.getItem('userId')!); // Retrieve user ID
   cartItems: CartItem;
 
-
   constructor(
-    private wishlistService : WishlistService,
+    private wishlistService: WishlistService,
     private productService: ProductService,
     private reviewService: ReviewService,
     private cartService: CartService,
     private router: Router,
-    private authService : AuthService
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.getAllProducts();
+    this.getAllProducts(); // Fetch products
+    this.route.queryParams.subscribe(params => {
+      this.selectedCategory = params['category'] || ''; // Get category from query params
+      this.filterProductsByCategory(); // Filter products based on the category
+    });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  // getAllProducts() {
-  //   this.productService.getAllProducts().subscribe(data => {
-  //     this.products = data.map(product => ({ ...product, selectedQuantity: 1 })); // Initialize selectedQuantity
-  //     this.filteredProducts = this.products; // Ensure filtered list matches initialized products
-  //   });
-  // }
-
-  isLoggedIn() : boolean{
+  isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  // getAllProducts() {
-  //   this.subscription=this.productService.getAllProducts().subscribe(data => {
-  //     this.products = data.map(product => {
-  //       console.log("Raw Base64 Image Data:", product.coverImage); // Log raw data from backend
-        
-  //       let imageData = product.coverImage;
-  
-  //       // Check if the image data needs a prefix
-  //       if (imageData && !imageData.startsWith('data:image')) {
-  //         imageData = `data:image/jpeg;base64,${imageData}`;
-  //         console.log("Prefixed Base64 Image Data:", imageData); // Log the prefixed Base64 string
-  //       } else {
-  //         console.log("Base64 data already contains prefix or is invalid.");
-  //       }
-  
-  //       // Log the final state of the image data
-  //       console.log("Final Decoded Image Data for Product:", {
-  //         productName: product.productName,
-  //         decodedImage: imageData
-  //       });
-  
-  //       return {
-  //         ...product,
-  //         decodedImage: imageData // Store the final image source
-  //       };
-  //     });
-  
-  //     console.log("All Products with Decoded Images:", this.products); // Log the complete products array
-  
-  //     this.filteredProducts = this.products; // Initialize filtered products
-  //     this.categories = [...new Set(this.products.map(p => p.category))]; // Extract unique categories
-  //   }, error => {
-  //     console.error("Error fetching products:", error); // Log any errors in the API call
-  //   });
-  // }
-
-  getAllProducts() {
+  getAllProducts(): void {
     this.subscription = this.productService.getAllProducts().subscribe(data => {
       this.products = data.map(product => {
-        console.log("Raw Base64 Image Data:", product.coverImage); // Log raw data from backend
-        
         let imageData = product.coverImage;
-  
+
         // Check if the image data needs a prefix
         if (imageData && !imageData.startsWith('data:image')) {
           imageData = `data:image/jpeg;base64,${imageData}`;
-          console.log("Prefixed Base64 Image Data:", imageData); // Log the prefixed Base64 string
-        } else {
-          console.log("Base64 data already contains prefix or is invalid.");
         }
-  
-        // Log the final state of the image data
-        console.log("Final Decoded Image Data for Product:", {
-          productName: product.productName,
-          decodedImage: imageData
-        });
-  
-        // Add the inWishlist property while processing the products
+
         return {
           ...product,
           decodedImage: imageData, // Store the final image source
-          inWishlist: false // Set the default state for the wishlist icon
+          inWishlist: false // Default state for wishlist icon
         };
       });
-  
-      console.log("All Products with Decoded Images and Wishlist State:", this.products); // Log the complete products array
-  
+
       this.filteredProducts = this.products; // Initialize filtered products
       this.categories = [...new Set(this.products.map(p => p.category))]; // Extract unique categories
+      this.filterProductsByCategory(); // Apply filtering if category is already set
     }, error => {
       console.error("Error fetching products:", error); // Log any errors in the API call
     });
   }
-  
 
-  viewReview(productId: number) {
+  filterProductsByCategory(): void {
+    if (this.selectedCategory) {
+      this.filteredProducts = this.products.filter(
+        product => product.category === this.selectedCategory
+      );
+    } else {
+      this.filteredProducts = this.products; // Show all products if no category is selected
+    }
+  }
+
+  searchProducts(): void {
+    this.filteredProducts = this.products.filter(data => {
+      return data.productName.toLowerCase().includes(this.searchData.toLowerCase()) &&
+        (this.selectedCategory ? data.category === this.selectedCategory : true);
+    });
+  }
+
+  viewReview(productId: number): void {
     this.loading = true; // Start loading
-    this.subscription=this.reviewService.getReviewsByProductId(productId).subscribe({
+    this.subscription = this.reviewService.getReviewsByProductId(productId).subscribe({
       next: (data) => {
         this.reviews = data; // Assign fetched reviews
-        if (this.reviews.length === 0) {
-          this.popupMessage = 'No reviews found for this product.';
-        } else {
-          this.popupMessage = 'Reviews loaded successfully!';
-        }
+        this.popupMessage = this.reviews.length
+          ? 'Reviews loaded successfully!'
+          : 'No reviews found for this product.';
         this.loading = false; // Stop loading
       },
       error: (err) => {
@@ -161,7 +122,7 @@ export class UserviewproductComponent implements OnInit {
     this.reviewPopupVisible = true; // Show the View Reviews pop-up
   }
 
-  validateQuantity(product: Product) {
+  validateQuantity(product: Product): void {
     if (product.selectedQuantity > product.stockQuantity) {
       product.selectedQuantity = product.stockQuantity; // Limit to available stock
       alert(`The maximum quantity for ${product.productName} is ${product.stockQuantity}.`);
@@ -171,18 +132,7 @@ export class UserviewproductComponent implements OnInit {
     }
   }
 
-  searchProducts() {
-    this.filteredProducts = this.products.filter(data => {
-      return data.productName.toLowerCase().includes(this.searchData.toLowerCase()) &&
-        (this.selectedCategory ? data.category === this.selectedCategory : true);
-    });
-  }
-
-  closePopup() {
-    this.reviewPopupVisible = false; // Hide the pop-up
-  }
-
-  handleAction(product : Product) {
+  handleAction(product: Product): void {
     if (this.isLoggedIn()) {
       this.addToCart(product); 
     } else {
@@ -193,70 +143,34 @@ export class UserviewproductComponent implements OnInit {
     }
   }
 
-  public addToCart(product: Product) {
+  addToCart(product: Product): void {
     const productId = product.productId;
     const qty = product.selectedQuantity;
-  
+
     if (qty > product.stockQuantity) {
       alert(`You can only add up to ${product.stockQuantity} of ${product.productName}.`);
       return;
     }
-  
-    this.subscription=this.cartService.addToCart(this.userId, productId, qty, null).subscribe({
+
+    this.subscription = this.cartService.addToCart(this.userId, productId, qty, null).subscribe({
       next: () => {
         console.log('Product added to cart successfully');
-        this.popupMessage = `${qty} x ${product.productName} has been added to your cart successfully!`; // Set success message
+        this.popupMessage = `${qty} x ${product.productName} has been added to your cart successfully!`;
         this.cartPopupVisible = true; // Show Add to Cart pop-up
-        this.getAllProducts(); 
+        this.getAllProducts();
       },
       error: (err) => {
         console.error('Error adding product to cart:', err);
-        this.popupMessage = `Failed to add ${product.productName} to the cart. Please add quantity.`; // Error message
+        this.popupMessage = `Failed to add ${product.productName} to the cart. Please try again.`;
         this.cartPopupVisible = true;
       },
     });
   }
 
-  // handleActionWishlist(product : Product) {
-  //   if (this.isLoggedIn()) {
-  //     this.addToWishlist(product); 
-  //   } else {
-  //     const confirmRedirect = confirm('You need to log in to add items to your cart. Do you want to go to the login page?');
-  //     if (confirmRedirect) {
-  //       this.router.navigate(['/login']); // Redirect to the login page
-  //     }
-  //   }
-  // }
-
-  // public addToWishlist(product: Product) {
-  //   const productId = product.productId;
-  //   const qty = product.selectedQuantity;
-  
-  //   if (qty > product.stockQuantity) {
-  //     alert(`You can only add up to ${product.stockQuantity} of ${product.productName}.`);
-  //     return;
-  //   }
-  
-  //   this.subscription=this.wishlistService.addToWishlist(this.userId, productId, qty, null).subscribe({
-  //     next: () => {
-  //       console.log('Product added to Wishlist successfully');
-  //       this.popupMessage = `${qty} x ${product.productName} has been added to your wishlist successfully!`;
-  //       this.wishlistPopupVisible = true;
-  //       this.getAllProducts(); 
-  //     },
-  //     error: (err) => {
-  //       console.error('Error adding product to wishlist:', err);
-  //       this.popupMessage = `Failed to add ${product.productName} to the wishlist. Please add quantity.`;
-  //       this.wishlistPopupVisible = true;
-  //     },
-  //   });
-  // }
-
-
-  public addToWishlist(product: Product): void {
+  addToWishlist(product: Product): void {
     const productId = product.productId;
     const qty = 1;
-  
+
     this.subscription = this.wishlistService.addToWishlist(this.userId, productId, qty, null).subscribe({
       next: () => {
         console.log(`${product.productName} added to Wishlist successfully`);
@@ -270,10 +184,10 @@ export class UserviewproductComponent implements OnInit {
       },
     });
   }
-  
-  public removeFromWishlist(product: Product): void {
+
+  removeFromWishlist(product: Product): void {
     const productId = product.productId;
-  
+
     this.subscription = this.wishlistService.removeFromWishlist(this.userId, productId).subscribe({
       next: () => {
         console.log(`${product.productName} removed from Wishlist successfully`);
@@ -287,32 +201,31 @@ export class UserviewproductComponent implements OnInit {
       },
     });
   }
-  
+
   handleActionWishlist(product: Product): void {
     product.inWishlist = !product.inWishlist;
-  
+
     if (product.inWishlist) {
       this.addToWishlist(product);
     } else {
       this.removeFromWishlist(product);
     }
   }
-  
-  
-  closeCartPopup() {
+
+  closeCartPopup(): void {
     this.cartPopupVisible = false;
   }
 
-  closeWishlistPopup() {
+  closeWishlistPopup(): void {
     this.wishlistPopupVisible = false;
   }
-  
-  closeReviewPopup() {
+
+  closeReviewPopup(): void {
     this.reviewPopupVisible = false;
   }
 
   clearCart(): void {
-    this.subscription=this.cartService.clearCart(this.userId).subscribe({
+    this.subscription = this.cartService.clearCart(this.userId).subscribe({
       next: () => {
         console.log('Cart cleared successfully');
         this.getAllProducts();
