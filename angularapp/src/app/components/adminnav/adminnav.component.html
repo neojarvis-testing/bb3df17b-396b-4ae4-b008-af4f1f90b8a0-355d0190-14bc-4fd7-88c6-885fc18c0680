@@ -14,13 +14,15 @@
         <a routerLink="/product-create">Add Product</a>
         <a routerLink="/admin-view-product">View Products</a>
       </div>
-    
-    <a routerLink="/order-placed">Order Placed</a>
-    <a routerLink="/admin-view-reviews">Reviews</a>
-    <a (click)="confirmLogout()">Log Out</a>
+
+      <a routerLink="/order-placed">Order Placed</a>
+      <a routerLink="/admin-view-reviews">Reviews</a>
+      <a (click)="confirmLogout()">Log Out</a>
+    </div>
+  </div>
 </nav>
 
-<div class="popup-overlay" *ngIf="popupVisible" >
+<div class="popup-overlay" *ngIf="popupVisible">
   <div class="popup" *ngIf="popupVisible">
     <div class="popup-content">
       <h3>Are you sure you want to log out?</h3>
