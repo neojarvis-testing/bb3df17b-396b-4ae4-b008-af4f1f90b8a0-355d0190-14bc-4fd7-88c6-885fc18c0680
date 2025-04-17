@@ -65,6 +65,21 @@ export class CheckoutComponent implements OnInit {
     this.router.navigate(['/cart']);
   }
 
+  clearCartAndRedirect(): void {
+    // Clear cart from localStorage
+    localStorage.removeItem('cartData');
+    
+    // Clear cartItems array in the UI
+    this.cartItems = [];
+  
+    // Log for debugging
+    console.log('Cart cleared successfully.');
+  
+    // Navigate to the desired page (e.g., homepage)
+    this.router.navigate(['/home-page']);
+  }
+  
+
   placeOrder(): void {
     if (!this.isPaymentCompleted) {
       alert('Please complete the payment first.');
@@ -109,6 +124,7 @@ export class CheckoutComponent implements OnInit {
       next: () => {
         console.log('Order placed successfully');
         localStorage.removeItem('cartData');
+        this.cartItems=[];
         this.isPopupVisible = true;
       },
       error: (error) => {
@@ -117,4 +133,5 @@ export class CheckoutComponent implements OnInit {
       }
     });
   }
+
 }
