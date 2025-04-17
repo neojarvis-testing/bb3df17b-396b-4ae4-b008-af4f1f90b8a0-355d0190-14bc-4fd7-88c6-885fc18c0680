@@ -28,7 +28,7 @@
         <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let product of filteredProducts">
             <div class="card h-100 shadow">
                 <div class="card-body text-center">
-                    <img *ngIf="product.decodedImage" [src]="product.decodedImage" alt="Product Image" style="max-width: 200px;" />
+                    <img *ngIf="product.decodedImage" [src]="product.decodedImage" alt="Product Image" style="max-width: 200px;" width="200" height="200" />
                     <h5 class="card-title">{{ product.productName }}</h5>
                     <p class="card-text">
                         {{ product.description }} <br>
@@ -39,7 +39,7 @@
                     <p><strong>Brand:</strong> {{ product.brand }}</p>
                     
                     <!-- Action Buttons -->
-                    <button class="btn btn-primary btn-sm me-2" (click)="editProduct(product.productId)">Edit</button>
+                    <button class="btn btn-primary btn-sm me-2" (click)="editProduct(product.productId)">Edit</button>&nbsp;
                     <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.productId)">Delete</button>
                 </div>
             </div>

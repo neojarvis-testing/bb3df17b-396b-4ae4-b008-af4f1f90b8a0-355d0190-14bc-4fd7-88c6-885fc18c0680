@@ -1,10 +1,6 @@
-
 <div class="container-flex">
-    <!-- <div>
-        <img style="width: 135%; height: 100%;" src="/assets/images/3409297.jpg" alt="" srcset="">
-    </div> -->
+    
     <div class="container-div">
-        <!-- <img style="width: 135%; height: 100%;" src="/assets/images/pexels-photo-1103970.webp" alt="" srcset=""> -->
        <div class="left-half">
             <h3>ProKart</h3>
         </div>
@@ -18,11 +14,11 @@
                 <div class="form-group">
                     <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email" required email #emailNgModel="ngModel" class="form-control">
                     <div *ngIf="emailNgModel.invalid && emailNgModel.touched" class="error">Valid email is required</div>
-                    <button (click)="sendOTP()">Send OTP</button>
+                    <button class="otp-button" type="button" (click)="sendOTP()">Send OTP</button>
                 </div>
                 <div class="form-group">
-                    <input [(ngModel)]="otp" #otpNgModel="ngModel" placeholder="Enter OTP" name="otp" />
-                    <button (click)="verifyOTP()">Verify OTP</button>
+                    <input [(ngModel)]="otp" #otpNgModel="ngModel" placeholder="Enter OTP" name="otp" class="form-control">
+                    <button class="otp-button" type="button" (click)="verifyOTP()">Verify OTP</button>
                 </div>
                 <div class="form-group">
                     <input type="number" name="mobile" id="mobile" placeholder="Mobile" [(ngModel)]="mobile" required pattern="[0-9]{10}" #mobileNgModel="ngModel" class="form-control">
@@ -53,7 +49,7 @@
         </div>
     </div>
 </div>
-
+ 
 <style>
     .error {
         color: red;
