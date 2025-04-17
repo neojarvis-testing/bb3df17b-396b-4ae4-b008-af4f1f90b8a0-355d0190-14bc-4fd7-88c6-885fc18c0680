@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { HttpClient } from '@angular/common/http';
-import { apiUrl } from 'src/url';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-usernav',
@@ -14,14 +14,30 @@ export class UsernavComponent implements OnInit {
   username: string = localStorage.getItem('username')!;
   popupVisible: boolean = false;
   userDetailsPopupVisible: boolean = false;
-  user: any = {};
+  user : any = {};
+  categories: any[] = ['Fashion', 'Electronics', 'Home Appliances', 'Books', 'Toys', 'Furniture', 'Beauty']; // Store product categories dynamically
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private productService: ProductService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.loadUserDetails();
+    this.loadCategories();
+  }
+
+  private loadUserDetails(): void {
     this.authService.getUserById(this.userId).subscribe(data => {
       this.user = data;
-    })
+    });
+  }
+
+  private loadCategories(): void {
+    this.productService.getAllProducts().subscribe(products => {
+      this.categories = [...new Set(products.map(product => product.category))];
+    });
   }
 
   public confirmLogout(): void {
@@ -45,7 +61,7 @@ export class UsernavComponent implements OnInit {
     this.userDetailsPopupVisible = false;
   }
 
-  public resetPassword(): void {
-    console.log('Redirecting to reset password...');
+  public navigateToCategory(category: string): void {
+    this.router.navigate(['/user-view-product'], { queryParams: { category: category } }); // Navigate to filtered products
   }
 }
