@@ -2,9 +2,6 @@ package com.examly.springapp.config;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import io.micrometer.common.lang.NonNull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,17 +19,23 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
  
-    @Autowired
     private JwtUtils utils;
-    @Autowired
     private UserDetailsService userService;
-    private final String AUTHORIZATION = "Authorization";
-    private final String BEARER = "Bearer";
+
+    public JwtAuthenticationFilter(JwtUtils utils, UserDetailsService userService){
+        this.utils = utils;
+        this.userService = userService;
+    } 
+
+
+    private static final String AUTHORIZATION = "Authorization";
+    private static final String BEARER = "Bearer";
     private String jwtToken;
     private String username;
     private UserDetails userDetails;
  
     @Override
+    @NonNull
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
                 boolean valid = checkUsername(request);
@@ -66,9 +70,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         UserDetails userDetails = userService.loadUserByUsername(this.username);
         this.userDetails = userDetails;
-        if (!utils.validateToken(this.jwtToken, userDetails)) {
+        if(!utils.validateToken(this.jwtToken, userDetails)) {
             return false;
-        }
+        } 
         return true;
     }
  

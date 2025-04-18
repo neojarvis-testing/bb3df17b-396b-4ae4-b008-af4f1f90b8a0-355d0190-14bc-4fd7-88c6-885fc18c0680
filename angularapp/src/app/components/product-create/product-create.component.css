@@ -15,10 +15,10 @@ body {
 }
 
 .container-flux {
-  background-image: url('src/assets/images/ee.jpg'); /* Adjust the path as needed */
-  background-size: cover; /* Ensures the image covers the entire container */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents repetition */
+  background-image: url('src/assets/images/ee.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Container */

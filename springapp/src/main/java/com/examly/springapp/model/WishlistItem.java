@@ -29,7 +29,6 @@ public class WishlistItem {
 
 
     public WishlistItem(Wishlist wishlist, Product product, int quantity) {
-        // this.wishlistItemId = wishlistItemId;
         this.wishlist = wishlist;
         this.product = product;
         this.quantity = quantity;

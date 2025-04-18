@@ -1,7 +1,5 @@
 package com.examly.springapp.controller;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.examly.springapp.service.EmailService;
 import com.examly.springapp.service.OTPService;
@@ -22,11 +20,7 @@ public class OTPController {
 
     @PostMapping("/send")
     public String sendOtp(@RequestParam String email) {
-        // String otp = otpService.generateOTP(email);
-        // emailService.sendOTPEmail(email, otp);
-        // return "OTP sent to email!";
         String decodedEmail = URLDecoder.decode(email, StandardCharsets.UTF_8);
-        System.out.println("Decoded Email: " + decodedEmail); // Debugging
         String otp = otpService.generateOTP(decodedEmail);
         emailService.sendOTPEmail(decodedEmail, otp);
         return "OTP sent to email!";

@@ -19,7 +19,8 @@ export class CheckoutComponent implements OnInit {
   qrCodeUrl: string = '';
   isPaymentCompleted = false;
 
-  constructor(private orderService: OrderService, private router: Router,private cartService : CartService) {}
+  constructor(private orderService: OrderService, private router: Router, private cartService : CartService) {}
+
 
   ngOnInit(): void {
     const storedCartData = localStorage.getItem('cartData');
@@ -60,8 +61,8 @@ export class CheckoutComponent implements OnInit {
     this.isQrPopupVisible = false;
     this.placeOrder();
     this.cartService.clearCart(parseInt(localStorage.getItem('userId'))).subscribe(data => {
+    });
 
-    })
   }
 
   cancelPayment(): void {
