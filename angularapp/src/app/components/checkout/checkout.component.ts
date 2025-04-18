@@ -3,6 +3,7 @@ import { CartItem } from 'src/app/models/cart-item.model';
 import { OrderService } from 'src/app/services/order.service';
 import { Router } from '@angular/router';
 import * as QRCode from 'qrcode';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -18,7 +19,7 @@ export class CheckoutComponent implements OnInit {
   qrCodeUrl: string = '';
   isPaymentCompleted = false;
 
-  constructor(private orderService: OrderService, private router: Router) {}
+  constructor(private orderService: OrderService, private router: Router,private cartService : CartService) {}
 
   ngOnInit(): void {
     const storedCartData = localStorage.getItem('cartData');
@@ -58,11 +59,15 @@ export class CheckoutComponent implements OnInit {
     this.isPaymentCompleted = true;
     this.isQrPopupVisible = false;
     this.placeOrder();
+    this.cartService.clearCart(parseInt(localStorage.getItem('userId'))).subscribe(data => {
+
+    })
   }
 
   cancelPayment(): void {
     this.isQrPopupVisible = false;
     this.router.navigate(['/cart']);
+
   }
 
   clearCartAndRedirect(): void {
