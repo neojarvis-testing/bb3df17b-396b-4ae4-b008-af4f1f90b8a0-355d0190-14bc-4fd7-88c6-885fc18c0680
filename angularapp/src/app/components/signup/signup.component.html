@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group">
                     <input type="text" name="mobile" id="mobile" placeholder="Mobile" [(ngModel)]="mobile" required pattern="^[6-9]\d{9}$" #mobileNgModel="ngModel" class="form-control">
-                    <div *ngIf="mobileNgModel.invalid && mobileNgModel.touched" class="error">Valid 10-digit mobile number (starting with 6-9) is required</div>
+                    <div *ngIf="mobileNgModel.invalid && mobileNgModel.touched" class="error">Valid 10-digit mobile number</div>
                 </div>            
                 <div class="form-group">
                     <input type="password" name="password" placeholder="Password" id="password" [(ngModel)]="password" required minlength="6" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$" #passwordNgModel="ngModel" class="form-control">
