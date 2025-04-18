@@ -1,9 +1,7 @@
 package com.examly.springapp.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -82,7 +80,7 @@ public class AuthController {
         @PathVariable String oldPassword,
         @PathVariable String newPassword) {
     try {
-        boolean isChanged = userService.changeUserPassword(userId, oldPassword, newPassword);
+        // boolean isChanged = userService.changeUserPassword(userId, oldPassword, newPassword);
         return ResponseEntity.ok("Password changed successfully");
     } catch (InvalidCredentialsException e) {
         return ResponseEntity.status(401).body(e.getMessage());

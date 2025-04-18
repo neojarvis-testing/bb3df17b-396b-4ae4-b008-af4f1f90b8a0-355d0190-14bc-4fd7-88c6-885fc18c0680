@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-// import { log } from 'console';
 
-declare var bootstrap: any; // Ensure Bootstrap modal works
+let bootstrap: any;
 
 @Component({
   selector: 'app-change-password',
@@ -27,8 +26,6 @@ export class ChangePasswordComponent implements OnInit {
       this.user = data;
       this.oldDbPass = this.user.password;
     });
-
-    // Open modal automatically when the component loads
     this.openModal();
   }
 
@@ -60,7 +57,7 @@ export class ChangePasswordComponent implements OnInit {
         this.router.navigate(['/**']);
         alert('Password changed successfully!');
       }, error => {
-        if (error.status === 401) { // Unauthorized response
+        if (error.status === 401) {
           this.errorMessage = "Old password is incorrect!";
         } else {
           this.errorMessage = "";

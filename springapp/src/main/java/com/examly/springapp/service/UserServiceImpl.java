@@ -2,11 +2,9 @@ package com.examly.springapp.service;
 
 import java.util.Optional;
 
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.examly.springapp.config.JwtUtils;
 import com.examly.springapp.exceptions.InvalidCredentialsException;
 import com.examly.springapp.exceptions.UserAlreadyExistsException;
 import com.examly.springapp.model.User;
@@ -19,14 +17,11 @@ public class UserServiceImpl implements UserService{
 
     private UserRepo userRepo;
     private PasswordEncoder passwordEncoder;
-    private AuthenticationManager authenticationManager;
-    private JwtUtils jwtUtils;
 
-    public UserServiceImpl(UserRepo userRepo, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtUtils jwtUtils){
+
+    public UserServiceImpl(UserRepo userRepo, PasswordEncoder passwordEncoder){
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-        this.jwtUtils = jwtUtils;
     }
 
     @Override
@@ -54,7 +49,7 @@ public class UserServiceImpl implements UserService{
     public User loginUser(User user) {
         Optional<User> userOpt = userRepo.findByEmail(user.getEmail());
         User existingUser = userOpt.orElseThrow(() -> new InvalidCredentialsException("Invalid Email or Password"));
-        System.out.println("Stored Encoded Password: " + existingUser.getPassword()); // Log the stored encoded password
+        // System.out.println("Stored Encoded Password: " + existingUser.getPassword()); // Log the stored encoded password
         if (passwordEncoder.matches(user.getPassword(), existingUser.getPassword())) {
             return existingUser;
         }
