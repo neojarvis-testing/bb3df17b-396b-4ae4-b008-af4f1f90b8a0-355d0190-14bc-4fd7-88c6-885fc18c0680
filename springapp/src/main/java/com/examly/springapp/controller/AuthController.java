@@ -20,7 +20,6 @@ import com.examly.springapp.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 
 @RestController
-// @CrossOrigin(allowedHeaders = "*",origins = "*")
 @RequestMapping("/api")
 public class AuthController {
 

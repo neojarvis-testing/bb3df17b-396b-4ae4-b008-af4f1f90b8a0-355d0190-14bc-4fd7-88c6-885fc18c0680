@@ -1,19 +1,18 @@
 <div class="container-flex">
-    
     <div class="container-div">
-       <div class="left-half">
+        <div class="left-half">
             <h3>ProKart</h3>
         </div>
         <div class="right-half">
             <form #registrationForm="ngForm" (ngSubmit)="register(registrationForm)" class="registration-form">
                 <h4>Register</h4>
                 <div class="form-group">
-                    <input type="text" name="username" id="username" placeholder="Username" [(ngModel)]="username" required #usernameNgModel="ngModel" class="form-control">
-                    <div *ngIf="usernameNgModel.invalid && usernameNgModel.touched" class="error">Username is required</div>
+                    <input type="text" name="username" id="username" placeholder="Username" [(ngModel)]="username" required pattern="^\S+$" #usernameNgModel="ngModel" class="form-control">
+                    <div *ngIf="usernameNgModel.invalid && usernameNgModel.touched" class="error">Username cannot contain spaces</div>
                 </div>
                 <div class="form-group">
-                    <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email" required email #emailNgModel="ngModel" class="form-control">
-                    <div *ngIf="emailNgModel.invalid && emailNgModel.touched" class="error">Valid email is required</div>
+                    <input type="email" name="email" id="email" placeholder="Email" [(ngModel)]="email" required pattern="^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$" #emailNgModel="ngModel" class="form-control">
+                    <div *ngIf="emailNgModel.invalid && emailNgModel.touched" class="error">Enter a valid email</div>
                     <button class="otp-button" type="button" (click)="sendOTP()">Send OTP</button>
                 </div>
                 <div class="form-group">
@@ -21,13 +20,13 @@
                     <button class="otp-button" type="button" (click)="verifyOTP()">Verify OTP</button>
                 </div>
                 <div class="form-group">
-                    <input type="number" name="mobile" id="mobile" placeholder="Mobile" [(ngModel)]="mobile" required pattern="[0-9]{10}" #mobileNgModel="ngModel" class="form-control">
-                    <div *ngIf="mobileNgModel.invalid && mobileNgModel.touched" class="error">Valid 10-digit mobile number is required</div>
+                    <input type="text" name="mobile" id="mobile" placeholder="Mobile" [(ngModel)]="mobile" required pattern="^[6-9]\d{9}$" #mobileNgModel="ngModel" class="form-control">
+                    <div *ngIf="mobileNgModel.invalid && mobileNgModel.touched" class="error">Valid 10-digit mobile number (starting with 6-9) is required</div>
                 </div>            
                 <div class="form-group">
-                    <input type="password" name="password" placeholder="Password" id="password" [(ngModel)]="password" required minlength="6" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}" #passwordNgModel="ngModel" class="form-control">
+                    <input type="password" name="password" placeholder="Password" id="password" [(ngModel)]="password" required minlength="6" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$" #passwordNgModel="ngModel" class="form-control">
                     <div *ngIf="passwordNgModel.invalid && passwordNgModel.touched" class="error">
-                        Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.
+                        Password must be at least 6 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character, and should not contain spaces.
                     </div>
                 </div>            
                 <div class="form-group">
@@ -49,7 +48,7 @@
         </div>
     </div>
 </div>
- 
+
 <style>
     .error {
         color: red;
