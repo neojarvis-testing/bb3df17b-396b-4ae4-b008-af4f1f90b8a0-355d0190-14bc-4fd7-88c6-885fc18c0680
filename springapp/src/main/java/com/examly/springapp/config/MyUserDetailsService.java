@@ -4,8 +4,6 @@ package com.examly.springapp.config;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +17,11 @@ import com.examly.springapp.repository.UserRepo;
 @Component
 public class MyUserDetailsService implements UserDetailsService {
 
-    @Autowired
     private UserRepo userRepo;
+
+    public MyUserDetailsService(UserRepo userRepo){
+        this.userRepo = userRepo;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

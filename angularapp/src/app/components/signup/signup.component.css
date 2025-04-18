@@ -4,21 +4,18 @@
   scroll-behavior: smooth;
   font-family: 'Merriweather', serif;
 }
- 
-/* Background & General Styling */
- 
+  
  
 .container-flex {
-  background-image: url('../../../assets/images/ee.jpg'); /* Adjust the path */
-  background-size: cover; /* Ensures the image covers the div */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents repetition */
+  background-image: url('../../../assets/images/ee.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; 
   position: relative;
-  top: -25px; /* Moves the image up */
+  top: -25px; 
 }
 
  
-/* Overlay to darken the background image */
 body::before {
   content: '';
   position: fixed;
@@ -26,22 +23,23 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+  background: rgba(0, 0, 0, 0.4);
   z-index: -1;
 }
  
-/* Container Styling */
 .container-div {
   padding-top: 80px;
   height: 70%;
   width: 60%;
-  margin: auto; /* Centers horizontally */
+  margin: auto; 
   margin-top: 87px !important;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 30px;
-  background: rgba(245, 250, 255, 0.9); /* Light pastel background */
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  background: rgba(245, 250, 255, 0.9);
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
@@ -54,7 +52,6 @@ body::before {
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
  
-/* Left and Right Halves */
 .left-half {
   flex: 1;
   text-align: center;
@@ -66,15 +63,13 @@ body::before {
   animation: fadeInRight 1s ease-in-out;
 }
  
-/* Form Styling */
 .registration-form {
   max-width: 400px;
   padding: 20px;
-  margin: 0 auto; /* Ensures centering */
+  margin: 0 auto; 
   animation: fadeInUp 1s ease-in-out;
 }
  
-/* Form Inputs */
 .form-control {
   font-size: 18px;
   padding: 12px;
@@ -83,7 +78,7 @@ body::before {
   color: #333;
   border-radius: 7px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  margin-bottom: 10px; /* Adds space below the text box */
+  margin-bottom: 10px;
 }
  
 .form-control:focus {
@@ -92,13 +87,11 @@ body::before {
 }
  
  
-/* Error Messages */
 .error {
   color: red;
   font-size: 0.9em;
 }
  
-/* Headings */
 h3, h4 {
   color: #2c79c2;
   font-weight: bold;
@@ -106,7 +99,6 @@ h3, h4 {
   animation: fadeInDown 1s ease-in-out;
 }
  
-/* Submit Button */
 .registration-form button[type="submit"] {
   background-color: #3498db;
   color: white;
@@ -121,7 +113,6 @@ h3, h4 {
   transform: translateY(-3px);
 }
  
-/* Form Links */
 .registration-form a {
   color: #3498db;
 }
@@ -130,7 +121,6 @@ h3, h4 {
   text-decoration: underline;
 }
  
-/* Secondary Button */
 .btn-secondary {
   font-size: 18px;
   padding: 10px 15px;
@@ -147,7 +137,6 @@ h3, h4 {
   transform: translateY(-3px);
 }
  
-/* Animations */
 @keyframes fadeInLeft {
   from {
     opacity: 0;
@@ -192,34 +181,31 @@ h3, h4 {
   }
 }
  
-/* Styling for Send OTP and Verify OTP buttons */
-/* Default Button Styling */
+
 button {
-  background-color: #3498DB; /* Light blue */
+  background-color: #3498DB; 
   color: white;
-  border: none; /* Remove default border */
+  border: none;
   padding: 10px 15px;
   font-size: 14px;
-  font-weight: bold; /* Bold text */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer on hover */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth effects */
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer; 
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
  
-/* Hover Effect - Darker Blue */
 button:hover {
-  background-color: #2874A6; /* 15% darker blue */
-  transform: translateY(-2px); /* Subtle lift effect */
+  background-color: #2874A6; 
+  transform: translateY(-2px);
 }
  
-/* Active Button Effect (On Click) */
 button:active {
-  background-color: #1F618D; /* Slightly darker blue when clicked */
-  transform: translateY(0); /* Reset lift */
+  background-color: #1F618D;
+  transform: translateY(0);
 }
 
 select.form-control {
-  width: 100%; /* Ensures it takes up the right amount of space */
+  width: 100%;
   padding: 5px;
 }
 

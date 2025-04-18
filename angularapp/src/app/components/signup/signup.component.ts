@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit {
   otp : string = "";
   otpSent = false;
   otpVerified = false;
-  user = { username: '', email: '', phone: '', password: '', role: 'USER' || 'ADMIN', otpV : this.otpVerified }
+  user = { username: '', email: '', phone: '', password: '', role: '', otpV : this.otpVerified }
   private subscription:Subscription
 
   constructor(private authService:AuthService,private router:Router, private httpClient : HttpClient) { }
@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit {
   public register(registerForm: NgForm): void {
     if (!this.otpVerified) {
       alert('Please verify OTP before proceeding!');
-      return; // Prevent registration if OTP is not verified
+      return;
     }
 
     if (registerForm.valid) {
