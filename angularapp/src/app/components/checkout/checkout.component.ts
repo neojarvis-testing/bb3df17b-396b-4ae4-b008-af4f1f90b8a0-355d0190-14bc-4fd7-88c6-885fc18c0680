@@ -21,6 +21,7 @@ export class CheckoutComponent implements OnInit {
 
   constructor(private orderService: OrderService, private router: Router, private cartService : CartService) {}
 
+
   ngOnInit(): void {
     const storedCartData = localStorage.getItem('cartData');
     if (storedCartData) {
@@ -60,13 +61,14 @@ export class CheckoutComponent implements OnInit {
     this.isQrPopupVisible = false;
     this.placeOrder();
     this.cartService.clearCart(parseInt(localStorage.getItem('userId'))).subscribe(data => {
-
     });
+
   }
 
   cancelPayment(): void {
     this.isQrPopupVisible = false;
     this.router.navigate(['/cart']);
+
   }
 
   clearCartAndRedirect(): void {
